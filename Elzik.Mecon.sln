@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31410.357
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Elzik.Mecon.Service", "src\Elzik.Mecon.Service\Elzik.Mecon.Service.csproj", "{07FDA0F1-0380-42F7-8346-F8A701766C6B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{07FDA0F1-0380-42F7-8346-F8A701766C6B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{07FDA0F1-0380-42F7-8346-F8A701766C6B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{07FDA0F1-0380-42F7-8346-F8A701766C6B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{07FDA0F1-0380-42F7-8346-F8A701766C6B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0F736F56-ED62-4ACB-84AA-5529D6D1A3F6}
+	EndGlobalSection
+EndGlobal
