@@ -5,11 +5,11 @@ namespace Elzik.Mecon.Service.Presentation
 {
     [ApiController]
     [Route("[controller]")]
-    public class MediaController : ControllerBase
+    public class MediaEntriesController : ControllerBase
     {
         private readonly IFileSystemMedia _fileSystemMedia;
 
-        public MediaController(IFileSystemMedia fileSystemMedia)
+        public MediaEntriesController(IFileSystemMedia fileSystemMedia)
         {
             _fileSystemMedia = fileSystemMedia;
         }
