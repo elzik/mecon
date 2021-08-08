@@ -6,7 +6,8 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="5.0.8" />
-    <PackageReference Include="Plex.Api" Version="2.0.0-preview024" />
+    <PackageReference Include="Refit" Version="6.0.94" />
+    <PackageReference Include="Refit.HttpClientFactory" Version="6.0.94" />
     <PackageReference Include="SonarAnalyzer.CSharp" Version="8.26.0.34506">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>

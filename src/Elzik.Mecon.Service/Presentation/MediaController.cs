@@ -8,17 +8,17 @@ namespace Elzik.Mecon.Service.Presentation
     [Route("[controller]")]
     public class MediaController : ControllerBase
     {
-        private readonly IMedia _media;
+        private readonly IReconciledMedia _reconciledMedia;
 
-        public MediaController(IMedia media)
+        public MediaController(IReconciledMedia reconciledMedia)
         {
-            _media = media;
+            _reconciledMedia = reconciledMedia;
         }
 
         [HttpGet]
         public async Task<IActionResult> Get([FromQuery]string mediaPath)
         {
-            var largeMatroskaEntries = await _media.GetMediaEntries(mediaPath);
+            var largeMatroskaEntries = await _reconciledMedia.GetMediaEntries(mediaPath);
 
             return new OkObjectResult(largeMatroskaEntries);
         }
