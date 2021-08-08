@@ -1,8 +1,8 @@
-﻿using Elzik.Mecon.Service.Domain;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Elzik.Mecon.Service.Domain;
 
-namespace Elzik.Mecon.Service.Infrastructure
+namespace Elzik.Mecon.Service.Application
 {
     public interface IPlex
     {

@@ -1,17 +1,14 @@
+using System;
 using Elzik.Mecon.Service.Application;
 using Elzik.Mecon.Service.Infrastructure;
+using Elzik.Mecon.Service.Infrastructure.ApiClients.Plex;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using Plex.Api.Factories;
-using Plex.Library.Factories;
-using Plex.ServerApi;
-using Plex.ServerApi.Api;
-using Plex.ServerApi.Clients;
-using Plex.ServerApi.Clients.Interfaces;
+using Refit;
 
 namespace Elzik.Mecon.Service
 {
@@ -33,26 +30,18 @@ namespace Elzik.Mecon.Service
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Elzik.Recon.Service", Version = "v1" });
             });
 
-            services.AddTransient<IMedia, Media>();
+            services.AddTransient<IReconciledMedia, ReconciledMedia>();
 
             services.AddTransient<IFileSystem, FileSystem>();
-            services.AddTransient<IPlex, Infrastructure.Plex>();
+            services.AddTransient<IPlex, Plex>();
 
-            var apiOptions = new ClientOptions
-            {
-                Product = "API_UnitTests",
-                DeviceName = "API_UnitTests",
-                ClientId = "MyClientId",
-                Platform = "Web",
-                Version = "v2"
-            };
-            services.AddSingleton(apiOptions);
-            services.AddTransient<IPlexServerClient, PlexServerClient>();
-            services.AddTransient<IPlexAccountClient, PlexAccountClient>();
-            services.AddTransient<IPlexLibraryClient, PlexLibraryClient>();
-            services.AddTransient<IApiService, ApiService>();
-            services.AddTransient<IPlexFactory, PlexFactory>();
-            services.AddTransient<IPlexRequestsHttpClient, PlexRequestsHttpClient>();
+            services.AddTransient<PlexHeaderHandler>();
+            services.AddRefitClient<IPlexLibraryClient>(new RefitSettings
+                    {
+                        ContentSerializer = new XmlContentSerializer()
+                    })
+                .ConfigureHttpClient(c => c.BaseAddress = new Uri(Configuration["Plex:BaseUrl"]))
+                .AddHttpMessageHandler<PlexHeaderHandler>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

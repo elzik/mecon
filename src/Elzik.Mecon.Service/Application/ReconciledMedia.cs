@@ -10,13 +10,13 @@ using System.Threading.Tasks;
 
 namespace Elzik.Mecon.Service.Application
 {
-    public class Media : IMedia
+    public class ReconciledMedia : IReconciledMedia
     {
-        private readonly ILogger<Media> _logger;
+        private readonly ILogger<ReconciledMedia> _logger;
         private readonly IFileSystem _fileSystem;
         private readonly IPlex _plex;
      
-        public Media(ILogger<Media> logger, IFileSystem fileSystem, IPlex plex)
+        public ReconciledMedia(ILogger<ReconciledMedia> logger, IFileSystem fileSystem, IPlex plex)
         {
             _logger = logger;
             _fileSystem = fileSystem;
