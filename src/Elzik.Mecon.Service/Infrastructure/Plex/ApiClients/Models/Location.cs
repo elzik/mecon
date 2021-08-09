@@ -1,6 +1,6 @@
 ﻿using System.Xml.Serialization;
 
-namespace Elzik.Mecon.Service.Infrastructure.ApiClients.Plex.Models
+namespace Elzik.Mecon.Service.Infrastructure.Plex.ApiClients.Models
 {
     [XmlRoot(ElementName = "Location")]
     public class Location

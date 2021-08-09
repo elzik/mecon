@@ -1,8 +1,8 @@
 ﻿using System.Threading.Tasks;
-using Elzik.Mecon.Service.Infrastructure.ApiClients.Plex.Models;
+using Elzik.Mecon.Service.Infrastructure.Plex.ApiClients.Models;
 using Refit;
 
-namespace Elzik.Mecon.Service.Infrastructure.ApiClients.Plex
+namespace Elzik.Mecon.Service.Infrastructure.Plex.ApiClients
 {
     [Headers("X-Plex-Client-Identifier", "X-Plex-Token")]
     public interface IPlexLibraryClient

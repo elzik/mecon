@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Xml.Serialization;
 
-namespace Elzik.Mecon.Service.Infrastructure.ApiClients.Plex.Models
+namespace Elzik.Mecon.Service.Infrastructure.Plex.ApiClients.Models
 {
     [XmlRoot(ElementName = "Video")]
     public class Video

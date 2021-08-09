@@ -22,5 +22,7 @@ namespace Elzik.Mecon.Service.Domain
         public FilesystemEntry FilesystemEntry { get; set; }
 
         public IList<IEntry> ReconciledEntries { get; set; }
+
+        public string ThumbnailUrl { get; set; }
     }
 }

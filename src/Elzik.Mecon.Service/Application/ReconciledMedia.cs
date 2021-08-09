@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Elzik.Mecon.Service.Infrastructure.Plex.ApiClients;
 
 namespace Elzik.Mecon.Service.Application
 {
@@ -55,6 +56,7 @@ namespace Elzik.Mecon.Service.Application
                 if (plexEntry != null)
                 {
                     mediaEntry.ReconciledEntries.Add(plexEntry);
+                    mediaEntry.ThumbnailUrl = plexEntry.ThumbnailUrl;
                 }
                 
 
