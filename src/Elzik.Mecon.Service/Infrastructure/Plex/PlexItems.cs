@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Elzik.Mecon.Service.Domain;
@@ -44,7 +45,9 @@ namespace Elzik.Mecon.Service.Infrastructure.Plex
                     {
                         var plexEntry = new PlexEntry()
                         {
-                            Key = part.File[6..].Replace(@"\", "/"),
+                            Key = new EntryKey(
+                                Path.GetFileName(part.File), 
+                                long.Parse(part.Size)),
                             Title = video.Title,
                             ThumbnailUrl = $"{_plexOptions.BaseUrl}{video.Thumb}?X-Plex-Token={_plexOptions.AuthToken}"
                     };

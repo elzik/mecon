@@ -3,7 +3,7 @@
     public interface IEntry
     {
         string Type { get; }
-        string Key { get; set; }
+        EntryKey Key { get; set; }
         string Title { get; set; }
     }
 }
