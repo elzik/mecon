@@ -1,9 +1,9 @@
 ﻿using System.Xml.Serialization;
 
-namespace Elzik.Mecon.Service.Infrastructure.ApiClients.Plex.Models
+namespace Elzik.Mecon.Service.Infrastructure.Plex.ApiClients.Models
 {
-    [XmlRoot(ElementName = "Director")]
-    public class Director
+    [XmlRoot(ElementName = "Country")]
+    public class Country
     {
         [XmlAttribute(AttributeName = "tag")]
         public string Tag { get; set; }

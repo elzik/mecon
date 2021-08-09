@@ -3,17 +3,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Elzik.Mecon.Service.Domain;
-using Elzik.Mecon.Service.Infrastructure.ApiClients.Plex;
+using Elzik.Mecon.Service.Infrastructure.Plex.ApiClients;
+using Microsoft.Extensions.Options;
 
-namespace Elzik.Mecon.Service.Application
+namespace Elzik.Mecon.Service.Infrastructure.Plex
 {
-    public class Plex : IPlex
+    public class PlexItems : IPlex
     {
         private readonly IPlexLibraryClient _plexLibraryClient;
+        private readonly PlexOptions _plexOptions;
 
-        public Plex(IPlexLibraryClient plexLibraryClient)
+        public PlexItems(IPlexLibraryClient plexLibraryClient, IOptions<PlexOptions> plexOptions)
         {
+            ValidateOptions(plexOptions);
+
             _plexLibraryClient = plexLibraryClient;
+            _plexOptions = plexOptions.Value;
         }
 
         public async Task<IEnumerable<PlexEntry>> GetPlexItems(string plexLibraryKey)
@@ -41,8 +46,8 @@ namespace Elzik.Mecon.Service.Application
                         {
                             Key = part.File[6..].Replace(@"\", "/"),
                             Title = video.Title,
-                            Thumb = video.Thumb
-                        };
+                            ThumbnailUrl = $"{_plexOptions.BaseUrl}{video.Thumb}?X-Plex-Token={_plexOptions.AuthToken}"
+                    };
 
                         plexEntries.Add(plexEntry);
                     }
@@ -50,6 +55,29 @@ namespace Elzik.Mecon.Service.Application
             }
 
             return plexEntries;
+        }
+
+        private static void ValidateOptions(IOptions<PlexOptions> options)
+        {
+            if (options == null)
+            {
+                throw new ArgumentNullException(nameof(options));
+            }
+
+            if (options.Value == null)
+            {
+                throw new InvalidOperationException($"{nameof(options)} must not be null.");
+            }
+
+            if (string.IsNullOrWhiteSpace(options.Value.AuthToken))
+            {
+                throw new InvalidOperationException($"{nameof(options)} must contain an {nameof(options.Value.AuthToken)}.");
+            }
+
+            if (string.IsNullOrWhiteSpace(options.Value.BaseUrl))
+            {
+                throw new InvalidOperationException($"{nameof(options)} must contain a {nameof(options.Value.BaseUrl)}.");
+            }
         }
     }
 }

@@ -1,7 +1,8 @@
 using System;
 using Elzik.Mecon.Service.Application;
 using Elzik.Mecon.Service.Infrastructure;
-using Elzik.Mecon.Service.Infrastructure.ApiClients.Plex;
+using Elzik.Mecon.Service.Infrastructure.Plex;
+using Elzik.Mecon.Service.Infrastructure.Plex.ApiClients;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -33,8 +34,9 @@ namespace Elzik.Mecon.Service
             services.AddTransient<IReconciledMedia, ReconciledMedia>();
 
             services.AddTransient<IFileSystem, FileSystem>();
-            services.AddTransient<IPlex, Plex>();
 
+            services.Configure<PlexOptions>(Configuration.GetSection("Plex"));
+            services.AddTransient<IPlex, PlexItems>();
             services.AddTransient<PlexHeaderHandler>();
             services.AddRefitClient<IPlexLibraryClient>(new RefitSettings
                     {
