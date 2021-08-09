@@ -1,7 +1,6 @@
 ﻿using Elzik.Mecon.Service.Domain;
 using Elzik.Mecon.Service.Infrastructure;
 using Microsoft.Extensions.Logging;
-using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -27,10 +26,8 @@ namespace Elzik.Mecon.Service.Application
         public async Task<IEnumerable<MediaEntry>> GetMediaEntries(string mediaPath)
         {
             const string plexLibrary = @"Films";
-            const long maximumSmallFileSize = 536870911;
 
             var mediaFilePaths = _fileSystem.GetMedia(mediaPath);
-            var largeMediaFilePaths = _fileSystem.GetLargeMediaEntries(mediaFilePaths, maximumSmallFileSize);
 
             var sw = Stopwatch.StartNew();
 
@@ -39,19 +36,21 @@ namespace Elzik.Mecon.Service.Application
             _logger.LogInformation($"Get plex entries tooK: {sw.Elapsed}");
             sw.Restart();
 
-            var largeMediaEntries = largeMediaFilePaths.Select(filePath =>
+            var largeMediaEntries = mediaFilePaths.Select(filePath =>
             {
+                var fileInfo = new FileInfo(filePath);
+
                 var mediaEntry = new MediaEntry(filePath)
                 {
                     FilesystemEntry =
                     {
-                        Key = filePath.Replace(mediaPath, string.Empty).Replace(@"\", "/"),
-                        Title = new FileInfo(filePath).Name
+                        Key = new EntryKey(fileInfo.Name, fileInfo.Length),
+                        Title = fileInfo.Name
                     }
                 };
 
                 var plexEntry = plexItems.SingleOrDefault(m =>
-                    m.Key.Equals(mediaEntry.FilesystemEntry.Key, StringComparison.InvariantCultureIgnoreCase));
+                    m.Key.Equals(mediaEntry.FilesystemEntry.Key));
 
                 if (plexEntry != null)
                 {
@@ -59,7 +58,6 @@ namespace Elzik.Mecon.Service.Application
                     mediaEntry.ThumbnailUrl = plexEntry.ThumbnailUrl;
                 }
                 
-
                 return mediaEntry;
             });
 
