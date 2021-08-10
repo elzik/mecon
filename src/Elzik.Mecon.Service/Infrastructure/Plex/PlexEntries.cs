@@ -10,12 +10,12 @@ using Microsoft.Extensions.Options;
 
 namespace Elzik.Mecon.Service.Infrastructure.Plex
 {
-    public class PlexItems : IPlex
+    public class PlexEntries : IPlex
     {
         private readonly IPlexLibraryClient _plexLibraryClient;
         private readonly PlexOptions _plexOptions;
 
-        public PlexItems(IPlexLibraryClient plexLibraryClient, IOptions<PlexOptions> plexOptions)
+        public PlexEntries(IPlexLibraryClient plexLibraryClient, IOptions<PlexOptions> plexOptions)
         {
             ValidateOptions(plexOptions);
 
@@ -23,9 +23,8 @@ namespace Elzik.Mecon.Service.Infrastructure.Plex
             _plexOptions = plexOptions.Value;
         }
 
-        public async Task<IEnumerable<PlexEntry>> GetPlexEntries()
+        public virtual async Task<IEnumerable<PlexEntry>> GetPlexEntries()
         {
-
             var plexEntries = new List<PlexEntry>();
             var libraryContainer = await _plexLibraryClient.GetLibraries();
 
