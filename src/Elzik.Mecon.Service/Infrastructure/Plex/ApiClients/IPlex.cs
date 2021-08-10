@@ -6,6 +6,6 @@ namespace Elzik.Mecon.Service.Infrastructure.Plex.ApiClients
 {
     public interface IPlex
     {
-        Task<IEnumerable<PlexEntry>> GetPlexItems(string plexLibraryKey);
+        Task<IEnumerable<PlexEntry>> GetPlexEntries();
     }
 }
