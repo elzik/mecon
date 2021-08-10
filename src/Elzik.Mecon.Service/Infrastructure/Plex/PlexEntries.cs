@@ -78,16 +78,6 @@ namespace Elzik.Mecon.Service.Infrastructure.Plex
             {
                 throw new InvalidOperationException($"{nameof(options)} must not be null.");
             }
-
-            if (string.IsNullOrWhiteSpace(options.Value.AuthToken))
-            {
-                throw new InvalidOperationException($"{nameof(options)} must contain an {nameof(options.Value.AuthToken)}.");
-            }
-
-            if (string.IsNullOrWhiteSpace(options.Value.BaseUrl))
-            {
-                throw new InvalidOperationException($"{nameof(options)} must contain a {nameof(options.Value.BaseUrl)}.");
-            }
         }
     }
 }
