@@ -25,15 +25,13 @@ namespace Elzik.Mecon.Service.Application
 
         public async Task<IEnumerable<MediaEntry>> GetMediaEntries(string mediaPath)
         {
-            const string plexLibrary = @"Films";
-
             var mediaFilePaths = _fileSystem.GetMedia(mediaPath);
 
             var sw = Stopwatch.StartNew();
 
-            var plexItems = await _plex.GetPlexItems(plexLibrary);
+            var plexItems = await _plex.GetPlexEntries();
 
-            _logger.LogInformation($"Get plex entries tooK: {sw.Elapsed}");
+            _logger.LogInformation($"Get plex entries took: {sw.Elapsed}");
             sw.Restart();
 
             var largeMediaEntries = mediaFilePaths.Select(filePath =>
@@ -49,8 +47,7 @@ namespace Elzik.Mecon.Service.Application
                     }
                 };
 
-                var plexEntry = plexItems.SingleOrDefault(m =>
-                    m.Key.Equals(mediaEntry.FilesystemEntry.Key));
+                var plexEntry = plexItems.SingleOrDefault(m => m.Key == mediaEntry.FilesystemEntry.Key);
 
                 if (plexEntry != null)
                 {
