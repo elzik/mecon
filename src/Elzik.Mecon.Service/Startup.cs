@@ -24,7 +24,8 @@ namespace Elzik.Mecon.Service
         public IConfiguration Configuration { get; }
 
         public void ConfigureServices(IServiceCollection services)
-        { services.AddControllers().AddNewtonsoftJson();
+        { 
+            services.AddControllers().AddNewtonsoftJson();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Elzik.Recon.Service", Version = "v1" });
@@ -32,7 +33,7 @@ namespace Elzik.Mecon.Service
 
             services.AddMemoryCache();
 
-            services.AddTransient<IReconciledMedia, ReconciledMedia>();
+            services.AddTransient<IReconciledMedia, MediaReconciler>();
 
             services.AddTransient<IFileSystem, FileSystem>();
 
