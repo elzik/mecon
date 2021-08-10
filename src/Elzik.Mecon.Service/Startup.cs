@@ -31,12 +31,15 @@ namespace Elzik.Mecon.Service
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Elzik.Recon.Service", Version = "v1" });
             });
 
+            services.AddMemoryCache();
+
             services.AddTransient<IReconciledMedia, ReconciledMedia>();
 
             services.AddTransient<IFileSystem, FileSystem>();
 
+            services.Configure<PlexOptionsWithCaching>(Configuration.GetSection("Plex"));
             services.Configure<PlexOptions>(Configuration.GetSection("Plex"));
-            services.AddTransient<IPlex, PlexItems>();
+            services.AddTransient<IPlex, PlexEntriesWithCaching>();
             services.AddTransient<PlexHeaderHandler>();
             services.AddRefitClient<IPlexLibraryClient>(new RefitSettings
                     {
