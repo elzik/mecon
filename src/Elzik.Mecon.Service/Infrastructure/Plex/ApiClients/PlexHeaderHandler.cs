@@ -8,19 +8,24 @@ namespace Elzik.Mecon.Service.Infrastructure.Plex.ApiClients
 {
     public class PlexHeaderHandler : DelegatingHandler
     {
-        private readonly string _token;
+        private readonly PlexOptions _plexOptions;
 
         public PlexHeaderHandler(IOptions<PlexOptions> options)
         {
             ValidateOptions(options);
 
-            _token = options.Value.AuthToken;
+            _plexOptions = options.Value;
         }
 
         protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
+            if (string.IsNullOrWhiteSpace(_plexOptions.AuthToken))
+            {
+                throw new InvalidOperationException($"{nameof(_plexOptions)} must contain an {nameof(_plexOptions.AuthToken)}.");
+            }
+
             request.Headers.Add("X-Plex-Client-Identifier", "mecon");
-            request.Headers.Add("X-Plex-Token", _token);
+            request.Headers.Add("X-Plex-Token", _plexOptions.AuthToken);
 
             return await base.SendAsync(request, cancellationToken).ConfigureAwait(false);
         }
@@ -35,11 +40,6 @@ namespace Elzik.Mecon.Service.Infrastructure.Plex.ApiClients
             if (options.Value == null)
             {
                 throw new InvalidOperationException($"{nameof(options)} must not be null.");
-            }
-
-            if (string.IsNullOrWhiteSpace(options.Value.AuthToken))
-            {
-                throw new InvalidOperationException($"{nameof(options)} must contain an {nameof(options.Value.AuthToken)}.");
             }
         }
     }

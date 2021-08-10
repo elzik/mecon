@@ -1,4 +1,5 @@
 using System;
+using System.Net.Http;
 using Elzik.Mecon.Service.Application;
 using Elzik.Mecon.Service.Infrastructure;
 using Elzik.Mecon.Service.Infrastructure.Plex;
@@ -23,9 +24,7 @@ namespace Elzik.Mecon.Service
         public IConfiguration Configuration { get; }
 
         public void ConfigureServices(IServiceCollection services)
-        {
-
-            services.AddControllers().AddNewtonsoftJson();
+        { services.AddControllers().AddNewtonsoftJson();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Elzik.Recon.Service", Version = "v1" });
@@ -42,10 +41,16 @@ namespace Elzik.Mecon.Service
             services.AddTransient<IPlex, PlexEntriesWithCaching>();
             services.AddTransient<PlexHeaderHandler>();
             services.AddRefitClient<IPlexLibraryClient>(new RefitSettings
+                {
+                    ContentSerializer = new XmlContentSerializer()
+                })
+                .ConfigureHttpClient(c =>
+                {
+                    if (Configuration["Plex:BaseUrl"] != null)
                     {
-                        ContentSerializer = new XmlContentSerializer()
-                    })
-                .ConfigureHttpClient(c => c.BaseAddress = new Uri(Configuration["Plex:BaseUrl"]))
+                        c.BaseAddress = new Uri(Configuration["Plex:BaseUrl"]);
+                    }
+                })
                 .AddHttpMessageHandler<PlexHeaderHandler>();
         }
 
