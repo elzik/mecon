@@ -2,7 +2,6 @@
 using Elzik.Mecon.Service.Infrastructure;
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -32,16 +31,11 @@ namespace Elzik.Mecon.Service.Application
         {
             var mediaFilePaths = _fileSystem.GetMedia(mediaPath);
 
-            var sw = Stopwatch.StartNew();
-
             var plexItems = new List<PlexEntry>();
             if (_enablePlex)
             {
                 plexItems.AddRange(await _plex.GetPlexEntries());
             }
-
-            _logger.LogInformation($"Get plex entries took: {sw.Elapsed}");
-            sw.Restart();
 
             var largeMediaEntries = mediaFilePaths.Select(filePath =>
             {
@@ -69,9 +63,6 @@ namespace Elzik.Mecon.Service.Application
 
                 return mediaEntry;
             });
-
-            _logger.LogInformation($"Find reconciled plex entries tooK: {sw.Elapsed}");
-
 
             return largeMediaEntries;
         }
