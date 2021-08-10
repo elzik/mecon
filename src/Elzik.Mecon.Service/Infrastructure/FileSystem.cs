@@ -10,15 +10,5 @@ namespace Elzik.Mecon.Service.Infrastructure
         {
             return Directory.EnumerateFiles(directoryPath, "*.mkv", SearchOption.AllDirectories);
         }
-
-        public IEnumerable<string> GetLargeMediaEntries(IEnumerable<string> mediaFilePaths, long maximumSmallFileSize)
-        {
-            var mediaFileInfos =
-                mediaFilePaths.Select(matroskaFilePath => new FileInfo(matroskaFilePath)).ToList();
-            var largeMediaFilePaths =
-                mediaFileInfos.Where(mfi => mfi.Length > maximumSmallFileSize).Select(info => info.FullName);
-
-            return largeMediaFilePaths;
-        }
     }
 }
