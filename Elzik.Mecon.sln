@@ -5,7 +5,11 @@ VisualStudioVersion = 16.0.31410.357
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Elzik.Mecon.Service", "src\Elzik.Mecon.Service\Elzik.Mecon.Service.csproj", "{07FDA0F1-0380-42F7-8346-F8A701766C6B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Elzik.Mecon.Framework", "src\Elzik.Mecon.Framework\Elzik.Mecon.Framework.csproj", "{72CC5D51-22F7-42EB-B670-A1AED37DF084}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Elzik.Mecon.Framework", "src\Elzik.Mecon.Framework\Elzik.Mecon.Framework.csproj", "{72CC5D51-22F7-42EB-B670-A1AED37DF084}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Elzik.Mecon.Framework.Tests", "tests\Elzik.Mecon.Framework.Tests\Elzik.Mecon.Framework.Tests.csproj", "{3E4F153C-C7A7-4E79-8107-FEFE902E458B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{82104F08-D6CF-4E0A-ADAF-14E51CAAEF84}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,9 +25,16 @@ Global
 		{72CC5D51-22F7-42EB-B670-A1AED37DF084}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{72CC5D51-22F7-42EB-B670-A1AED37DF084}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{72CC5D51-22F7-42EB-B670-A1AED37DF084}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3E4F153C-C7A7-4E79-8107-FEFE902E458B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3E4F153C-C7A7-4E79-8107-FEFE902E458B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3E4F153C-C7A7-4E79-8107-FEFE902E458B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3E4F153C-C7A7-4E79-8107-FEFE902E458B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{3E4F153C-C7A7-4E79-8107-FEFE902E458B} = {82104F08-D6CF-4E0A-ADAF-14E51CAAEF84}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0F736F56-ED62-4ACB-84AA-5529D6D1A3F6}

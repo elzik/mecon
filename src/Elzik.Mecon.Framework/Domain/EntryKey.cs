@@ -6,7 +6,7 @@ namespace Elzik.Mecon.Framework.Domain
     {
         public EntryKey(string filename, long byteCount)
         {
-            Filename = filename;
+            Filename = filename ?? throw new ArgumentNullException(nameof(filename));
             ByteCount = byteCount;
         }
 
