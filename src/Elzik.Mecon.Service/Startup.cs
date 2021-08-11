@@ -1,9 +1,8 @@
 using System;
-using System.Net.Http;
-using Elzik.Mecon.Service.Application;
-using Elzik.Mecon.Service.Infrastructure;
-using Elzik.Mecon.Service.Infrastructure.Plex;
-using Elzik.Mecon.Service.Infrastructure.Plex.ApiClients;
+using Elzik.Mecon.Framework.Application;
+using Elzik.Mecon.Framework.Infrastructure;
+using Elzik.Mecon.Framework.Infrastructure.Plex;
+using Elzik.Mecon.Framework.Infrastructure.Plex.ApiClients;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
