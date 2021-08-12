@@ -4,7 +4,7 @@ using Elzik.Mecon.Framework.Domain;
 
 namespace Elzik.Mecon.Framework.Infrastructure.Plex.ApiClients
 {
-    public interface IPlex
+    public interface IPlexEntries
     {
         Task<IEnumerable<PlexEntry>> GetPlexEntries();
     }

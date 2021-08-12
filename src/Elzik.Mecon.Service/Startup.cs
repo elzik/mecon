@@ -38,7 +38,7 @@ namespace Elzik.Mecon.Service
 
             services.Configure<PlexOptionsWithCaching>(Configuration.GetSection("Plex"));
             services.Configure<PlexOptions>(Configuration.GetSection("Plex"));
-            services.AddTransient<IPlex, PlexEntriesWithCaching>();
+            services.AddTransient<IPlexEntries, PlexEntriesWithCaching>();
             services.AddTransient<PlexHeaderHandler>();
             services.AddRefitClient<IPlexLibraryClient>(new RefitSettings
                 {

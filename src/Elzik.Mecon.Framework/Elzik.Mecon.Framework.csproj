@@ -5,6 +5,7 @@
   </PropertyGroup>
   
       <ItemGroup>
+    <PackageReference Include="Flurl" Version="3.0.2" />
     <PackageReference Include="Microsoft.Extensions.Caching.Abstractions" Version="5.0.0" />
     <PackageReference Include="Refit" Version="6.0.94" />
     <PackageReference Include="Refit.HttpClientFactory" Version="6.0.94" />
