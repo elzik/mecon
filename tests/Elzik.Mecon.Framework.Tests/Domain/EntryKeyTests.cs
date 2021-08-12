@@ -280,7 +280,6 @@ namespace Elzik.Mecon.Framework.Tests.Domain
             var testEntryKey2 = new EntryKey("fileName", 2);
 
             // Act
-#pragma warning disable 252,253 //This is necessary for testing purposes.
             var areEqual = testEntryKey1 == (object)testEntryKey2;
 
             // Assert

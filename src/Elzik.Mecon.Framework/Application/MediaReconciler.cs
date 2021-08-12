@@ -15,14 +15,14 @@ namespace Elzik.Mecon.Framework.Application
     {
         private readonly ILogger<MediaReconciler> _logger;
         private readonly IFileSystem _fileSystem;
-        private readonly IPlex _plex;
+        private readonly IPlexEntries _plexEntries;
         private readonly bool _enablePlex;
      
-        public MediaReconciler(ILogger<MediaReconciler> logger, IFileSystem fileSystem, IPlex plex, IOptions<PlexOptionsWithCaching> plexOptions)
+        public MediaReconciler(ILogger<MediaReconciler> logger, IFileSystem fileSystem, IPlexEntries plexEntries, IOptions<PlexOptionsWithCaching> plexOptions)
         {
             _logger = logger;
             _fileSystem = fileSystem;
-            _plex = plex;
+            _plexEntries = plexEntries;
             _enablePlex = plexOptions.Value is {AuthToken: { }, BaseUrl: { }};
             LogPlexConfiguration(plexOptions);
         }
@@ -34,7 +34,7 @@ namespace Elzik.Mecon.Framework.Application
             var plexItems = new List<PlexEntry>();
             if (_enablePlex)
             {
-                plexItems.AddRange(await _plex.GetPlexEntries());
+                plexItems.AddRange(await _plexEntries.GetPlexEntries());
             }
 
             var largeMediaEntries = mediaFilePaths.Select(filePath =>
