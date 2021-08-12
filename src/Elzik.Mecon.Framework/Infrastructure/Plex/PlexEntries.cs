@@ -50,7 +50,8 @@ namespace Elzik.Mecon.Framework.Infrastructure.Plex
             var mediaContainer = await _plexLibraryClient.GetMedia(library.Key);
             var videos = mediaContainer.Video.Where(video => video.Type != "collection");
 
-            var plexEntries = from video in videos
+            var plexEntries = 
+                from video in videos
                 from medium in video.Media
                 from part in medium.Parts
                 select new PlexEntry()
