@@ -50,16 +50,18 @@ namespace Elzik.Mecon.Framework.Infrastructure.Plex
             var mediaContainer = await _plexLibraryClient.GetMedia(library.Key);
             var videos = mediaContainer.Video.Where(video => video.Type != "collection");
 
-            return (from video in videos
-                    from medium in video.Media
-                    from part in medium.Parts
-                    select new PlexEntry()
-                    {
-                        Key = new EntryKey(Path.GetFileName(part.File), long.Parse(part.Size)),
-                        Title = video.Title,
-                        ThumbnailUrl = _plexOptions.BaseUrl.AppendPathSegment(video.Thumb)
-                            .SetQueryParam("X-Plex-Token", _plexOptions.AuthToken)
-                    });
+            var plexEntries = from video in videos
+                from medium in video.Media
+                from part in medium.Parts
+                select new PlexEntry()
+                {
+                    Key = new EntryKey(Path.GetFileName(part.File), long.Parse(part.Size)),
+                    Title = video.Title,
+                    ThumbnailUrl = _plexOptions.BaseUrl.AppendPathSegment(video.Thumb)
+                        .SetQueryParam("X-Plex-Token", _plexOptions.AuthToken)
+                };
+
+            return plexEntries;
         }
     }
 }
