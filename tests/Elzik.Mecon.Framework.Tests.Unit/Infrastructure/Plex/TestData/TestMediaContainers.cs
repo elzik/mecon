@@ -1,6 +1,6 @@
 using Elzik.Mecon.Framework.Infrastructure.Plex.ApiClients.Models;
 
-namespace Elzik.Mecon.Framework.Tests.Unit.Infrastructure.TestData
+namespace Elzik.Mecon.Framework.Tests.Unit.Infrastructure.Plex.TestData
 {
     public static class TestMediaContainers
     {

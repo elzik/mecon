@@ -1,7 +1,4 @@
-using System;
 using Elzik.Mecon.Framework.Application;
-using Elzik.Mecon.Framework.Infrastructure;
-using Elzik.Mecon.Framework.Infrastructure.FileSystem;
 using Elzik.Mecon.Framework.Infrastructure.FileSystem.Options;
 using Elzik.Mecon.Framework.Infrastructure.Plex;
 using Elzik.Mecon.Framework.Infrastructure.Plex.ApiClients;
@@ -13,6 +10,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Refit;
+using System;
+using System.IO.Abstractions;
+using FileSystem = Elzik.Mecon.Framework.Infrastructure.FileSystem.FileSystem;
+using IFileSystem = Elzik.Mecon.Framework.Infrastructure.FileSystem.IFileSystem;
 
 namespace Elzik.Mecon.Service
 {
@@ -38,6 +39,9 @@ namespace Elzik.Mecon.Service
             services.AddTransient<IReconciledMedia, MediaReconciler>();
 
             services.AddTransient<IFileSystem, FileSystem>();
+            services.AddTransient<IDirectory, DirectoryWrapper>();
+            services.AddTransient<System.IO.Abstractions.IFileSystem, System.IO.Abstractions.FileSystem>();
+
             services.Configure<FileSystemOptions>(Configuration.GetSection("FileSystem"));
 
             services.Configure<PlexWithCachingOptions>(Configuration.GetSection("Plex"));
