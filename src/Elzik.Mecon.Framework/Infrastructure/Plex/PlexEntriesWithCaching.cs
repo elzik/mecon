@@ -14,25 +14,25 @@ namespace Elzik.Mecon.Framework.Infrastructure.Plex
     {
         private readonly IMemoryCache _memoryCache;
         private MemoryCacheEntryOptions _memoryCacheEntryOptions;
-        private readonly PlexOptionsWithCaching _plexOptions;
+        private readonly PlexWithCachingOptions _plexWithCachingOptions;
 
-        public PlexEntriesWithCaching(IPlexLibraryClient plexLibraryClient, IMemoryCache memoryCache, IOptions<PlexOptionsWithCaching> plexOptions) 
+        public PlexEntriesWithCaching(IPlexLibraryClient plexLibraryClient, IMemoryCache memoryCache, IOptions<PlexWithCachingOptions> plexOptions) 
             : base(plexLibraryClient, plexOptions)
         {
             _memoryCache = memoryCache;
 
             ValidateOptions(plexOptions);
-            _plexOptions = plexOptions.Value;
+            _plexWithCachingOptions = plexOptions.Value;
             SetMemoryCacheOptions(plexOptions);
         }
 
         public override async Task<IEnumerable<PlexEntry>> GetPlexEntries()
         {
-            if (!_plexOptions.CacheExpiry.HasValue || !_memoryCache.TryGetValue("PlexEntries", out List<PlexEntry> plexEntries))
+            if (!_plexWithCachingOptions.CacheExpiry.HasValue || !_memoryCache.TryGetValue("PlexEntries", out List<PlexEntry> plexEntries))
             {
                 plexEntries = (await base.GetPlexEntries()).ToList();
 
-                if (_plexOptions.CacheExpiry.HasValue)
+                if (_plexWithCachingOptions.CacheExpiry.HasValue)
                 {
                     _memoryCache.Set("PlexEntries", plexEntries, _memoryCacheEntryOptions);
                 }
@@ -41,7 +41,7 @@ namespace Elzik.Mecon.Framework.Infrastructure.Plex
             return plexEntries;
         }
 
-        private static void ValidateOptions(IOptions<PlexOptionsWithCaching> options)
+        private static void ValidateOptions(IOptions<PlexWithCachingOptions> options)
         {
             if (options.Value.CacheExpiry is <= 0)
             {
@@ -51,7 +51,7 @@ namespace Elzik.Mecon.Framework.Infrastructure.Plex
             }
         }
 
-        private void SetMemoryCacheOptions(IOptions<PlexOptionsWithCaching> plexOptions)
+        private void SetMemoryCacheOptions(IOptions<PlexWithCachingOptions> plexOptions)
         {
             if (plexOptions.Value.CacheExpiry.HasValue)
             {

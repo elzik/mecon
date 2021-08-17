@@ -21,7 +21,7 @@ namespace Elzik.Mecon.Framework.Application
         private readonly bool _enablePlex;
      
         public MediaReconciler(ILogger<MediaReconciler> logger, IFileSystem fileSystem, IPlexEntries plexEntries, 
-            IOptions<PlexOptionsWithCaching> plexOptions)
+            IOptions<PlexWithCachingOptions> plexOptions)
         {
             _logger = logger;
             _fileSystem = fileSystem;
@@ -70,7 +70,7 @@ namespace Elzik.Mecon.Framework.Application
             return largeMediaEntries;
         }
 
-        private void LogPlexConfiguration(IOptions<PlexOptionsWithCaching> plexOptions)
+        private void LogPlexConfiguration(IOptions<PlexWithCachingOptions> plexOptions)
         {
             if (_enablePlex)
             {

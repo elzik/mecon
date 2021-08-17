@@ -40,7 +40,7 @@ namespace Elzik.Mecon.Service
             services.AddTransient<IFileSystem, FileSystem>();
             services.Configure<FileSystemOptions>(Configuration.GetSection("FileSystem"));
 
-            services.Configure<PlexOptionsWithCaching>(Configuration.GetSection("Plex"));
+            services.Configure<PlexWithCachingOptions>(Configuration.GetSection("Plex"));
             services.Configure<PlexOptions>(Configuration.GetSection("Plex"));
             services.AddTransient<IPlexEntries, PlexEntriesWithCaching>();
             services.AddTransient<PlexHeaderHandler>();
