@@ -20,11 +20,6 @@ namespace Elzik.Mecon.Framework.Infrastructure.Plex.ApiClients
 
         protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
-            if (string.IsNullOrWhiteSpace(_plexOptions.AuthToken))
-            {
-                throw new InvalidOperationException($"{nameof(_plexOptions)} must contain an {nameof(_plexOptions.AuthToken)}.");
-            }
-
             request.Headers.Add("X-Plex-Client-Identifier", "mecon");
             request.Headers.Add("X-Plex-Token", _plexOptions.AuthToken);
 
@@ -40,7 +35,12 @@ namespace Elzik.Mecon.Framework.Infrastructure.Plex.ApiClients
 
             if (options.Value == null)
             {
-                throw new InvalidOperationException($"{nameof(options)} must not be null.");
+                throw new InvalidOperationException($"Value of {nameof(options)} must not be null.");
+            }
+
+            if (string.IsNullOrWhiteSpace(options.Value.AuthToken))
+            {
+                throw new InvalidOperationException($"{nameof(PlexOptions)} must contain an {nameof(options.Value.AuthToken)}.");
             }
         }
     }
