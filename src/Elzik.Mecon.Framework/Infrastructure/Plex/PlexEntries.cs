@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Elzik.Mecon.Framework.Domain;
 using Elzik.Mecon.Framework.Infrastructure.Plex.ApiClients;
 using Elzik.Mecon.Framework.Infrastructure.Plex.ApiClients.Models;
+using Elzik.Mecon.Framework.Infrastructure.Plex.Options;
 using Flurl;
 using Microsoft.Extensions.Options;
 
@@ -25,7 +26,7 @@ namespace Elzik.Mecon.Framework.Infrastructure.Plex
                 throw new ArgumentNullException(nameof(plexOptions));
             }
             _plexOptions = plexOptions.Value ?? 
-                           throw new InvalidOperationException($"{nameof(plexOptions)} must not be null.");
+                           throw new InvalidOperationException($"Value of {nameof(plexOptions)} must not be null.");
         }
 
         public virtual async Task<IEnumerable<PlexEntry>> GetPlexEntries()

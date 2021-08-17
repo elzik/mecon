@@ -16,9 +16,9 @@ namespace Elzik.Mecon.Service.Presentation
         }
 
         [HttpGet]
-        public async Task<IActionResult> Get([FromQuery]string mediaPath)
+        public async Task<IActionResult> Get([FromQuery]string folderDefinitionName)
         {
-            var largeMatroskaEntries = await _reconciledMedia.GetMediaEntries(mediaPath);
+            var largeMatroskaEntries = await _reconciledMedia.GetMediaEntries(folderDefinitionName);
 
             return new OkObjectResult(largeMatroskaEntries);
         }
