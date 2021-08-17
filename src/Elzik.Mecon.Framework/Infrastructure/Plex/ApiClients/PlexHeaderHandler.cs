@@ -2,6 +2,7 @@
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
+using Elzik.Mecon.Framework.Infrastructure.Plex.Options;
 using Microsoft.Extensions.Options;
 
 namespace Elzik.Mecon.Framework.Infrastructure.Plex.ApiClients

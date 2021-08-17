@@ -1,4 +1,6 @@
-﻿namespace Elzik.Mecon.Framework.Infrastructure.Plex
+﻿using Elzik.Mecon.Framework.Infrastructure.Plex.Options;
+
+namespace Elzik.Mecon.Framework.Infrastructure.Plex
 {
     public class PlexOptionsWithCaching : PlexOptions
     {

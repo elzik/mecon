@@ -1,8 +1,11 @@
 using System;
 using Elzik.Mecon.Framework.Application;
 using Elzik.Mecon.Framework.Infrastructure;
+using Elzik.Mecon.Framework.Infrastructure.FileSystem;
+using Elzik.Mecon.Framework.Infrastructure.FileSystem.Options;
 using Elzik.Mecon.Framework.Infrastructure.Plex;
 using Elzik.Mecon.Framework.Infrastructure.Plex.ApiClients;
+using Elzik.Mecon.Framework.Infrastructure.Plex.Options;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -35,6 +38,7 @@ namespace Elzik.Mecon.Service
             services.AddTransient<IReconciledMedia, MediaReconciler>();
 
             services.AddTransient<IFileSystem, FileSystem>();
+            services.Configure<FileSystemOptions>(Configuration.GetSection("FileSystem"));
 
             services.Configure<PlexOptionsWithCaching>(Configuration.GetSection("Plex"));
             services.Configure<PlexOptions>(Configuration.GetSection("Plex"));

@@ -7,6 +7,7 @@ using AutoFixture.Idioms;
 using Elzik.Mecon.Framework.Infrastructure.Plex;
 using Elzik.Mecon.Framework.Infrastructure.Plex.ApiClients;
 using Elzik.Mecon.Framework.Infrastructure.Plex.ApiClients.Models;
+using Elzik.Mecon.Framework.Infrastructure.Plex.Options;
 using Elzik.Mecon.Framework.Tests.Infrastructure.TestData;
 using FluentAssertions;
 using Microsoft.Extensions.Options;
@@ -61,7 +62,7 @@ namespace Elzik.Mecon.Framework.Tests.Infrastructure
                 new PlexEntries(_mockPlexLibraryClient, nullPlexOptions));
             
             // Assert
-            ex.Message.Should().Be($"plexOptions must not be null.");
+            ex.Message.Should().Be("Value of plexOptions must not be null.");
         }
 
         [Fact]

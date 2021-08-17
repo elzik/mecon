@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Elzik.Mecon.Framework.Domain;
 using Elzik.Mecon.Framework.Infrastructure;
+using Elzik.Mecon.Framework.Infrastructure.FileSystem;
 using Elzik.Mecon.Framework.Infrastructure.Plex;
 using Elzik.Mecon.Framework.Infrastructure.Plex.ApiClients;
 using Microsoft.Extensions.Logging;
@@ -18,7 +19,8 @@ namespace Elzik.Mecon.Framework.Application
         private readonly IPlexEntries _plexEntries;
         private readonly bool _enablePlex;
      
-        public MediaReconciler(ILogger<MediaReconciler> logger, IFileSystem fileSystem, IPlexEntries plexEntries, IOptions<PlexOptionsWithCaching> plexOptions)
+        public MediaReconciler(ILogger<MediaReconciler> logger, IFileSystem fileSystem, IPlexEntries plexEntries, 
+            IOptions<PlexOptionsWithCaching> plexOptions)
         {
             _logger = logger;
             _fileSystem = fileSystem;
@@ -27,9 +29,9 @@ namespace Elzik.Mecon.Framework.Application
             LogPlexConfiguration(plexOptions);
         }
 
-        public async Task<IEnumerable<MediaEntry>> GetMediaEntries(string mediaPath)
+        public async Task<IEnumerable<MediaEntry>> GetMediaEntries(string folderDefinitionName)
         {
-            var mediaFilePaths = _fileSystem.GetMedia(mediaPath);
+            var mediaFilePaths = _fileSystem.GetMediaFilePaths(folderDefinitionName);
 
             var plexItems = new List<PlexEntry>();
             if (_enablePlex)
