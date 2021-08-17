@@ -1,15 +1,13 @@
-﻿using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using Elzik.Mecon.Framework.Domain;
-using Elzik.Mecon.Framework.Infrastructure;
-using Elzik.Mecon.Framework.Infrastructure.FileSystem;
-using Elzik.Mecon.Framework.Infrastructure.Plex;
+﻿using Elzik.Mecon.Framework.Domain;
 using Elzik.Mecon.Framework.Infrastructure.Plex.ApiClients;
 using Elzik.Mecon.Framework.Infrastructure.Plex.Options;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
+using Elzik.Mecon.Framework.Infrastructure.FileSystem;
 
 namespace Elzik.Mecon.Framework.Application
 {
@@ -40,7 +38,7 @@ namespace Elzik.Mecon.Framework.Application
                 plexItems.AddRange(await _plexEntries.GetPlexEntries());
             }
 
-            var largeMediaEntries = mediaFilePaths.Select(filePath =>
+            var mediaEntries = mediaFilePaths.Select(filePath =>
             {
                 var fileInfo = new FileInfo(filePath);
 
@@ -67,7 +65,7 @@ namespace Elzik.Mecon.Framework.Application
                 return mediaEntry;
             });
 
-            return largeMediaEntries;
+            return mediaEntries;
         }
 
         private void LogPlexConfiguration(IOptions<PlexWithCachingOptions> plexOptions)

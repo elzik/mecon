@@ -19,7 +19,7 @@ namespace Elzik.Mecon.Framework.Infrastructure.Plex
         public PlexEntriesWithCaching(IPlexLibraryClient plexLibraryClient, IMemoryCache memoryCache, IOptions<PlexWithCachingOptions> plexOptions) 
             : base(plexLibraryClient, plexOptions)
         {
-            _memoryCache = memoryCache;
+            _memoryCache = memoryCache ?? throw new ArgumentNullException(nameof(memoryCache));
 
             ValidateOptions(plexOptions);
             _plexWithCachingOptions = plexOptions.Value;
@@ -47,7 +47,7 @@ namespace Elzik.Mecon.Framework.Infrastructure.Plex
             {
                 throw new InvalidOperationException($"If {nameof(options)} contains a {nameof(options.Value.CacheExpiry)} it " +
                                                     $"must be greater than zero. If no caching is desired, the {nameof(options.Value.CacheExpiry)} " +
-                                                    $"must be omitted.");
+                                                    "must be omitted.");
             }
         }
 
