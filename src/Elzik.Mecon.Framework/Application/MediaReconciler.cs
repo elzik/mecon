@@ -7,6 +7,7 @@ using Elzik.Mecon.Framework.Infrastructure;
 using Elzik.Mecon.Framework.Infrastructure.FileSystem;
 using Elzik.Mecon.Framework.Infrastructure.Plex;
 using Elzik.Mecon.Framework.Infrastructure.Plex.ApiClients;
+using Elzik.Mecon.Framework.Infrastructure.Plex.Options;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 

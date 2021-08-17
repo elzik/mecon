@@ -8,13 +8,13 @@ using Elzik.Mecon.Framework.Infrastructure.Plex;
 using Elzik.Mecon.Framework.Infrastructure.Plex.ApiClients;
 using Elzik.Mecon.Framework.Infrastructure.Plex.ApiClients.Models;
 using Elzik.Mecon.Framework.Infrastructure.Plex.Options;
-using Elzik.Mecon.Framework.Tests.Infrastructure.TestData;
+using Elzik.Mecon.Framework.Tests.Unit.Infrastructure.TestData;
 using FluentAssertions;
 using Microsoft.Extensions.Options;
 using NSubstitute;
 using Xunit;
 
-namespace Elzik.Mecon.Framework.Tests.Infrastructure
+namespace Elzik.Mecon.Framework.Tests.Unit.Infrastructure
 {
     public class PlexEntriesTests
     {
