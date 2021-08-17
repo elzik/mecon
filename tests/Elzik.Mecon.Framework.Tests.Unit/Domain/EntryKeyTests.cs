@@ -5,7 +5,7 @@ using Elzik.Mecon.Framework.Domain;
 using FluentAssertions;
 using Xunit;
 
-namespace Elzik.Mecon.Framework.Tests.Domain
+namespace Elzik.Mecon.Framework.Tests.Unit.Domain
 {
     public class EntryKeyTests
     {
