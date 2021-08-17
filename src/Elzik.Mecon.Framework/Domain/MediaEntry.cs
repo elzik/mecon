@@ -14,11 +14,6 @@ namespace Elzik.Mecon.Framework.Domain
             ReconciledEntries = new List<IEntry>();
         }
 
-        public MediaEntry()
-        {
-            FilesystemEntry = new FilesystemEntry();
-        }
-
         public FilesystemEntry FilesystemEntry { get; set; }
 
         public IList<IEntry> ReconciledEntries { get; set; }
