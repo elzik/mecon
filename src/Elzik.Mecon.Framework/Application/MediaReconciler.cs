@@ -28,7 +28,9 @@ namespace Elzik.Mecon.Framework.Application
             {
                 throw new ArgumentNullException(nameof(plexOptions));
             }
-            _enablePlex = plexOptions.Value is {AuthToken: { }, BaseUrl: { }};
+
+            _enablePlex = !string.IsNullOrWhiteSpace(plexOptions.Value.AuthToken) &&
+                          !string.IsNullOrWhiteSpace(plexOptions.Value.BaseUrl);
             LogPlexConfiguration(plexOptions);
         }
 
