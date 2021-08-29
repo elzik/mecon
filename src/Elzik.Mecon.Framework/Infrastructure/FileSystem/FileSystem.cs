@@ -11,11 +11,14 @@ namespace Elzik.Mecon.Framework.Infrastructure.FileSystem
     public class FileSystem : IFileSystem
     {
         private readonly IDirectory _directory;
+        private readonly System.IO.Abstractions.IFileSystem _fileSystem;
         private readonly FileSystemOptions _fileSystemOptions;
 
-        public FileSystem(IDirectory directory, IOptions<FileSystemOptions> fileSystemOptions)
+        public FileSystem(IDirectory directory, System.IO.Abstractions.IFileSystem fileSystem,
+            IOptions<FileSystemOptions> fileSystemOptions)
         {
             _directory = directory ?? throw new ArgumentNullException(nameof(directory));
+            _fileSystem = fileSystem ?? throw new ArgumentNullException(nameof(fileSystem));
 
             if (fileSystemOptions == null)
             {
@@ -25,7 +28,7 @@ namespace Elzik.Mecon.Framework.Infrastructure.FileSystem
                                  throw new InvalidOperationException($"Value of {nameof(fileSystemOptions)} must not be null.");
         }
 
-        public IEnumerable<string> GetMediaFilePaths(string folderDefinitionName)
+        public IEnumerable<IFileInfo> GetMediaFileInfos(string folderDefinitionName)
         {
             var folderDefinition = _fileSystemOptions.FolderDefinitions
                 .SingleOrDefault(option => option.Name == folderDefinitionName);
@@ -43,7 +46,10 @@ namespace Elzik.Mecon.Framework.Infrastructure.FileSystem
 
             files = FilterFileExtensions(files, folderDefinition.SupportedFileExtensions);
 
-            return files;
+            var fileInfos = files.Select(filePath => 
+                _fileSystem.FileInfo.FromFileName(filePath));
+
+            return fileInfos;
         }
 
         private static IEnumerable<string> FilterFileExtensions(IEnumerable<string> files, string[] fileExtensions)

@@ -1,10 +1,10 @@
-﻿using Elzik.Mecon.Framework.Domain;
+﻿using System;
+using Elzik.Mecon.Framework.Domain;
 using Elzik.Mecon.Framework.Infrastructure.Plex.ApiClients;
 using Elzik.Mecon.Framework.Infrastructure.Plex.Options;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Elzik.Mecon.Framework.Infrastructure.FileSystem;
@@ -21,16 +21,20 @@ namespace Elzik.Mecon.Framework.Application
         public MediaReconciler(ILogger<MediaReconciler> logger, IFileSystem fileSystem, IPlexEntries plexEntries, 
             IOptions<PlexWithCachingOptions> plexOptions)
         {
-            _logger = logger;
-            _fileSystem = fileSystem;
-            _plexEntries = plexEntries;
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+            _fileSystem = fileSystem ?? throw new ArgumentNullException(nameof(fileSystem));
+            _plexEntries = plexEntries ?? throw new ArgumentNullException(nameof(plexEntries));
+            if (plexOptions == null)
+            {
+                throw new ArgumentNullException(nameof(plexOptions));
+            }
             _enablePlex = plexOptions.Value is {AuthToken: { }, BaseUrl: { }};
             LogPlexConfiguration(plexOptions);
         }
 
         public async Task<IEnumerable<MediaEntry>> GetMediaEntries(string folderDefinitionName)
         {
-            var mediaFilePaths = _fileSystem.GetMediaFilePaths(folderDefinitionName);
+            var mediaFileInfos = _fileSystem.GetMediaFileInfos(folderDefinitionName);
 
             var plexItems = new List<PlexEntry>();
             if (_enablePlex)
@@ -38,11 +42,9 @@ namespace Elzik.Mecon.Framework.Application
                 plexItems.AddRange(await _plexEntries.GetPlexEntries());
             }
 
-            var mediaEntries = mediaFilePaths.Select(filePath =>
+            var mediaEntries = mediaFileInfos.Select(fileInfo =>
             {
-                var fileInfo = new FileInfo(filePath);
-
-                var mediaEntry = new MediaEntry(filePath)
+                var mediaEntry = new MediaEntry(fileInfo.FullName)
                 {
                     FilesystemEntry =
                     {
@@ -53,12 +55,18 @@ namespace Elzik.Mecon.Framework.Application
 
                 if (_enablePlex)
                 {
-                    var plexEntry = plexItems.SingleOrDefault(m => m.Key == mediaEntry.FilesystemEntry.Key);
+                    var plexEntries = plexItems
+                        .Where(m => m.Key == mediaEntry.FilesystemEntry.Key)
+                        .ToList();
 
-                    if (plexEntry != null)
+                    foreach (var plexEntry in plexEntries)
                     {
                         mediaEntry.ReconciledEntries.Add(plexEntry);
-                        mediaEntry.ThumbnailUrl = plexEntry.ThumbnailUrl;
+                    }
+
+                    if (plexEntries.Any())
+                    {
+                        mediaEntry.ThumbnailUrl = plexEntries.First().ThumbnailUrl;
                     }
                 }
 
