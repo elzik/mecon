@@ -142,8 +142,7 @@ namespace Elzik.Mecon.Framework.Tests.Unit.Application
             Aligner.AlignFileSystemWithPlexMediaContainer(_testFiles, _testPlexEntries);
             _testPlexOptionsWrapper.Value.AuthToken = authToken;
             _testPlexOptionsWrapper.Value.BaseUrl = baseUrl;
-
-
+            
             // Act
             var mediaReconciler =
                 new MediaReconciler(_mockLogger, _mockFileSystem, _mockPlexEntries, _testPlexOptionsWrapper);
