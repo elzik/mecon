@@ -90,7 +90,7 @@ namespace Elzik.Mecon.Framework.Application
             }
             else
             {
-                _logger.LogInformation("Plex reconciliation is not configured; a BaseUrl and AuthToken must be supplied.");
+                _logger.LogInformation("Plex reconciliation is not configured; a BaseUrl and AuthToken must be supplied to enable it.");
             }
         }
     }

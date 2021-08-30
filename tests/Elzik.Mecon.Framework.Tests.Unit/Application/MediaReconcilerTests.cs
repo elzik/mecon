@@ -22,19 +22,19 @@ namespace Elzik.Mecon.Framework.Tests.Unit.Application
     {
         private readonly IFixture _fixture;
 
-        private readonly ILogger<MediaReconciler> _mockLogger;
+        private readonly MockLogger<MediaReconciler> _mockLogger;
         private readonly IFileSystem _mockFileSystem;
         private readonly IPlexEntries _mockPlexEntries;
-        private OptionsWrapper<PlexWithCachingOptions> _testPlexOptionsWrapper;
-        private string _testFolderDefinitionName;
-        private List<FileSystemTests.TestFileInfoImplementation> _testFiles;
-        private List<PlexEntry> _testPlexEntries;
+        private readonly OptionsWrapper<PlexWithCachingOptions> _testPlexOptionsWrapper;
+        private readonly string _testFolderDefinitionName;
+        private readonly List<FileSystemTests.TestFileInfoImplementation> _testFiles;
+        private readonly List<PlexEntry> _testPlexEntries;
 
         public MediaReconcilerTests()
         {
             _fixture = new Fixture().Customize(new AutoNSubstituteCustomization());
 
-            _mockLogger = Substitute.For<ILogger<MediaReconciler>>();
+            _mockLogger = Substitute.For<MockLogger<MediaReconciler>>();
             _mockFileSystem = Substitute.For<IFileSystem>();
             _mockPlexEntries = Substitute.For<IPlexEntries>();
 
@@ -170,6 +170,59 @@ namespace Elzik.Mecon.Framework.Tests.Unit.Application
                 mediaEntry.ThumbnailUrl.Should().BeNull();
 
             }
+        }
+
+        [Fact]
+        public void GetMediaEntries_PlexIsEnabledWithCaching_Logs()
+        {
+            // Act
+            _ = new MediaReconciler(_mockLogger, _mockFileSystem, _mockPlexEntries, _testPlexOptionsWrapper);
+
+            // Assert
+            _mockLogger.Received(1)
+                .Log(Arg.Any<LogLevel>(), Arg.Is<string>(s =>
+                    s.Contains($"Plex reconciliation is enabled against {_testPlexOptionsWrapper.Value.BaseUrl} " +
+                               $"with a cache expiration of {_testPlexOptionsWrapper.Value.CacheExpiry} seconds.")));
+        }
+
+        [Fact]
+        public void GetMediaEntries_PlexIsEnabledWithoutCaching_Logs()
+        {
+            // Arrange
+            _testPlexOptionsWrapper.Value.CacheExpiry = null;
+
+            // Act
+            _ = new MediaReconciler(_mockLogger, _mockFileSystem, _mockPlexEntries, _testPlexOptionsWrapper);
+
+            // Assert
+            _mockLogger.Received(1)
+                .Log(Arg.Any<LogLevel>(), Arg.Is<string>(s =>
+                    s.Contains($"Plex reconciliation is enabled against {_testPlexOptionsWrapper.Value.BaseUrl} " +
+                               "with no caching enabled")));
+        }
+
+        [Theory]
+        [InlineData(null, "test")]
+        [InlineData("", "test")]
+        [InlineData(" ", "test")]
+        [InlineData("   ", "test")]
+        [InlineData("test", null)]
+        [InlineData("test", "")]
+        [InlineData("test", " ")]
+        [InlineData("test", "   ")]
+        public void GetMediaEntries_PlexIsDisabled_Logs(string authToken, string baseUrl)
+        {
+            // Arrange
+            _testPlexOptionsWrapper.Value.AuthToken = authToken;
+            _testPlexOptionsWrapper.Value.BaseUrl = baseUrl;
+
+            // Act
+            _ = new MediaReconciler(_mockLogger, _mockFileSystem, _mockPlexEntries, _testPlexOptionsWrapper);
+
+            // Assert
+            _mockLogger.Received(1)
+                .Log(Arg.Any<LogLevel>(), Arg.Is<string>(s =>
+                    s.Contains("Plex reconciliation is not configured; a BaseUrl and AuthToken must be supplied to enable it.")));
         }
     }
 }
