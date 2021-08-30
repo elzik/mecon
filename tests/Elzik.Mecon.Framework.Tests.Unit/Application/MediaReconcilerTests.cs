@@ -96,6 +96,37 @@ namespace Elzik.Mecon.Framework.Tests.Unit.Application
             }
         }
 
+        [Fact]
+        public async Task GetMediaEntries_NoFilesHaveMatchingPlexEntries_ReturnsExpectedMediaEntries()
+        {
+            // Act
+            var mediaReconciler =
+                new MediaReconciler(_mockLogger, _mockFileSystem, _mockPlexEntries, _testPlexOptionsWrapper);
+            var mediaEntries = await mediaReconciler.GetMediaEntries(_testFolderDefinitionName);
+
+            // Assert
+            var mediaEntryList = mediaEntries.ToList();
+            mediaEntryList.Should().NotBeNull();
+            mediaEntryList.Should().HaveSameCount(_testFiles);
+            for (var index = 0; index < mediaEntryList.Count; index++)
+            {
+                var mediaEntry = mediaEntryList[index];
+                var testFileInfo = _testFiles[index];
+                
+                mediaEntry.FilesystemEntry.Key.Filename.Should().Be(testFileInfo.Name);
+                mediaEntry.FilesystemEntry.Key.ByteCount.Should().Be(testFileInfo.Length);
+
+                mediaEntry.FilesystemEntry.FileSystemPath.Should().Be(testFileInfo.FullName);
+                mediaEntry.FilesystemEntry.Title.Should().Be(testFileInfo.Name);
+                mediaEntry.FilesystemEntry.Type.Should().Be("FilesystemEntry");
+
+                mediaEntry.ReconciledEntries.Should().BeEmpty();
+
+                mediaEntry.ThumbnailUrl.Should().BeNull();
+
+            }
+        }
+
         [Theory]
         [InlineData(null, "test")]
         [InlineData("", "test")]
