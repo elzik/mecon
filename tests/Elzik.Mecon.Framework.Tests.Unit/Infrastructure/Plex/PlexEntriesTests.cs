@@ -5,8 +5,6 @@ using AutoFixture;
 using AutoFixture.AutoNSubstitute;
 using AutoFixture.Idioms;
 using Elzik.Mecon.Framework.Infrastructure.Plex;
-using Elzik.Mecon.Framework.Infrastructure.Plex.ApiClients;
-using Elzik.Mecon.Framework.Infrastructure.Plex.ApiClients.Models;
 using Elzik.Mecon.Framework.Infrastructure.Plex.Options;
 using Elzik.Mecon.Framework.Tests.Unit.Infrastructure.Plex.TestData;
 using FluentAssertions;

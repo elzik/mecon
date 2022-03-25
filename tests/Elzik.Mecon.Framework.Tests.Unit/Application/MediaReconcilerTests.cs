@@ -6,7 +6,7 @@ using AutoFixture.AutoNSubstitute;
 using AutoFixture.Idioms;
 using Elzik.Mecon.Framework.Application;
 using Elzik.Mecon.Framework.Domain;
-using Elzik.Mecon.Framework.Infrastructure.Plex.ApiClients;
+using Elzik.Mecon.Framework.Infrastructure.Plex;
 using Elzik.Mecon.Framework.Infrastructure.Plex.Options;
 using Elzik.Mecon.Framework.Tests.Unit.Infrastructure.FileSystemTests;
 using FluentAssertions;

@@ -1,6 +1,5 @@
 ﻿using System;
 using Elzik.Mecon.Framework.Domain;
-using Elzik.Mecon.Framework.Infrastructure.Plex.ApiClients;
 using Elzik.Mecon.Framework.Infrastructure.Plex.Options;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -8,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Elzik.Mecon.Framework.Infrastructure.FileSystem;
+using Elzik.Mecon.Framework.Infrastructure.Plex;
 
 namespace Elzik.Mecon.Framework.Application
 {
