@@ -2,7 +2,6 @@
 using AutoFixture;
 using AutoFixture.AutoNSubstitute;
 using AutoFixture.Idioms;
-using Elzik.Mecon.Framework.Infrastructure.Plex.ApiClients;
 using Elzik.Mecon.Framework.Infrastructure.Plex.Options;
 using FluentAssertions;
 using Microsoft.Extensions.Options;
