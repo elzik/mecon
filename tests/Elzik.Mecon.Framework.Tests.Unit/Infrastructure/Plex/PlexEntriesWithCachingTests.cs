@@ -1,7 +1,6 @@
 ﻿using AutoFixture;
 using AutoFixture.AutoNSubstitute;
 using Elzik.Mecon.Framework.Infrastructure.Plex;
-using Elzik.Mecon.Framework.Infrastructure.Plex.ApiClients.Models;
 using Elzik.Mecon.Framework.Infrastructure.Plex.Options;
 using FluentAssertions;
 using Microsoft.Extensions.Caching.Memory;
@@ -9,6 +8,8 @@ using Microsoft.Extensions.Options;
 using NSubstitute;
 using System;
 using System.Threading.Tasks;
+using Plex.ServerApi.Clients.Interfaces;
+using Plex.ServerApi.PlexModels.Library;
 using Xunit;
 
 namespace Elzik.Mecon.Framework.Tests.Unit.Infrastructure.Plex
@@ -17,15 +18,23 @@ namespace Elzik.Mecon.Framework.Tests.Unit.Infrastructure.Plex
     {
         // The quality of these tests is reduced since IMemory cache using an out argument and an unmockable MemoryCacheEntryOptions
         private readonly IFixture _fixture;
+        private readonly IPlexServerClient _mockPlexServerClient;
         private readonly IPlexLibraryClient _mockPlexLibraryClient;
         private readonly IMemoryCache _mockMemoryCache;
+        private PlexWithCachingOptions _options;
 
         public PlexEntriesWithCachingTests()
         {
             _fixture = new Fixture().Customize(new AutoNSubstituteCustomization());
+            _mockPlexServerClient = Substitute.For<IPlexServerClient>();
+            _options = _fixture.Create<PlexWithCachingOptions>();
+            _mockPlexServerClient
+                .GetLibrariesAsync(
+                    Arg.Is(_options.AuthToken),
+                    Arg.Is(_options.BaseUrl))
+                .Returns(_fixture.Create<LibraryContainer>());
 
             _mockPlexLibraryClient = Substitute.For<IPlexLibraryClient>();
-            _mockPlexLibraryClient.GetLibraries().Returns(_fixture.Create<LibraryContainer>());
             _mockMemoryCache = Substitute.For<IMemoryCache>();
         }
 
@@ -34,7 +43,7 @@ namespace Elzik.Mecon.Framework.Tests.Unit.Infrastructure.Plex
         {
             // Act
             var ex = Assert.Throws<ArgumentNullException>(() => 
-                new PlexEntriesWithCaching(_mockPlexLibraryClient, null, 
+                new PlexEntriesWithCaching(_mockPlexServerClient, _mockPlexLibraryClient, null, 
                 _fixture.Create<OptionsWrapper<PlexWithCachingOptions>>()));
 
             // Assert
@@ -45,34 +54,30 @@ namespace Elzik.Mecon.Framework.Tests.Unit.Infrastructure.Plex
         public void Constructor_CacheExpiryLessThanZero_Throws()
         {
             // Arrange
-            var options = _fixture
-                .Build<PlexWithCachingOptions>()
-                .With(cachingOptions => cachingOptions.CacheExpiry, 0)
-                .Create();
-            var testInvalidCacheOptions= new OptionsWrapper<PlexWithCachingOptions>(options);
+            _options.CacheExpiry = 0;
+            var testInvalidCacheOptions= new OptionsWrapper<PlexWithCachingOptions>(_options);
 
             // Act
             var ex = Assert.Throws<InvalidOperationException>(() => 
-                new PlexEntriesWithCaching(_mockPlexLibraryClient, _mockMemoryCache, testInvalidCacheOptions));
+                new PlexEntriesWithCaching(_mockPlexServerClient, _mockPlexLibraryClient, 
+                    _mockMemoryCache, testInvalidCacheOptions));
 
             // Assert
             ex.Message.Should().Be($"If options contains a {nameof(testInvalidCacheOptions.Value.CacheExpiry)} it " +
-                                   $"must be greater than zero. If no caching is desired, the {nameof(testInvalidCacheOptions.Value.CacheExpiry)} " +
-                                   "must be omitted.");
+                                   "must be greater than zero. If no caching is desired, the " +
+                                   $"{nameof(testInvalidCacheOptions.Value.CacheExpiry)} must be omitted.");
         }
 
         [Fact]
         public async Task GetPlexEntries_WithoutCacheExpiry_DoesNotFetchFromCache()
         {
             // Arrange
-            var options = _fixture
-                .Build<PlexWithCachingOptions>()
-                .Without(cachingOptions => cachingOptions.CacheExpiry)
-                .Create();
-            var testCacheOptionsWithoutCache = new OptionsWrapper<PlexWithCachingOptions>(options);
+            _options.CacheExpiry = null;
+            var testCacheOptionsWithoutCache = new OptionsWrapper<PlexWithCachingOptions>(_options);
 
             var plexEntriesWithCaching =
-                new PlexEntriesWithCaching(_mockPlexLibraryClient, _mockMemoryCache, testCacheOptionsWithoutCache);
+                new PlexEntriesWithCaching(_mockPlexServerClient, _mockPlexLibraryClient, 
+                    _mockMemoryCache, testCacheOptionsWithoutCache);
 
             // Act
             await plexEntriesWithCaching.GetPlexEntries();
@@ -86,11 +91,11 @@ namespace Elzik.Mecon.Framework.Tests.Unit.Infrastructure.Plex
         public async Task GetPlexEntries_WithCacheExpiry_FetchesFromCache()
         {
             // Arrange
-            var options = _fixture.Create<PlexWithCachingOptions>();
-            var testCacheOptions = new OptionsWrapper<PlexWithCachingOptions>(options);
+            var testCacheOptions = new OptionsWrapper<PlexWithCachingOptions>(_options);
 
             var plexEntriesWithCaching =
-                new PlexEntriesWithCaching(_mockPlexLibraryClient, _mockMemoryCache, testCacheOptions);
+                new PlexEntriesWithCaching(_mockPlexServerClient, _mockPlexLibraryClient, 
+                    _mockMemoryCache, testCacheOptions);
 
             // Act
             await plexEntriesWithCaching.GetPlexEntries();
@@ -104,11 +109,11 @@ namespace Elzik.Mecon.Framework.Tests.Unit.Infrastructure.Plex
         public async Task GetPlexEntries_WithCacheExpiry_SavesToCache()
         {
             // Arrange
-            var options = _fixture.Create<PlexWithCachingOptions>();
-            var testCacheOptions = new OptionsWrapper<PlexWithCachingOptions>(options);
+            var testCacheOptions = new OptionsWrapper<PlexWithCachingOptions>(_options);
 
             var plexEntriesWithCaching =
-                new PlexEntriesWithCaching(_mockPlexLibraryClient, _mockMemoryCache, testCacheOptions);
+                new PlexEntriesWithCaching(_mockPlexServerClient, _mockPlexLibraryClient, 
+                    _mockMemoryCache, testCacheOptions);
 
             // Act
             await plexEntriesWithCaching.GetPlexEntries();

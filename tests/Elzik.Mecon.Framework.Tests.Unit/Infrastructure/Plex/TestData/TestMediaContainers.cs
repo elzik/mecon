@@ -1,4 +1,4 @@
-using Elzik.Mecon.Framework.Infrastructure.Plex.ApiClients.Models;
+using Plex.ServerApi.PlexModels.Media;
 
 namespace Elzik.Mecon.Framework.Tests.Unit.Infrastructure.Plex.TestData
 {
@@ -8,29 +8,28 @@ namespace Elzik.Mecon.Framework.Tests.Unit.Infrastructure.Plex.TestData
         {
             return new MediaContainer
             {
-                AllowSync = "1",
+                AllowSync = true,
                 Art = "/:/resources/movie-fanart.jpg",
                 Identifier = "com.plexapp.plugins.library",
-                LibrarySectionID = "1",
+                LibrarySectionId = 1,
                 LibrarySectionTitle = "Films",
-                LibrarySectionUUID = "4915aff2-7a9a-4409-b275-29bad7a4cb94",
+                LibrarySectionUuid = "4915aff2-7a9a-4409-b275-29bad7a4cb94",
                 MediaTagPrefix = "/system/bundle/media/flags/",
-                MediaTagVersion = "1627505128",
-                Size = "3",
+                MediaTagVersion = 1627505128,
+                Size = 3,
                 Thumb = "/:/resources/movie.png",
                 Title1 = "Films",
                 Title2 = "All Films",
-                Video =
-                    new System.Collections.Generic.List<
-                        Video>
+                Media = 
+                    new System.Collections.Generic.List<Metadata>
                     {
-                        new Video
+                        new Metadata()
                         {
-                            AddedAt = "1620835253",
+                            AddedAt = 1620835253,
                             Art = "/library/metadata/64143/art/1628558849",
                             ChapterSource = "media",
                             ContentRating = null,
-                            Country =
+                            Countries = 
                                 new System.Collections.Generic.List<
                                     Country>
                                 {
@@ -39,7 +38,7 @@ namespace Elzik.Mecon.Framework.Tests.Unit.Infrastructure.Plex.TestData
                                         Tag = "France"
                                     }
                                 },
-                            Director =
+                            Directors = 
                                 new System.Collections.Generic.List<Director>
                                 {
                                     new Director
@@ -47,10 +46,9 @@ namespace Elzik.Mecon.Framework.Tests.Unit.Infrastructure.Plex.TestData
                                         Tag = "Éric Rohmer"
                                     }
                                 },
-                            Duration = "5943124",
-                            Genre =
-                                new System.Collections.Generic.List<
-                                    Genre>
+                            Duration = 5943124,
+                            Genres = 
+                                new System.Collections.Generic.List<Genre>
                                 {
                                     new Genre
                                     {
@@ -63,43 +61,43 @@ namespace Elzik.Mecon.Framework.Tests.Unit.Infrastructure.Plex.TestData
                                 },
                             Guid = "com.plexapp.agents.imdb://tt0090565?lang=fr",
                             Key = "/library/metadata/64143",
-                            LastRatedAt = null,
-                            LastViewedAt = null,
-                            Media =
+                            //LastRatedAt = null,
+                            //LastViewedAt = null,
+                            Media = 
                                 new System.Collections.Generic.List<
-                                    Media>
+                                    Medium>
                                 {
-                                    new Media
+                                    new Medium()
                                     {
-                                        AspectRatio = "1.33",
-                                        AudioChannels = "1",
+                                        AspectRatio = 1.33,
+                                        AudioChannels = 1,
                                         AudioCodec = "flac",
                                         AudioProfile = null,
-                                        Bitrate = "20099",
+                                        Bitrate = 20099,
                                         Container = "mkv",
-                                        Duration = "5943124",
-                                        Has64bitOffsets = null,
-                                        Height = "1080",
-                                        Id = "134659",
-                                        OptimizedForStreaming = null,
-                                        Parts =
-                                            new System.Collections.Generic.List<Part>
+                                        Duration = 5943124,
+                                        //Has64bitOffsets = null,
+                                        Height = 1080,
+                                        Id = 134659,
+                                        //OptimizedForStreaming = null,
+                                        Part = 
+                                            new System.Collections.Generic.List<MediaPart>
                                             {
-                                                new Part
+                                                new MediaPart()
                                                 {
                                                     AudioProfile = null,
                                                     Container = "mkv",
-                                                    Duration = "5943124",
+                                                    Duration = 5943124,
                                                     File =
                                                         "/Films/4 aventures de Reinette et Mirabelle 1987 1080p BluRay FLAC x264-EA.mkv",
-                                                    Has64bitOffsets = null,
+                                                    //Has64bitOffsets = null,
                                                     HasThumbnail = null,
-                                                    Id = "147394",
-                                                    Indexes = "sd",
+                                                    Id = 147394,
+                                                    //Indexes = "sd",
                                                     Key = "/library/parts/147394/1423033728/file.mkv",
-                                                    OptimizedForStreaming = null,
-                                                    PacketLength = null,
-                                                    Size = "14920095015",
+                                                    //OptimizedForStreaming = null,
+                                                    //PacketLength = null,
+                                                    Size = 14920095015,
                                                     VideoProfile = "high"
                                                 }
                                             },
@@ -107,32 +105,31 @@ namespace Elzik.Mecon.Framework.Tests.Unit.Infrastructure.Plex.TestData
                                         VideoFrameRate = "24p",
                                         VideoProfile = "high",
                                         VideoResolution = "1080",
-                                        Width = "1480"
+                                        Width = 1480
                                     }
                                 },
                             OriginalTitle = null,
                             OriginallyAvailableAt = "1987-02-04",
                             PrimaryExtraKey = null,
-                            Rating = "7.6",
+                            //Rating = "7.6",
                             RatingKey = "64143",
-                            Role =
-                                new System.Collections.Generic.List<
-                                    Role>
+                            Roles = 
+                                new System.Collections.Generic.List<MediaRole>
                                 {
-                                    new Role
+                                    new MediaRole()
                                     {
                                         Tag = "Joëlle Miquel"
                                     },
-                                    new Role
+                                    new MediaRole
                                     {
                                         Tag = "Jessica Forde"
                                     },
-                                    new Role
+                                    new MediaRole
                                     {
                                         Tag = "Philippe Laudenbach"
                                     }
                                 },
-                            SkipCount = null,
+                            //SkipCount = null,
                             Studio = "Compagnie Eric Rohmer",
                             Summary =
                                 "Reinette, la souris des champs et Mirabelle, la souris des villes dans quatre aventures. À la campagne. À la recherche de l'heure bleue, cet instant magique que l'on peut saisir à l'aurore. Puis à Paris, où Reinette a rejoint Mirabelle pour suivre des cours de peinture. Ses tribulations parisiennes la mettent aux prises avec un garçon de café et un marchand de tableaux particulièrement bavards, puis avec un mendiant et une arnaqueuse...",
@@ -141,37 +138,35 @@ namespace Elzik.Mecon.Framework.Tests.Unit.Infrastructure.Plex.TestData
                             Title = "4 aventures de Reinette et Mirabelle",
                             TitleSort = null,
                             Type = "movie",
-                            UpdatedAt = "1628558849",
-                            UserRating = null,
-                            ViewCount = null,
-                            ViewOffset = null,
-                            Writer =
-                                new System.Collections.Generic.List<
-                                    Writer>
+                            UpdatedAt = 1628558849,
+                            //UserRating = null,
+                            //ViewCount = null,
+                            //ViewOffset = null,
+                            Writers = 
+                                new System.Collections.Generic.List<Writer>
                                 {
                                     new Writer
                                     {
                                         Tag = "Éric Rohmer"
                                     }
                                 },
-                            Year = "1987"
+                            Year = 1987
                         },
-                        new Video
+                        new Metadata()
                         {
-                            AddedAt = "1620835308",
+                            AddedAt = 1620835308,
                             Art = "/library/metadata/64420/art/1623185035",
                             ChapterSource = "media",
                             ContentRating = "R",
-                            Country =
-                                new System.Collections.Generic.List<
-                                    Country>
+                            Countries = 
+                                new System.Collections.Generic.List<Country>
                                 {
                                     new Country
                                     {
                                         Tag = "USA"
                                     }
                                 },
-                            Director =
+                            Directors = 
                                 new System.Collections.Generic.List<Director>
                                 {
                                     new Director
@@ -179,8 +174,8 @@ namespace Elzik.Mecon.Framework.Tests.Unit.Infrastructure.Plex.TestData
                                         Tag = "Mike Mills"
                                     }
                                 },
-                            Duration = "7124192",
-                            Genre =
+                            Duration = 7124192,
+                            Genres = 
                                 new System.Collections.Generic.List<
                                     Genre>
                                 {
@@ -191,43 +186,42 @@ namespace Elzik.Mecon.Framework.Tests.Unit.Infrastructure.Plex.TestData
                                 },
                             Guid = "com.plexapp.agents.imdb://tt4385888?lang=en",
                             Key = "/library/metadata/64420",
-                            LastRatedAt = null,
-                            LastViewedAt = null,
+                            //LastRatedAt = null,
+                            //LastViewedAt = null,
                             Media =
-                                new System.Collections.Generic.List<
-                                    Media>
+                                new System.Collections.Generic.List<Medium>
                                 {
-                                    new Media
+                                    new Medium()
                                     {
-                                        AspectRatio = "1.85",
-                                        AudioChannels = "6",
+                                        AspectRatio = 1.85,
+                                        AudioChannels = 6,
                                         AudioCodec = "dca",
                                         AudioProfile = "dts",
-                                        Bitrate = "17768",
+                                        Bitrate = 17768,
                                         Container = "mkv",
-                                        Duration = "7124192",
-                                        Has64bitOffsets = null,
-                                        Height = "964",
-                                        Id = "134938",
-                                        OptimizedForStreaming = null,
-                                        Parts =
-                                            new System.Collections.Generic.List<Part>
+                                        Duration = 7124192,
+                                        //Has64bitOffsets = null,
+                                        Height = 964,
+                                        Id = 134938,
+                                        //OptimizedForStreaming = null,
+                                        Part = 
+                                            new System.Collections.Generic.List<MediaPart>
                                             {
-                                                new Part
+                                                new MediaPart()
                                                 {
                                                     AudioProfile = "dts",
                                                     Container = "mkv",
-                                                    Duration = "7124192",
+                                                    Duration = 7124192,
                                                     File =
                                                         "/Films/20th.Century.Women.2016.1080p.BluRay.DTS.x264-VietHD/20th.Century.Women.2016.1080p.BluRay.DTS.x264-VietHD.mkv",
-                                                    Has64bitOffsets = null,
+                                                    //Has64bitOffsets = null,
                                                     HasThumbnail = null,
-                                                    Id = "147749",
-                                                    Indexes = "sd",
+                                                    Id = 147749,
+                                                    //Indexes = "sd",
                                                     Key = "/library/parts/147749/1491136746/file.mkv",
-                                                    OptimizedForStreaming = null,
-                                                    PacketLength = null,
-                                                    Size = "15825072616",
+                                                    //OptimizedForStreaming = null,
+                                                    //PacketLength = null,
+                                                    Size = 15825072616,
                                                     VideoProfile = "high"
                                                 }
                                             },
@@ -235,32 +229,32 @@ namespace Elzik.Mecon.Framework.Tests.Unit.Infrastructure.Plex.TestData
                                         VideoFrameRate = "24p",
                                         VideoProfile = "high",
                                         VideoResolution = "1080",
-                                        Width = "1920"
+                                        Width = 1920
                                     }
                                 },
                             OriginalTitle = null,
                             OriginallyAvailableAt = "2016-10-08",
                             PrimaryExtraKey = "/library/metadata/66442",
-                            Rating = "7.4",
+                            //Rating = "7.4",
                             RatingKey = "64420",
-                            Role =
+                            Roles = 
                                 new System.Collections.Generic.List<
-                                    Role>
+                                    MediaRole>
                                 {
-                                    new Role
+                                    new MediaRole
                                     {
                                         Tag = "Annette Bening"
                                     },
-                                    new Role
+                                    new MediaRole
                                     {
                                         Tag = "Elle Fanning"
                                     },
-                                    new Role
+                                    new MediaRole
                                     {
                                         Tag = "Greta Gerwig"
                                     }
                                 },
-                            SkipCount = null,
+                            //SkipCount = null,
                             Studio = "Annapurna Pictures",
                             Summary =
                                 "In 1979 Santa Barbara, California, Dorothea Fields is a determined single mother in her mid-50s who is raising her adolescent son, Jamie, at a moment brimming with cultural change and rebellion. Dorothea enlists the help of two younger women – Abbie, a free-spirited punk artist living as a boarder in the Fields' home and Julie, a savvy and provocative teenage neighbour – to help with Jamie's upbringing.",
@@ -269,11 +263,11 @@ namespace Elzik.Mecon.Framework.Tests.Unit.Infrastructure.Plex.TestData
                             Title = "20th Century Women",
                             TitleSort = null,
                             Type = "movie",
-                            UpdatedAt = "1623185035",
-                            UserRating = null,
-                            ViewCount = null,
-                            ViewOffset = null,
-                            Writer =
+                            UpdatedAt = 1623185035,
+                            //UserRating = null,
+                            //ViewCount = null,
+                            //ViewOffset = null,
+                            Writers = 
                                 new System.Collections.Generic.List<
                                     Writer>
                                 {
@@ -282,15 +276,15 @@ namespace Elzik.Mecon.Framework.Tests.Unit.Infrastructure.Plex.TestData
                                         Tag = "Mike Mills"
                                     }
                                 },
-                            Year = "2016"
+                            Year = 2016
                         },
-                        new Video
+                        new Metadata()
                         {
-                            AddedAt = "1620835253",
+                            AddedAt = 1620835253,
                             Art = "/library/metadata/64142/art/1628558849",
                             ChapterSource = "media",
                             ContentRating = "R",
-                            Country =
+                            Countries = 
                                 new System.Collections.Generic.List<
                                     Country>
                                 {
@@ -303,7 +297,7 @@ namespace Elzik.Mecon.Framework.Tests.Unit.Infrastructure.Plex.TestData
                                         Tag = "United Kingdom"
                                     }
                                 },
-                            Director =
+                            Directors = 
                                 new System.Collections.Generic.List<Director>
                                 {
                                     new Director
@@ -311,8 +305,8 @@ namespace Elzik.Mecon.Framework.Tests.Unit.Infrastructure.Plex.TestData
                                         Tag = "Juan Carlos Fresnadillo"
                                     }
                                 },
-                            Duration = "6006048",
-                            Genre =
+                            Duration = 6006048,
+                            Genres = 
                                 new System.Collections.Generic.List<
                                     Genre>
                                 {
@@ -327,42 +321,41 @@ namespace Elzik.Mecon.Framework.Tests.Unit.Infrastructure.Plex.TestData
                                 },
                             Guid = "com.plexapp.agents.imdb://tt0463854?lang=en",
                             Key = "/library/metadata/64142",
-                            LastRatedAt = null,
-                            LastViewedAt = null,
+                            //LastRatedAt = null,
+                            //LastViewedAt = null,
                             Media =
-                                new System.Collections.Generic.List<
-                                    Media>
+                                new System.Collections.Generic.List<Medium>
                                 {
-                                    new Media
+                                    new Medium()
                                     {
-                                        AspectRatio = "1.85",
-                                        AudioChannels = "6",
+                                        AspectRatio = 1.85,
+                                        AudioChannels = 6,
                                         AudioCodec = "dca",
                                         AudioProfile = "dts",
-                                        Bitrate = "22304",
+                                        Bitrate = 22304,
                                         Container = "mkv",
-                                        Duration = "6006048",
-                                        Has64bitOffsets = null,
-                                        Height = "1040",
-                                        Id = "134658",
-                                        OptimizedForStreaming = null,
-                                        Parts =
-                                            new System.Collections.Generic.List<Part>
+                                        Duration = 6006048,
+                                        //Has64bitOffsets = null,
+                                        Height = 1040,
+                                        Id = 134658,
+                                        //OptimizedForStreaming = null,
+                                        Part = 
+                                            new System.Collections.Generic.List<MediaPart>
                                             {
-                                                new Part
+                                                new MediaPart()
                                                 {
                                                     AudioProfile = "dts",
                                                     Container = "mkv",
-                                                    Duration = "6006048",
+                                                    Duration = 6006048,
                                                     File = "/Films/28.Weeks.Later.2007.1080p.BluRay.DTS.x264-IDE.mkv",
-                                                    Has64bitOffsets = null,
+                                                    //Has64bitOffsets = null,
                                                     HasThumbnail = null,
-                                                    Id = "147393",
-                                                    Indexes = "sd",
+                                                    Id = 147393,
+                                                    //Indexes = "sd",
                                                     Key = "/library/parts/147393/1425049087/file.mkv",
-                                                    OptimizedForStreaming = null,
-                                                    PacketLength = null,
-                                                    Size = "16712596293",
+                                                    //OptimizedForStreaming = null,
+                                                    //PacketLength = null,
+                                                    Size = 16712596293,
                                                     VideoProfile = "high"
                                                 }
                                             },
@@ -370,32 +363,31 @@ namespace Elzik.Mecon.Framework.Tests.Unit.Infrastructure.Plex.TestData
                                         VideoFrameRate = "24p",
                                         VideoProfile = "high",
                                         VideoResolution = "1080",
-                                        Width = "1912"
+                                        Width = 1912
                                     }
                                 },
                             OriginalTitle = null,
                             OriginallyAvailableAt = "2007-05-11",
                             PrimaryExtraKey = "/library/metadata/64418",
-                            Rating = "6.6",
+                            //Rating = "6.6",
                             RatingKey = "64142",
-                            Role =
-                                new System.Collections.Generic.List<
-                                    Role>
+                            Roles = 
+                                new System.Collections.Generic.List<MediaRole>
                                 {
-                                    new Role
+                                    new MediaRole()
                                     {
                                         Tag = "Robert Carlyle"
                                     },
-                                    new Role
+                                    new MediaRole
                                     {
                                         Tag = "Rose Byrne"
                                     },
-                                    new Role
+                                    new MediaRole
                                     {
                                         Tag = "Jeremy Renner"
                                     }
                                 },
-                            SkipCount = null,
+                            //SkipCount = null,
                             Studio = "DNA Films",
                             Summary =
                                 "The inhabitants of the British Isles have lost their battle against the onslaught of disease, as the deadly rage virus has killed every citizen there. Six months later, a group of Americans dare to set foot on the isles, convinced the danger has come and gone. But it soon becomes all too clear that the scourge continues to live, waiting to pounce on its next victims.",
@@ -404,13 +396,12 @@ namespace Elzik.Mecon.Framework.Tests.Unit.Infrastructure.Plex.TestData
                             Title = "28 Weeks Later",
                             TitleSort = null,
                             Type = "movie",
-                            UpdatedAt = "1628558849",
-                            UserRating = null,
-                            ViewCount = null,
-                            ViewOffset = null,
-                            Writer =
-                                new System.Collections.Generic.List<
-                                    Writer>
+                            UpdatedAt = 1628558849,
+                            //UserRating = null,
+                            //ViewCount = null,
+                            //ViewOffset = null,
+                            Writers =
+                                new System.Collections.Generic.List<Writer>
                                 {
                                     new Writer
                                     {
@@ -421,11 +412,11 @@ namespace Elzik.Mecon.Framework.Tests.Unit.Infrastructure.Plex.TestData
                                         Tag = "Enrique López Lavigne"
                                     }
                                 },
-                            Year = "2007"
+                            Year = 2007
                         }
                     },
                 ViewGroup = "movie",
-                ViewMode = "65592"
+                ViewMode = 65592
             };
         }
     }

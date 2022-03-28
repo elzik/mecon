@@ -10,6 +10,10 @@ using Elzik.Mecon.Framework.Tests.Unit.Infrastructure.Plex.TestData;
 using FluentAssertions;
 using Microsoft.Extensions.Options;
 using NSubstitute;
+using Plex.ServerApi.Clients.Interfaces;
+using Plex.ServerApi.Enums;
+using Plex.ServerApi.PlexModels.Library;
+using Plex.ServerApi.PlexModels.Media;
 using Xunit;
 
 namespace Elzik.Mecon.Framework.Tests.Unit.Infrastructure.Plex
@@ -17,6 +21,7 @@ namespace Elzik.Mecon.Framework.Tests.Unit.Infrastructure.Plex
     public class PlexEntriesTests
     {
         private readonly IFixture _fixture;
+        private readonly IPlexServerClient _mockPlexServerClient;
         private readonly IPlexLibraryClient _mockPlexLibraryClient;
         private readonly MediaContainer _testVideos;
         private readonly LibraryContainer _testLibraries;
@@ -35,11 +40,28 @@ namespace Elzik.Mecon.Framework.Tests.Unit.Infrastructure.Plex
                 .Create();
             _testVideos = TestMediaContainers.GetVideoMediaContainer();
             _plexOptions = new OptionsWrapper<PlexOptions>(_fixture.Create<PlexOptions>());
+            _mockPlexServerClient = Substitute.For<IPlexServerClient>();
+            _mockPlexServerClient
+                .GetLibrariesAsync(
+                    Arg.Is(_plexOptions.Value.AuthToken), 
+                    Arg.Is(_plexOptions.Value.BaseUrl))
+                .Returns(_testLibraries);
             _mockPlexLibraryClient = Substitute.For<IPlexLibraryClient>();
-            _mockPlexLibraryClient.GetLibraries().Returns(_testLibraries);
-            _mockPlexLibraryClient.GetMedia(Arg.Is(_testMovieLibrary.Key)).Returns(_testVideos);
+            _mockPlexLibraryClient.GetLibrarySize(Arg.Is(_plexOptions.Value.AuthToken),
+                Arg.Is(_plexOptions.Value.BaseUrl),
+                Arg.Is(_testMovieLibrary.Key)).Returns(_testVideos.Media.Count);
+            _mockPlexLibraryClient.LibrarySearch(
+                Arg.Is(_plexOptions.Value.AuthToken),
+                Arg.Is(_plexOptions.Value.BaseUrl),
+                Arg.Is(string.Empty),
+                Arg.Is(_testMovieLibrary.Key),
+                Arg.Is(string.Empty),
+                Arg.Is(SearchType.Movie),
+                null,
+                Arg.Is(0),
+                Arg.Is(_testVideos.Media.Count)).Returns(_testVideos);
 
-            _plexEntries = new PlexEntries(_mockPlexLibraryClient, _plexOptions);
+            _plexEntries = new PlexEntries(_mockPlexServerClient, _mockPlexLibraryClient, _plexOptions);
         }
 
         [Fact]
@@ -57,7 +79,7 @@ namespace Elzik.Mecon.Framework.Tests.Unit.Infrastructure.Plex
 
             // Act
             var ex = Assert.Throws<InvalidOperationException>(() =>
-                new PlexEntries(_mockPlexLibraryClient, nullPlexOptions));
+                new PlexEntries(_mockPlexServerClient, _mockPlexLibraryClient, nullPlexOptions));
             
             // Assert
             ex.Message.Should().Be("Value of plexOptions must not be null.");
@@ -77,14 +99,14 @@ namespace Elzik.Mecon.Framework.Tests.Unit.Infrastructure.Plex
         public async Task GetPlexEntries_WithVideoLibrary_ReturnsPlexEntries()
         {
             // Arrange
-            _testLibraries.Directory.Add(_testMovieLibrary);
+            _testLibraries.Libraries.Add(_testMovieLibrary);
 
             // Act
             var plexItems = await _plexEntries.GetPlexEntries();
 
             // Assert
             var plexItemList = plexItems.ToList();
-            plexItemList.Should().HaveSameCount(_testVideos.Video);
+            plexItemList.Should().HaveSameCount(_testVideos.Media);
 
             plexItemList.Should().Contain(entry =>
                 entry.Key.ByteCount == 14920095015 &&
