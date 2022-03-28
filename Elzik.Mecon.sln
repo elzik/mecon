@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Elzik.Mecon.Console", "src\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Elzik.Mecon.Framework.Tests.Unit", "tests\Elzik.Mecon.Framework.Tests.Unit\Elzik.Mecon.Framework.Tests.Unit.csproj", "{6D64CDE0-59B0-4C43-A67B-F88606A3189D}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Elzik.Mecon.Service", "src\Elzik.Mecon.Service\Elzik.Mecon.Service.csproj", "{A04E3666-4678-494B-AF8C-B55042A0D776}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,6 +37,10 @@ Global
 		{6D64CDE0-59B0-4C43-A67B-F88606A3189D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6D64CDE0-59B0-4C43-A67B-F88606A3189D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6D64CDE0-59B0-4C43-A67B-F88606A3189D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A04E3666-4678-494B-AF8C-B55042A0D776}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A04E3666-4678-494B-AF8C-B55042A0D776}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A04E3666-4678-494B-AF8C-B55042A0D776}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A04E3666-4678-494B-AF8C-B55042A0D776}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
