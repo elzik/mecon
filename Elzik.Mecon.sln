@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32319.34
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Elzik.Mecon.Service", "src\Elzik.Mecon.Service\Elzik.Mecon.Service.csproj", "{07FDA0F1-0380-42F7-8346-F8A701766C6B}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Elzik.Mecon.Framework", "src\Elzik.Mecon.Framework\Elzik.Mecon.Framework.csproj", "{72CC5D51-22F7-42EB-B670-A1AED37DF084}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{82104F08-D6CF-4E0A-ADAF-14E51CAAEF84}"
@@ -21,10 +19,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{07FDA0F1-0380-42F7-8346-F8A701766C6B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{07FDA0F1-0380-42F7-8346-F8A701766C6B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{07FDA0F1-0380-42F7-8346-F8A701766C6B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{07FDA0F1-0380-42F7-8346-F8A701766C6B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{72CC5D51-22F7-42EB-B670-A1AED37DF084}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{72CC5D51-22F7-42EB-B670-A1AED37DF084}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{72CC5D51-22F7-42EB-B670-A1AED37DF084}.Release|Any CPU.ActiveCfg = Release|Any CPU
