@@ -54,7 +54,7 @@ namespace Elzik.Mecon.Framework.Infrastructure.Plex
         {
             var videoCount = await _plexLibraryClient.GetLibrarySize(_plexOptions.AuthToken, _plexOptions.BaseUrl, library.Key);
             var mediaContainer = await _plexLibraryClient.LibrarySearch(_plexOptions.AuthToken, _plexOptions.BaseUrl,
-                string.Empty, library.Key, String.Empty, SearchType.Movie, count: videoCount);
+                string.Empty, library.Key, string.Empty, SearchType.Movie, count: videoCount);
             var mediaItems = mediaContainer.Media.Where(video => video.Type != "collection");
 
             var plexEntries = 
