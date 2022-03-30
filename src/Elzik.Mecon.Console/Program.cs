@@ -6,7 +6,7 @@ using Elzik.Mecon.Framework.Domain;
 using Microsoft.Extensions.DependencyInjection;
 
 await Parser.Default.ParseArguments<MeconOptions>(args)
-    .WithParsedAsync(options => 
+    .WithParsedAsync(async options => 
     {
         var config = Configuration.Get();
         var services = Services.Get(config);
@@ -17,8 +17,8 @@ await Parser.Default.ParseArguments<MeconOptions>(args)
         try
         {
             IEnumerable<MediaEntry> entries = options.DirectoryName != null ? 
-                reconciledMedia.GetMediaEntries(options.DirectoryName).Result : 
-                reconciledMedia.GetMediaEntries(options.DirectoryPath, options.FileExtensions).Result;
+                await reconciledMedia.GetMediaEntries(options.DirectoryName) : 
+                await reconciledMedia.GetMediaEntries(options.DirectoryPath, options.FileExtensions);
 
             var badEntries = entries.Where(entry => entry.ReconciledEntries.Count == 0);
 
@@ -32,6 +32,4 @@ await Parser.Default.ParseArguments<MeconOptions>(args)
             Environment.ExitCode = 1;
             Console.Error.WriteLine(e.Message);
         }
-
-        return Task.CompletedTask;
     });
