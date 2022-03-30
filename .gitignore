@@ -332,3 +332,5 @@ ASALocalRun/
 
 # Local History for Visual Studio
 .localhistory/
+/src/Elzik.Mecon.Console/Properties/launchSettings.json
+/src/Elzik.Mecon.Console/appsettings.development.json
