@@ -11,8 +11,7 @@ await Parser.Default.ParseArguments<MeconOptions>(args)
         var config = Configuration.Get();
         var services = Services.Get(config);
 
-        var reconciledMedia = services.GetService<IReconciledMedia>();
-        if (reconciledMedia == null) throw new InvalidOperationException("Failed to instantiate ReconciledMedia.");
+        var reconciledMedia = services.GetRequiredService<IReconciledMedia>();
 
         try
         {
