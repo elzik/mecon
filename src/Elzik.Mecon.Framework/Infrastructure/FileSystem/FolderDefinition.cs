@@ -1,6 +1,6 @@
-﻿namespace Elzik.Mecon.Framework.Infrastructure.FileSystem.Options
+﻿namespace Elzik.Mecon.Framework.Infrastructure.FileSystem
 {
-    public class FolderDefinitionOption
+    public class FolderDefinition
     {
         public string Name { get; set; }
 

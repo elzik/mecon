@@ -36,7 +36,18 @@ namespace Elzik.Mecon.Framework.Application
 
         public async Task<IEnumerable<MediaEntry>> GetMediaEntries(string folderDefinitionName)
         {
-            var mediaFileInfos = _fileSystem.GetMediaFileInfos(folderDefinitionName);
+            var folderDefinition = _fileSystem.GetFolderDefinition(folderDefinitionName);
+
+            var mediaEntries = 
+                await GetMediaEntries(folderDefinition.FolderPath, folderDefinition.SupportedFileExtensions);
+
+            return mediaEntries;
+        }
+
+        private async Task<IEnumerable<MediaEntry>> GetMediaEntries(string folderPath, string[] supportedFileExtensions)
+        {
+            var mediaFileInfos = _fileSystem
+                .GetMediaFileInfos(folderPath, supportedFileExtensions);
 
             var plexItems = new List<PlexEntry>();
             if (_enablePlex)
@@ -74,7 +85,6 @@ namespace Elzik.Mecon.Framework.Application
 
                 return mediaEntry;
             });
-
             return mediaEntries;
         }
 
