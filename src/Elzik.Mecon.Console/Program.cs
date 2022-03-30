@@ -18,9 +18,8 @@ using IFileSystem = Elzik.Mecon.Framework.Infrastructure.FileSystem.IFileSystem;
 
 try
 {
-    var builder = new ConfigurationBuilder();
-    builder.AddJsonFile("appsettings.json");
-    var configuration = builder.Build();
+    var configurationManager = new ConfigurationManager();
+    configurationManager.AddJsonFile("appsettings.json");
 
     var version = Assembly.GetExecutingAssembly().GetName().Version;
     if (version == null) throw new InvalidOperationException("It was not possible to get the assembly version.");
@@ -40,9 +39,9 @@ try
         .AddTransient<IFileSystem, FileSystem>()
         .AddTransient<IDirectory, DirectoryWrapper>()
         .AddTransient<System.IO.Abstractions.IFileSystem, System.IO.Abstractions.FileSystem>()
-        .Configure<FileSystemOptions>(configuration.GetSection("FileSystem"))
-        .Configure<PlexWithCachingOptions>(configuration.GetSection("Plex"))
-        .Configure<PlexOptions>(configuration.GetSection("Plex"))
+        .Configure<FileSystemOptions>(configurationManager.GetSection("FileSystem"))
+        .Configure<PlexWithCachingOptions>(configurationManager.GetSection("Plex"))
+        .Configure<PlexOptions>(configurationManager.GetSection("Plex"))
         .AddTransient<IPlexEntries, PlexEntries>()
         .AddSingleton(apiOptions)
         .AddTransient<IPlexServerClient, PlexServerClient>()
