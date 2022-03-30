@@ -44,7 +44,7 @@ namespace Elzik.Mecon.Framework.Application
             return mediaEntries;
         }
 
-        private async Task<IEnumerable<MediaEntry>> GetMediaEntries(string folderPath, string[] supportedFileExtensions)
+        public async Task<IEnumerable<MediaEntry>> GetMediaEntries(string folderPath, IEnumerable<string> supportedFileExtensions)
         {
             var mediaFileInfos = _fileSystem
                 .GetMediaFileInfos(folderPath, supportedFileExtensions);

@@ -48,7 +48,7 @@ namespace Elzik.Mecon.Framework.Infrastructure.FileSystem
             return folderDefinition;
         }
 
-        public IEnumerable<IFileInfo> GetMediaFileInfos(string folderPath, string[] supportedFileExtensions)
+        public IEnumerable<IFileInfo> GetMediaFileInfos(string folderPath, IEnumerable<string> supportedFileExtensions)
         {
             var files = _directory
                 .EnumerateFiles(folderPath, "*.*", new EnumerationOptions()
@@ -63,11 +63,13 @@ namespace Elzik.Mecon.Framework.Infrastructure.FileSystem
             return fileInfos;
         }
 
-        private static IEnumerable<string> FilterFileExtensions(IEnumerable<string> files, string[] fileExtensions)
+        private static IEnumerable<string> FilterFileExtensions(IEnumerable<string> files, IEnumerable<string> fileExtensions)
         {
-            if (fileExtensions != null && fileExtensions.Any())
+            var extensions = fileExtensions as string[] ?? fileExtensions.ToArray();
+
+            if (extensions.Any())
             {
-                files = files.Where(file => fileExtensions.Any(fileExtension =>
+                files = files.Where(file => extensions.Any(fileExtension =>
                     file.EndsWith(fileExtension, StringComparison.OrdinalIgnoreCase)));
             }
 
