@@ -36,10 +36,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Configuration\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Update="appsettings.development.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
