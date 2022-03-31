@@ -19,11 +19,14 @@ await Parser.Default.ParseArguments<MeconOptions>(args)
                 await reconciledMedia.GetMediaEntries(options.DirectoryName) : 
                 await reconciledMedia.GetMediaEntries(options.DirectoryPath, options.FileExtensions);
 
-            var resultingEntries = entries.WhereNotInPlex();
-
-            foreach (var badEntry in resultingEntries)
+            if (options.MissingFromLibrary)
             {
-                Console.WriteLine(badEntry.FilesystemEntry.FileSystemPath);
+                entries = entries.WhereNotInPlex();
+            }
+
+            foreach (var entry in entries)
+            {
+                Console.WriteLine(entry.FilesystemEntry.FileSystemPath);
             }
         }
         catch (Exception e)
