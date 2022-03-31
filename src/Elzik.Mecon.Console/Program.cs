@@ -19,9 +19,9 @@ await Parser.Default.ParseArguments<MeconOptions>(args)
                 await reconciledMedia.GetMediaEntries(options.DirectoryName) : 
                 await reconciledMedia.GetMediaEntries(options.DirectoryPath, options.FileExtensions);
 
-            var badEntries = entries.Where(entry => entry.ReconciledEntries.Count == 0);
+            var resultingEntries = entries.WhereNotInPlex();
 
-            foreach (var badEntry in badEntries)
+            foreach (var badEntry in resultingEntries)
             {
                 Console.WriteLine(badEntry.FilesystemEntry.FileSystemPath);
             }
