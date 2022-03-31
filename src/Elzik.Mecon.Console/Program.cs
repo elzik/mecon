@@ -3,7 +3,6 @@ using Elzik.Mecon.Console;
 using Elzik.Mecon.Console.CommandLine;
 using Elzik.Mecon.Console.Configuration;
 using Elzik.Mecon.Framework.Application;
-using Elzik.Mecon.Framework.Domain;
 using Microsoft.Extensions.DependencyInjection;
 
 await Parser.Default.ParseArguments<MeconOptions>(args)
@@ -16,7 +15,7 @@ await Parser.Default.ParseArguments<MeconOptions>(args)
 
         try
         {
-            IEnumerable<MediaEntry> entries = options.DirectoryName != null ? 
+            var entries = options.DirectoryName != null ? 
                 await reconciledMedia.GetMediaEntries(options.DirectoryName) : 
                 await reconciledMedia.GetMediaEntries(options.DirectoryPath, options.FileExtensions, options.Recurse!.Value);
 
