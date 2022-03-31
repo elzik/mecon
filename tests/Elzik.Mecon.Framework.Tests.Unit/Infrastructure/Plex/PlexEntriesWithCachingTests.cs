@@ -21,7 +21,7 @@ namespace Elzik.Mecon.Framework.Tests.Unit.Infrastructure.Plex
         private readonly IPlexServerClient _mockPlexServerClient;
         private readonly IPlexLibraryClient _mockPlexLibraryClient;
         private readonly IMemoryCache _mockMemoryCache;
-        private PlexWithCachingOptions _options;
+        private readonly PlexWithCachingOptions _options;
 
         public PlexEntriesWithCachingTests()
         {

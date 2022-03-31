@@ -27,7 +27,6 @@ namespace Elzik.Mecon.Framework.Tests.Unit.Infrastructure.Plex
         private readonly LibraryContainer _testLibraries;
         private readonly Library _testMovieLibrary;
         private readonly OptionsWrapper<PlexOptions> _plexOptions;
-
         private readonly PlexEntries _plexEntries;
 
         public PlexEntriesTests()
