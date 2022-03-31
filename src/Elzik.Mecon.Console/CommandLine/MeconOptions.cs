@@ -26,5 +26,9 @@ namespace Elzik.Mecon.Console.CommandLine
         [Option('L', "missing-from-library", Group = "output filter",
             HelpText = "Filter output to only show files missing from media library.")]
         public bool MissingFromLibrary { get; set; }
+
+        [Option('l', "present-in-library", Group = "output filter",
+            HelpText = "Filter output to only show files present in media library.")]
+        public bool PresentInLibrary { get; set; }
     }
 }

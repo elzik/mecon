@@ -61,7 +61,7 @@ namespace Elzik.Mecon.Framework.Tests.Unit.Domain
         }
 
         [Fact]
-        public void WhereNotInPlex_WithVariousEntries_ReturnsOnlyPlexEntries()
+        public void WhereNotInPlex_WithVariousEntries_ReturnsOnlyNonPlexEntries()
         {
             // Arrange
             var testNonPlexEntries = GetOnlyNonPlexEntries();
@@ -72,6 +72,59 @@ namespace Elzik.Mecon.Framework.Tests.Unit.Domain
 
             // Assert
             entriesNotInPlex.Should().BeEquivalentTo(testNonPlexEntries);
+        }
+
+        [Fact]
+        public void WhereInPlex_WithNoEntries_ReturnsNoEntries()
+        {
+            // Arrange
+            var testEmptyCollection = Array.Empty<MediaEntry>();
+
+            // Act
+            var entriesNotInPlex = testEmptyCollection.WhereInPlex();
+
+            // Assert
+            entriesNotInPlex.Should().BeEmpty();
+        }
+
+        [Fact]
+        public void WhereInPlex_WithNoPlexEntries_ReturnsNoEntries()
+        {
+            // Arrange
+            var nonPlexEntries = GetOnlyNonPlexEntries();
+
+            // Act
+            var entriesNotInPlex = nonPlexEntries.WhereInPlex();
+
+            // Assert
+            entriesNotInPlex.Should().BeEmpty();
+        }
+
+        [Fact]
+        public void WhereInPlex_WithOnlyPlexEntries_ReturnsAllEntries()
+        {
+            // Arrange
+            var plexEntries = GetOnlyPlexEntries();
+
+            // Act
+            var entriesNotInPlex = plexEntries.WhereInPlex();
+
+            // Assert
+            entriesNotInPlex.Should().BeEquivalentTo(plexEntries);
+        }
+
+        [Fact]
+        public void WhereInPlex_WithVariousEntries_ReturnsOnlyPlexEntries()
+        {
+            // Arrange
+            var testPlexEntries = GetOnlyPlexEntries();
+            var testVariousEntries = GetOnlyNonPlexEntries().Concat(testPlexEntries);
+
+            // Act
+            var entriesNotInPlex = testVariousEntries.WhereInPlex();
+
+            // Assert
+            entriesNotInPlex.Should().BeEquivalentTo(testPlexEntries);
         }
 
         private List<MediaEntry> GetOnlyNonPlexEntries()

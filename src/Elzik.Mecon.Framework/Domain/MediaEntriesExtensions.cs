@@ -12,5 +12,10 @@ namespace Elzik.Mecon.Framework.Domain
         {
             return entries.Where(entry => !entry.ReconciledEntries.Any(entry1 => entry1 is PlexEntry));
         }
+
+        public static IEnumerable<MediaEntry> WhereInPlex(this IEnumerable<MediaEntry> entries)
+        {
+            return entries.Where(entry => entry.ReconciledEntries.Any(entry1 => entry1 is PlexEntry));
+        }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using CommandLine;
+using Elzik.Mecon.Console;
 using Elzik.Mecon.Console.CommandLine;
 using Elzik.Mecon.Console.Configuration;
 using Elzik.Mecon.Framework.Application;
@@ -19,10 +20,7 @@ await Parser.Default.ParseArguments<MeconOptions>(args)
                 await reconciledMedia.GetMediaEntries(options.DirectoryName) : 
                 await reconciledMedia.GetMediaEntries(options.DirectoryPath, options.FileExtensions);
 
-            if (options.MissingFromLibrary)
-            {
-                entries = entries.WhereNotInPlex();
-            }
+            entries = entries.PerformOutputFilters(options);
 
             foreach (var entry in entries)
             {

@@ -13,7 +13,6 @@ namespace Elzik.Mecon.Console.CommandLine
 
             var commandParser = new Parser(setting =>
             {
-                setting.CaseSensitive = false;
                 setting.CaseInsensitiveEnumValues = true;
             });
 
