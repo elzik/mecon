@@ -2,7 +2,7 @@
 
 namespace Elzik.Mecon.Console.CommandLine
 {
-    [Verb("ReconcilePlex", isDefault: true, 
+    [Verb("reconcile", isDefault: true, 
         HelpText = "Reconcile media in a directory with media in Plex.")]
     public class MeconOptions
     {
