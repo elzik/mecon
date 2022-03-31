@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Elzik.Mecon.Console": {
+      "commandName": "Project",
+      "commandLineArgs": ""
+    }
+  }
+}
