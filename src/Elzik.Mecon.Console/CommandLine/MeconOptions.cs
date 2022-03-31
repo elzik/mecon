@@ -10,6 +10,7 @@ namespace Elzik.Mecon.Console.CommandLine
         [Option('p', "plex-host", 
             HelpText = "Plex host and port.")]
         public string? PlexBaseUrl { get; set; }
+        
 
         [Option('d', "directory", Group = "file system source",
             HelpText = "Directory of media files to reconcile.")]
@@ -22,6 +23,11 @@ namespace Elzik.Mecon.Console.CommandLine
         [Option('e', "file-extensions", Separator = ',', Default = null,
             HelpText = "Comma-separated list of file extensions to include when searching for files. This option is only valid when the -d option (--directory-definition-name) is supplied. If this is omitted, all files will be found.")]
         public IEnumerable<string>? FileExtensions { get; set; }
+
+        [Option('r', "recurse", Default = true,
+            HelpText = "When finding all files in directory perform a recursive search.")]
+        public bool? Recurse { get; set; }
+        
 
         [Option('L', "missing-from-library", Group = "output filter",
             HelpText = "Filter output to only show files missing from media library.")]

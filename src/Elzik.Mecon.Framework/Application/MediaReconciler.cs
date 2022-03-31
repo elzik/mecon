@@ -39,15 +39,15 @@ namespace Elzik.Mecon.Framework.Application
             var folderDefinition = _fileSystem.GetFolderDefinition(folderDefinitionName);
 
             var mediaEntries = 
-                await GetMediaEntries(folderDefinition.FolderPath, folderDefinition.SupportedFileExtensions);
+                await GetMediaEntries(folderDefinition.FolderPath, folderDefinition.SupportedFileExtensions, folderDefinition.Recurse);
 
             return mediaEntries;
         }
 
-        public async Task<IEnumerable<MediaEntry>> GetMediaEntries(string folderPath, IEnumerable<string> supportedFileExtensions)
+        public async Task<IEnumerable<MediaEntry>> GetMediaEntries(string folderPath, IEnumerable<string> supportedFileExtensions, bool recurse)
         {
             var mediaFileInfos = _fileSystem
-                .GetMediaFileInfos(folderPath, supportedFileExtensions);
+                .GetMediaFileInfos(folderPath, supportedFileExtensions, recurse);
 
             var plexItems = new List<PlexEntry>();
             if (_enablePlex)

@@ -48,12 +48,12 @@ namespace Elzik.Mecon.Framework.Infrastructure.FileSystem
             return folderDefinition;
         }
 
-        public IEnumerable<IFileInfo> GetMediaFileInfos(string folderPath, IEnumerable<string> supportedFileExtensions)
+        public IEnumerable<IFileInfo> GetMediaFileInfos(string folderPath, IEnumerable<string> supportedFileExtensions, bool recurse)
         {
             var files = _directory
                 .EnumerateFiles(folderPath, "*.*", new EnumerationOptions()
                 {
-                    RecurseSubdirectories = true
+                    RecurseSubdirectories = recurse
                 });
 
             files = FilterFileExtensions(files, supportedFileExtensions);

@@ -7,5 +7,7 @@
         public string FolderPath { get; set; }
 
         public string[] SupportedFileExtensions { get; set; }
+
+        public bool Recurse { get; set; } = true;
     }
 }

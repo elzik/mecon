@@ -18,7 +18,7 @@ await Parser.Default.ParseArguments<MeconOptions>(args)
         {
             IEnumerable<MediaEntry> entries = options.DirectoryName != null ? 
                 await reconciledMedia.GetMediaEntries(options.DirectoryName) : 
-                await reconciledMedia.GetMediaEntries(options.DirectoryPath, options.FileExtensions);
+                await reconciledMedia.GetMediaEntries(options.DirectoryPath, options.FileExtensions, options.Recurse!.Value);
 
             entries = entries.PerformOutputFilters(options);
 

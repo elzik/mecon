@@ -8,6 +8,6 @@ namespace Elzik.Mecon.Framework.Application
     {
         Task<IEnumerable<MediaEntry>> GetMediaEntries(string folderDefinitionName);
 
-        Task<IEnumerable<MediaEntry>> GetMediaEntries(string folderPath, IEnumerable<string> supportedFileExtensions);
+        Task<IEnumerable<MediaEntry>> GetMediaEntries(string folderPath, IEnumerable<string> supportedFileExtensions, bool recurse);
     }
 }

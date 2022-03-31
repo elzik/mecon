@@ -67,8 +67,10 @@ namespace Elzik.Mecon.Framework.Tests.Unit.Infrastructure.FileSystemTests
             ex.Message.Should().Be("Value of fileSystemOptions must not be null.");
         }
 
-        [Fact]
-        public void GetMediaFileInfos_NoFileExtensions_ReturnsAllPaths()
+        [Theory]
+        [InlineData(true)]
+        [InlineData(false)]
+        public void GetMediaFileInfos_NoFileExtensions_ReturnsExpectedPaths(bool testRecurse)
         {
             // Arrange
             var testNoFileExtensions = Array.Empty<string>();
@@ -77,12 +79,12 @@ namespace Elzik.Mecon.Framework.Tests.Unit.Infrastructure.FileSystemTests
             _mockDirectory.EnumerateFiles(
                 Arg.Is(testFolderPath), 
                 Arg.Is("*.*"), 
-                Arg.Is<EnumerationOptions>(options => options.RecurseSubdirectories))
+                Arg.Is<EnumerationOptions>(options => options.RecurseSubdirectories == testRecurse))
                 .Returns(_testFileInfos.Select(info => info.FullName));
 
             // Act
             var fileSystem = new FileSystem(_mockDirectory, _mockFileSystem, _testEmptyOptionsWrapper);
-            var filePaths = fileSystem.GetMediaFileInfos(testFolderPath, testNoFileExtensions);
+            var filePaths = fileSystem.GetMediaFileInfos(testFolderPath, testNoFileExtensions, testRecurse);
 
             // Assert
             filePaths.Should().BeEquivalentTo(_testFileInfos);
@@ -103,7 +105,7 @@ namespace Elzik.Mecon.Framework.Tests.Unit.Infrastructure.FileSystemTests
 
             // Act
             var fileSystem = new FileSystem(_mockDirectory, _mockFileSystem, _testEmptyOptionsWrapper);
-            var filePaths = fileSystem.GetMediaFileInfos(testFolderPath, testNonExistingFileExtensions);
+            var filePaths = fileSystem.GetMediaFileInfos(testFolderPath, testNonExistingFileExtensions, true);
 
             // Assert
             filePaths.Should().BeEmpty();
@@ -126,7 +128,7 @@ namespace Elzik.Mecon.Framework.Tests.Unit.Infrastructure.FileSystemTests
 
             // Act
             var fileSystem = new FileSystem(_mockDirectory, _mockFileSystem, _testEmptyOptionsWrapper);
-            var filePaths = fileSystem.GetMediaFileInfos(testFolderPath, testExistingFileExtensions);
+            var filePaths = fileSystem.GetMediaFileInfos(testFolderPath, testExistingFileExtensions, true);
 
             // Assert
             _testFileInfos.RemoveAll(info => info.FullName == "/FileThree.ext3");
