@@ -10,7 +10,12 @@ namespace Elzik.Mecon.Console.CommandLine
         [Option('p', "plex-host", 
             HelpText = "Plex host and port.")]
         public string? PlexBaseUrl { get; set; }
-        
+
+        [OptionConfiguration("Plex", "AuthToken")]
+        [Option('t', "plex-token",
+            HelpText = "Plex host and port.")]
+        public string? PlexToken { get; set; }
+
 
         [Option('d', "directory", Default = ".", Group = "file system source",
             HelpText = "Directory of media files to reconcile.")]
