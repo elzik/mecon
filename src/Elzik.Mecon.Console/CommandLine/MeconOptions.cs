@@ -12,7 +12,7 @@ namespace Elzik.Mecon.Console.CommandLine
         public string? PlexBaseUrl { get; set; }
         
 
-        [Option('d', "directory", Group = "file system source",
+        [Option('d', "directory", Default = ".", Group = "file system source",
             HelpText = "Directory of media files to reconcile.")]
         public string? DirectoryPath { get; set; }
          
