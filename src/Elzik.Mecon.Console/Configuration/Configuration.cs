@@ -14,7 +14,7 @@ namespace Elzik.Mecon.Console.Configuration
         {
             var config = new ConfigurationManager();
 
-            config.AddJsonFile("appsettings.json", false);
+            config.AddJsonFile("appsettings.json", true);
             config.AddJsonFile("appsettings.Development.json", true);
             var environmentArgs = Environment.GetCommandLineArgs();
             var args = environmentArgs.TakeLast(environmentArgs.Length - 1).ToArray();
