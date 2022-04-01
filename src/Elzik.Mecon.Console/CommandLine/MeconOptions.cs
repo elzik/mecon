@@ -1,4 +1,6 @@
-﻿using CommandLine;
+﻿using System.Runtime.CompilerServices;
+using CommandLine;
+using Microsoft.Extensions.Options;
 
 namespace Elzik.Mecon.Console.CommandLine
 {

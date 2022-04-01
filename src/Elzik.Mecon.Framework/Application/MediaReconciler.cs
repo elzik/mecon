@@ -16,8 +16,7 @@ namespace Elzik.Mecon.Framework.Application
         private readonly ILogger<MediaReconciler> _logger;
         private readonly IFileSystem _fileSystem;
         private readonly IPlexEntries _plexEntries;
-        private readonly bool _enablePlex;
-     
+
         public MediaReconciler(ILogger<MediaReconciler> logger, IFileSystem fileSystem, IPlexEntries plexEntries, 
             IOptions<PlexWithCachingOptions> plexOptions)
         {
@@ -29,9 +28,7 @@ namespace Elzik.Mecon.Framework.Application
                 throw new ArgumentNullException(nameof(plexOptions));
             }
 
-            _enablePlex = !string.IsNullOrWhiteSpace(plexOptions.Value.AuthToken) &&
-                          !string.IsNullOrWhiteSpace(plexOptions.Value.BaseUrl);
-            LogPlexConfiguration(plexOptions);
+            ValidatePlexConfiguration(plexOptions);
         }
 
         public async Task<IEnumerable<MediaEntry>> GetMediaEntries(string folderDefinitionName)
@@ -49,13 +46,9 @@ namespace Elzik.Mecon.Framework.Application
             var mediaFileInfos = _fileSystem
                 .GetMediaFileInfos(folderPath, supportedFileExtensions, recurse);
 
-            var plexItems = new List<PlexEntry>();
-            if (_enablePlex)
-            {
-                plexItems.AddRange(await _plexEntries.GetPlexEntries());
-            }
+            var plexItems = await _plexEntries.GetPlexEntries();
 
-            var mediaEntries = mediaFileInfos.Select(fileInfo =>
+                var mediaEntries = mediaFileInfos.Select(fileInfo =>
             {
                 var mediaEntry = new MediaEntry(fileInfo.FullName)
                 {
@@ -66,21 +59,18 @@ namespace Elzik.Mecon.Framework.Application
                     }
                 };
 
-                if (_enablePlex)
-                {
-                    var plexEntries = plexItems
+                var plexEntries = plexItems
                         .Where(m => m.Key == mediaEntry.FilesystemEntry.Key)
                         .ToList();
 
-                    foreach (var plexEntry in plexEntries)
-                    {
-                        mediaEntry.ReconciledEntries.Add(plexEntry);
-                    }
+                foreach (var plexEntry in plexEntries)
+                {
+                    mediaEntry.ReconciledEntries.Add(plexEntry);
+                }
 
-                    if (plexEntries.Any())
-                    {
-                        mediaEntry.ThumbnailUrl = plexEntries.First().ThumbnailUrl;
-                    }
+                if (plexEntries.Any())
+                {
+                    mediaEntry.ThumbnailUrl = plexEntries.First().ThumbnailUrl;
                 }
 
                 return mediaEntry;
@@ -89,20 +79,18 @@ namespace Elzik.Mecon.Framework.Application
             return mediaEntries;
         }
 
-        private void LogPlexConfiguration(IOptions<PlexWithCachingOptions> plexOptions)
+        private void ValidatePlexConfiguration(IOptions<PlexWithCachingOptions> plexOptions)
         {
-            if (_enablePlex)
-            {
-                _logger.LogInformation("Plex reconciliation is enabled against {BaseUrl} with {CacheScheme}.",
+            if (string.IsNullOrWhiteSpace(plexOptions.Value.BaseUrl))
+                throw new InvalidOperationException("No base URL has been supplied for Plex.");
+            if (string.IsNullOrWhiteSpace(plexOptions.Value.AuthToken))
+                throw new InvalidOperationException("No auth token has been supplied for Plex.");
+
+            _logger.LogInformation("Plex reconciliation is enabled against {BaseUrl} with {CacheScheme}.",
                     plexOptions.Value.BaseUrl,
                     plexOptions.Value.CacheExpiry.HasValue
                         ? $"a cache expiration of {plexOptions.Value.CacheExpiry} seconds"
                         : "no caching enabled");
-            }
-            else
-            {
-                _logger.LogInformation("Plex reconciliation is not configured; a BaseUrl and AuthToken must be supplied to enable it.");
-            }
         }
     }
 }
