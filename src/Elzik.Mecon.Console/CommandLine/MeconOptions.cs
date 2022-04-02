@@ -1,6 +1,4 @@
-﻿using System.Runtime.CompilerServices;
-using CommandLine;
-using Microsoft.Extensions.Options;
+﻿using CommandLine;
 
 namespace Elzik.Mecon.Console.CommandLine
 {
@@ -8,7 +6,7 @@ namespace Elzik.Mecon.Console.CommandLine
         HelpText = "Reconcile media in a directory with media in Plex.")]
     public class MeconOptions
     {
-        [OptionConfiguration("Plex", "BaseUrl")]
+        [OptionConfiguration( "Plex", "BaseUrl")]
         [Option('p', "plex-host", 
             HelpText = "Plex host and port.")]
         public string? PlexBaseUrl { get; set; }

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Elzik.Mecon.Console.CommandLine;
+﻿using Elzik.Mecon.Console.CommandLine;
 using Microsoft.Extensions.Configuration;
 
 namespace Elzik.Mecon.Console.Configuration
@@ -18,9 +13,7 @@ namespace Elzik.Mecon.Console.Configuration
 #if DEBUG
             config.AddJsonFile("appsettings.Development.json", true);
 #endif
-            var environmentArgs = Environment.GetCommandLineArgs();
-            var args = environmentArgs.TakeLast(environmentArgs.Length - 1).ToArray();
-            config.AddCommandLineParser(args);
+            config.AddCommandLineParser(Environment.GetCommandLineArgs());
 
             return config;
         }
