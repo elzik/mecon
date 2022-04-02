@@ -1,39 +1,39 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <OutputType>Exe</OutputType>
-    <TargetFramework>net6.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-    <AssemblyName>mecon</AssemblyName>
-  </PropertyGroup>
+	<PropertyGroup>
+		<OutputType>Exe</OutputType>
+		<TargetFramework>net6.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<AssemblyName>mecon</AssemblyName>
+	</PropertyGroup>
 
 	<ItemGroup>
-    <Content Include="appsettings.Development.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>Never</CopyToPublishDirectory>
-    </Content>
-    <Content Include="appsettings.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>Always</CopyToPublishDirectory>
-    </Content>
-  </ItemGroup>
+		<Content Include="appsettings.Development.json">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+			<CopyToPublishDirectory>Never</CopyToPublishDirectory>
+		</Content>
+		<Content Include="appsettings.json">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+			<CopyToPublishDirectory>Never</CopyToPublishDirectory>
+		</Content>
+	</ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="CommandLineParser" Version="2.9.0-preview1" />
-    <PackageReference Include="Microsoft.Extensions.Configuration" Version="6.0.1" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.CommandLine" Version="6.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="6.0.0" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Logging" Version="6.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="6.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="6.0.0" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="CommandLineParser" Version="2.9.0-preview1" />
+		<PackageReference Include="Microsoft.Extensions.Configuration" Version="6.0.1" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.CommandLine" Version="6.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="6.0.0" />
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Logging" Version="6.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Logging.Console" Version="6.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="6.0.0" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Elzik.Mecon.Framework\Elzik.Mecon.Framework.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\Elzik.Mecon.Framework\Elzik.Mecon.Framework.csproj" />
+	</ItemGroup>
 
 </Project>
