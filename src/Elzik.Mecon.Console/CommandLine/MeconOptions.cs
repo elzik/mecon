@@ -15,7 +15,7 @@ namespace Elzik.Mecon.Console.CommandLine
 
         [OptionConfiguration("Plex", "AuthToken")]
         [Option('t', "plex-token",
-            HelpText = "Plex host and port.")]
+            HelpText = "Plex token.")]
         public string? PlexToken { get; set; }
 
 
