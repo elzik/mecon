@@ -2,14 +2,15 @@
 using System.Reflection;
 using CommandLine;
 
-namespace Elzik.Mecon.Console.CommandLine
-{
+namespace Elzik.Mecon.Console.CommandLine;
+
 public static class OptionConfigurationParserExtensions
 {
     /// <summary>
     /// Converts <paramref name="options"/> to a representation for
     /// <see cref="Microsoft.Extensions.Configuration.CommandLine.CommandLineConfigurationProvider"/>
     /// </summary>
+    /// <see cref="https://github.com/commandlineparser/commandline/issues/796"/>
     public static IEnumerable<string> ConvertToConfigurationArgs<T>(this Parser parser, T options)
         where T : class
     {
@@ -26,6 +27,7 @@ public static class OptionConfigurationParserExtensions
 
         PropertyInfo previousOption = null;
         var count = 0;
+        var isValue = false;
         for (var i = 0; i < args.Length; i++)
         {
             if (TryGetMappedOption(switchNameMappings, args[i], out var currentOption))
@@ -46,6 +48,7 @@ public static class OptionConfigurationParserExtensions
                 }
 
                 previousOption = currentOption;
+                isValue = true;
             }
             else
             {
@@ -72,7 +75,11 @@ public static class OptionConfigurationParserExtensions
                 }
                 else // arg is an options parameter, or, neither an option nor a parameter
                 {
-                    result.Add(args[i]);
+                    if (isValue)
+                    {
+                        result.Add(args[i]);
+                        isValue = false;
+                    }
                 }
             }
         }
@@ -132,7 +139,7 @@ public static class OptionConfigurationParserExtensions
         var propertyType = propertyInfo.PropertyType;
 
         return propertyType.GetInterfaces().Length == 1
-            && typeof(IEnumerable).IsAssignableFrom(propertyType);
+               && typeof(IEnumerable).IsAssignableFrom(propertyType);
     }
 
     /// <summary>
@@ -150,6 +157,7 @@ public static class OptionConfigurationParserExtensions
     /// </summary>
     private static IEnumerable<PropertyInfo> GetOptionConfigurationProperties(Type type)
     {
+
         var properties = type.GetProperties();
         var result = properties.Where(p =>
             p.GetCustomAttribute<OptionAttribute>() != null
@@ -224,5 +232,4 @@ public static class OptionConfigurationParserExtensions
 
         return optionConfigAttribute;
     }
-}
 }
