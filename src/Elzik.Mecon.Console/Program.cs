@@ -21,10 +21,9 @@ await Parser.Default.ParseArguments<MeconOptions>(args)
 
             entries = entries.PerformOutputFilters(options);
 
-            foreach (var entry in entries)
-            {
-                Console.WriteLine(entry.FilesystemEntry.FileSystemPath);
-            }
+            Console.WriteLine(
+                string.Join(Environment.NewLine, 
+                    entries.Select(entry => entry.FilesystemEntry.FileSystemPath)));
         }
         catch (Exception e)
         {
