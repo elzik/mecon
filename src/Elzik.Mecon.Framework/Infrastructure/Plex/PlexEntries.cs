@@ -10,6 +10,7 @@ using Microsoft.Extensions.Options;
 using Plex.ServerApi.Clients.Interfaces;
 using Plex.ServerApi.Enums;
 using Plex.ServerApi.PlexModels.Library;
+using Plex.ServerApi.PlexModels.Media;
 
 namespace Elzik.Mecon.Framework.Infrastructure.Plex
 {
@@ -37,7 +38,7 @@ namespace Elzik.Mecon.Framework.Infrastructure.Plex
             var plexEntries = new List<PlexEntry>();
             var libraryContainer =
                 await _plexServerClient.GetLibrariesAsync(_plexOptions.AuthToken, _plexOptions.BaseUrl);
-            var videoTypes = new[] {"movie"};
+            var videoTypes = new[] { "movie" };
             var videoLibraries = libraryContainer.Libraries.Where(library => videoTypes.Contains(library.Type));
 
             foreach (var library in videoLibraries)
@@ -52,10 +53,7 @@ namespace Elzik.Mecon.Framework.Infrastructure.Plex
 
         private async Task<IEnumerable<PlexEntry>> GetPlexEntries(Library library)
         {
-            var videoCount = await _plexLibraryClient.GetLibrarySize(_plexOptions.AuthToken, _plexOptions.BaseUrl, library.Key);
-            var mediaContainer = await _plexLibraryClient.LibrarySearch(_plexOptions.AuthToken, _plexOptions.BaseUrl,
-                string.Empty, library.Key, string.Empty, SearchType.Movie, count: videoCount);
-            var mediaItems = mediaContainer.Media.Where(video => video.Type != "collection");
+            var mediaItems = await GetLibraryItems(library);
 
             var plexEntries = 
                 from video in mediaItems
@@ -70,6 +68,25 @@ namespace Elzik.Mecon.Framework.Infrastructure.Plex
                 };
 
             return plexEntries;
+        }
+
+        private async Task<List<Metadata>> GetLibraryItems(Library library)
+        {
+            var mediaItems = new List<Metadata>();
+            var consumptionCount = 0;
+            MediaContainer mediaContainer;
+            do
+            {
+                mediaContainer = await _plexLibraryClient.LibrarySearch(_plexOptions.AuthToken, _plexOptions.BaseUrl,
+                    string.Empty, library.Key, string.Empty, SearchType.Movie, count: _plexOptions.ItemsPerCall,
+                    start: consumptionCount);
+
+                consumptionCount += mediaContainer.Size;
+
+                mediaItems.AddRange(mediaContainer.Media.Where(video => video.Type != "collection"));
+            } while (consumptionCount < mediaContainer.TotalSize);
+
+            return mediaItems;
         }
     }
 }
