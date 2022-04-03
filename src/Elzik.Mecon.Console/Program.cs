@@ -8,13 +8,12 @@ using Microsoft.Extensions.DependencyInjection;
 await Parser.Default.ParseArguments<MeconOptions>(args)
     .WithParsedAsync(async options => 
     {
-        var config = Configuration.Get();
-        var services = Services.Get(config);
-
-        var reconciledMedia = services.GetRequiredService<IReconciledMedia>();
-
         try
         {
+            var config = Configuration.Get();
+            var services = Services.Get(config);
+
+            var reconciledMedia = services.GetRequiredService<IReconciledMedia>();
             var entries = options.DirectoryName != null ? 
                 await reconciledMedia.GetMediaEntries(options.DirectoryName) : 
                 await reconciledMedia.GetMediaEntries(options.DirectoryPath, options.FileExtensions, options.Recurse!.Value);
@@ -28,6 +27,6 @@ await Parser.Default.ParseArguments<MeconOptions>(args)
         catch (Exception e)
         {
             Environment.ExitCode = 1;
-            Console.Error.WriteLine(e.Message);
+            Console.Error.WriteLine($"Error: {e.Message}");
         }
     });
