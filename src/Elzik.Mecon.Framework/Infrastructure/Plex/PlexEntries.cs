@@ -11,6 +11,7 @@ using Plex.ServerApi.Clients.Interfaces;
 using Plex.ServerApi.Enums;
 using Plex.ServerApi.PlexModels.Library;
 using Plex.ServerApi.PlexModels.Media;
+using MediaType = Elzik.Mecon.Framework.Domain.MediaType;
 
 namespace Elzik.Mecon.Framework.Infrastructure.Plex
 {
@@ -33,13 +34,13 @@ namespace Elzik.Mecon.Framework.Infrastructure.Plex
                            throw new InvalidOperationException($"Value of {nameof(plexOptions)} must not be null.");
         }
 
-        public virtual async Task<IEnumerable<PlexEntry>> GetPlexEntries()
+        public virtual async Task<IEnumerable<PlexEntry>> GetPlexEntries(IEnumerable<MediaType> mediaTypesFilter)
         {
             var plexEntries = new List<PlexEntry>();
             var libraryContainer =
                 await _plexServerClient.GetLibrariesAsync(_plexOptions.AuthToken, _plexOptions.BaseUrl);
-            var videoTypes = new[] { "movie" };
-            var videoLibraries = libraryContainer.Libraries.Where(library => videoTypes.Contains(library.Type));
+            var libraryTypes = mediaTypesFilter.ToPlexLibraryTypes();
+            var videoLibraries = libraryContainer.Libraries.Where(library => libraryTypes.Contains(library.Type));
 
             foreach (var library in videoLibraries)
             {
@@ -72,13 +73,20 @@ namespace Elzik.Mecon.Framework.Infrastructure.Plex
 
         private async Task<List<Metadata>> GetLibraryItems(Library library)
         {
+            SearchType searchType = library.Type switch
+            {
+                "movie" => SearchType.Movie,
+                "show" => SearchType.Episode,
+                _ => throw new InvalidOperationException($"Unsupported library type {library.Type}.")
+            };
+
             var mediaItems = new List<Metadata>();
             var consumptionCount = 0;
             MediaContainer mediaContainer;
             do
             {
                 mediaContainer = await _plexLibraryClient.LibrarySearch(_plexOptions.AuthToken, _plexOptions.BaseUrl,
-                    string.Empty, library.Key, string.Empty, SearchType.Movie, count: _plexOptions.ItemsPerCall,
+                    string.Empty, library.Key, string.Empty, searchType, count: _plexOptions.ItemsPerCall,
                     start: consumptionCount);
 
                 consumptionCount += mediaContainer.Size;

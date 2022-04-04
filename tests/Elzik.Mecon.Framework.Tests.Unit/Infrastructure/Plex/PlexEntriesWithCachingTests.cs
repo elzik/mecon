@@ -8,6 +8,7 @@ using Microsoft.Extensions.Options;
 using NSubstitute;
 using System;
 using System.Threading.Tasks;
+using Elzik.Mecon.Framework.Domain;
 using Plex.ServerApi.Clients.Interfaces;
 using Plex.ServerApi.PlexModels.Library;
 using Xunit;
@@ -22,6 +23,7 @@ namespace Elzik.Mecon.Framework.Tests.Unit.Infrastructure.Plex
         private readonly IPlexLibraryClient _mockPlexLibraryClient;
         private readonly IMemoryCache _mockMemoryCache;
         private readonly PlexWithCachingOptions _options;
+        private readonly MediaType[] _testMediaTypes;
 
         public PlexEntriesWithCachingTests()
         {
@@ -36,6 +38,8 @@ namespace Elzik.Mecon.Framework.Tests.Unit.Infrastructure.Plex
 
             _mockPlexLibraryClient = Substitute.For<IPlexLibraryClient>();
             _mockMemoryCache = Substitute.For<IMemoryCache>();
+
+            _testMediaTypes = new[] { MediaType.Movie, MediaType.TvShow };
         }
 
         [Fact]
@@ -80,7 +84,7 @@ namespace Elzik.Mecon.Framework.Tests.Unit.Infrastructure.Plex
                     _mockMemoryCache, testCacheOptionsWithoutCache);
 
             // Act
-            await plexEntriesWithCaching.GetPlexEntries();
+            await plexEntriesWithCaching.GetPlexEntries(_testMediaTypes);
 
             // Assert
             _mockMemoryCache.DidNotReceiveWithAnyArgs().TryGetValue(Arg.Any<object>(), out _);
@@ -98,7 +102,7 @@ namespace Elzik.Mecon.Framework.Tests.Unit.Infrastructure.Plex
                     _mockMemoryCache, testCacheOptions);
 
             // Act
-            await plexEntriesWithCaching.GetPlexEntries();
+            await plexEntriesWithCaching.GetPlexEntries(_testMediaTypes);
 
             // Assert
             _mockMemoryCache.Received(1).TryGetValue(Arg.Is("PlexEntries"), out _);
@@ -116,7 +120,7 @@ namespace Elzik.Mecon.Framework.Tests.Unit.Infrastructure.Plex
                     _mockMemoryCache, testCacheOptions);
 
             // Act
-            await plexEntriesWithCaching.GetPlexEntries();
+            await plexEntriesWithCaching.GetPlexEntries(_testMediaTypes);
 
             // Assert
             _mockMemoryCache.Received(1).Set(

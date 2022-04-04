@@ -1,4 +1,5 @@
 ﻿using CommandLine;
+using Elzik.Mecon.Framework.Domain;
 
 namespace Elzik.Mecon.Console.CommandLine
 {
@@ -20,13 +21,23 @@ namespace Elzik.Mecon.Console.CommandLine
         [Option('d', "directory", Default = ".", Group = "file system source",
             HelpText = "Directory of media files to reconcile.")]
         public string? DirectoryPath { get; set; }
-         
+
+        [Option('m', "media-types", Separator = ',',
+            HelpText = "Comma-separated list of media types that the specified directory contains in order to avoid " +
+                       "searching through libraries that contain other media types. " +
+                       "Possible options are 'Movie' or 'TvShow'. " +
+                       "This option is only valid when the -d option (--directory-definition-name) is supplied. " +
+                       "If this is omitted, all libraries of all media types will be searched.")]
+        public IEnumerable<MediaType>? MediaTypes { get; set; }
+
         [Option('n', "directory-definition-name", Group = "file system source",
             HelpText = "Definition name of directory of media files to reconcile.")]
         public string? DirectoryName { get; set; }
 
         [Option('e', "file-extensions", Separator = ',', Default = null,
-            HelpText = "Comma-separated list of file extensions to include when searching for files. This option is only valid when the -d option (--directory-definition-name) is supplied. If this is omitted, all files will be found.")]
+            HelpText = "Comma-separated list of file extensions to include when searching for files. " +
+                       "This option is only valid when the -d option (--directory-definition-name) is supplied. " +
+                       "If this is omitted, all files will be found.")]
         public IEnumerable<string>? FileExtensions { get; set; }
 
         [Option('r', "recurse", Default = true,

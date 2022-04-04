@@ -16,7 +16,7 @@ await Parser.Default.ParseArguments<MeconOptions>(args)
             var reconciledMedia = services.GetRequiredService<IReconciledMedia>();
             var entries = options.DirectoryName != null ? 
                 await reconciledMedia.GetMediaEntries(options.DirectoryName) : 
-                await reconciledMedia.GetMediaEntries(options.DirectoryPath, options.FileExtensions, options.Recurse!.Value);
+                await reconciledMedia.GetMediaEntries(options.DirectoryPath, options.FileExtensions, options.Recurse!.Value, options.MediaTypes);
 
             entries = entries.PerformOutputFilters(options);
 

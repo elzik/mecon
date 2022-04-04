@@ -7,17 +7,17 @@ namespace Elzik.Mecon.Framework.Tests.Unit.Shared
 {
     public abstract class PropertyTests<T>
     {
-        protected readonly IFixture _fixture;
+        protected readonly IFixture Fixture;
 
         protected PropertyTests()
         {
-            _fixture = new Fixture().Customize(new AutoNSubstituteCustomization());
+            Fixture = new Fixture().Customize(new AutoNSubstituteCustomization());
         }
 
         [Fact]
         public void WritablePropertyAssertions()
         {
-            var assertion = new WritablePropertyAssertion(_fixture);
+            var assertion = new WritablePropertyAssertion(Fixture);
 
             assertion.Verify(typeof(T).GetProperties());
         }

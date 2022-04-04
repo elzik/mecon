@@ -12,7 +12,7 @@ namespace Elzik.Mecon.Framework.Tests.Unit.Domain
         public void FilesystemEntry_AfterInstantiation_HasDefaultValue()
         {
             // Arrange
-            var testPath = _fixture.Create<string>();
+            var testPath = Fixture.Create<string>();
             var mediaEntry = new MediaEntry(testPath);
 
             // Assert
@@ -24,7 +24,7 @@ namespace Elzik.Mecon.Framework.Tests.Unit.Domain
         public void ReconciledEntries_AfterInstantiation_HasDefaultValue()
         {
             // Arrange
-            var testPath = _fixture.Create<string>();
+            var testPath = Fixture.Create<string>();
             var mediaEntry = new MediaEntry(testPath);
 
             // Assert

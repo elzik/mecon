@@ -6,6 +6,6 @@ namespace Elzik.Mecon.Framework.Infrastructure.Plex
 {
     public interface IPlexEntries
     {
-        Task<IEnumerable<PlexEntry>> GetPlexEntries();
+        Task<IEnumerable<PlexEntry>> GetPlexEntries(IEnumerable<MediaType> mediaTypesFilter);
     }
 }

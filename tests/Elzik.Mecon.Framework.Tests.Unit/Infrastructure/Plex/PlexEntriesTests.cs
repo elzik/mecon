@@ -15,6 +15,7 @@ using Plex.ServerApi.Enums;
 using Plex.ServerApi.PlexModels.Library;
 using Plex.ServerApi.PlexModels.Media;
 using Xunit;
+using MediaType = Elzik.Mecon.Framework.Domain.MediaType;
 
 namespace Elzik.Mecon.Framework.Tests.Unit.Infrastructure.Plex
 {
@@ -28,6 +29,7 @@ namespace Elzik.Mecon.Framework.Tests.Unit.Infrastructure.Plex
         private readonly Library _testMovieLibrary;
         private readonly OptionsWrapper<PlexOptions> _plexOptions;
         private readonly PlexEntries _plexEntries;
+        private readonly MediaType[] _testMediaTypes;
 
         public PlexEntriesTests()
         {
@@ -68,6 +70,8 @@ namespace Elzik.Mecon.Framework.Tests.Unit.Infrastructure.Plex
                 Arg.Is(0),
                 Arg.Is(_testVideos.Media.Count)).Returns(_testVideos);
 
+            _testMediaTypes = new[] {MediaType.Movie, MediaType.TvShow};
+
             _plexEntries = new PlexEntries(_mockPlexServerClient, _mockPlexLibraryClient, _plexOptions);
         }
 
@@ -96,7 +100,7 @@ namespace Elzik.Mecon.Framework.Tests.Unit.Infrastructure.Plex
         public async Task GetPlexEntries_WithoutVideoLibrary_ReturnsNoPlexEntries()
         {
             // Act
-            var plexItems = await _plexEntries.GetPlexEntries();
+            var plexItems = await _plexEntries.GetPlexEntries(_testMediaTypes);
 
             // Assert
             plexItems.Should().BeEmpty();
@@ -109,7 +113,7 @@ namespace Elzik.Mecon.Framework.Tests.Unit.Infrastructure.Plex
             _testLibraries.Libraries.Add(_testMovieLibrary);
 
             // Act
-            var plexItems = await _plexEntries.GetPlexEntries();
+            var plexItems = await _plexEntries.GetPlexEntries(_testMediaTypes);
 
             // Assert
             var plexItemList = plexItems.ToList();

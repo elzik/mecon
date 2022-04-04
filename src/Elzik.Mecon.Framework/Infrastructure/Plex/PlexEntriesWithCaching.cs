@@ -26,11 +26,11 @@ namespace Elzik.Mecon.Framework.Infrastructure.Plex
             SetMemoryCacheOptions(plexOptions);
         }
 
-        public override async Task<IEnumerable<PlexEntry>> GetPlexEntries()
+        public override async Task<IEnumerable<PlexEntry>> GetPlexEntries(IEnumerable<MediaType> mediaTypesFilter)
         {
             if (!_plexWithCachingOptions.CacheExpiry.HasValue || !_memoryCache.TryGetValue("PlexEntries", out List<PlexEntry> plexEntries))
             {
-                plexEntries = (await base.GetPlexEntries()).ToList();
+                plexEntries = (await base.GetPlexEntries(mediaTypesFilter)).ToList();
 
                 if (_plexWithCachingOptions.CacheExpiry.HasValue)
                 {

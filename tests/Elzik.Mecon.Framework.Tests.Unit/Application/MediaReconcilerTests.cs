@@ -54,7 +54,7 @@ namespace Elzik.Mecon.Framework.Tests.Unit.Application
             .Returns(_testFiles);
 
             _testPlexEntries = _fixture.CreateMany<PlexEntry>().ToList();
-            _mockPlexEntries.GetPlexEntries().Returns(_testPlexEntries);
+            _mockPlexEntries.GetPlexEntries(Arg.Is(_testFolderDefinition.MediaTypes)).Returns(_testPlexEntries);
         }
 
         [Fact]
