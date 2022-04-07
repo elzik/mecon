@@ -48,7 +48,7 @@ jobs:
           tag=$(git describe --tags --abbrev=0)
           release_name="mecon-$tag-${{ matrix.target }}"
           # Build everything
-          dotnet publish src/Elzik.Mecon.Console  --no-build  -p:DebugType=None -p:DebugSymbols=false -p:PublishSingleFile=true --runtime "${{ matrix.target }}" -c Release --self-contained true -p:PublishTrimmed=true -o "$release_name"
+          dotnet publish src/Elzik.Mecon.Console  --no-restore -p:DebugType=None -p:DebugSymbols=false -p:PublishSingleFile=true --runtime "${{ matrix.target }}" -c Release --self-contained true -p:PublishTrimmed=true -o "$release_name"
           # Pack files
           if [ "${{ matrix.target }}" == "win-x64" ]; then
             # Pack to zip for Windows
