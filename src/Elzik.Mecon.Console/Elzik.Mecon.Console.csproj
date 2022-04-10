@@ -9,6 +9,10 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <None Remove="appsettings.Default.json" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<Content Include="appsettings.Development.json">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 			<ExcludeFromSingleFile>true</ExcludeFromSingleFile>
@@ -19,6 +23,10 @@
 			<ExcludeFromSingleFile>true</ExcludeFromSingleFile>
 			<CopyToPublishDirectory>Never</CopyToPublishDirectory>
 		</Content>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <EmbeddedResource Include="appsettings.Default.json" />
 	</ItemGroup>
 
 	<ItemGroup>

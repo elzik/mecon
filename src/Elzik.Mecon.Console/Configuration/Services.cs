@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO.Abstractions;
-using System.Linq;
+﻿using System.IO.Abstractions;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using Elzik.Mecon.Framework.Application;
 using Elzik.Mecon.Framework.Infrastructure.FileSystem.Options;
 using Elzik.Mecon.Framework.Infrastructure.Plex;
@@ -39,7 +34,11 @@ namespace Elzik.Mecon.Console.Configuration
             };
 
             var serviceProvider = new ServiceCollection()
-                .AddLogging(loggingBuilder => loggingBuilder.AddSimpleConsole(options => { options.SingleLine = true; }))
+                .AddLogging(loggingBuilder =>
+                {
+                    loggingBuilder.AddConfiguration(configurationManager.GetSection("Logging"));
+                    loggingBuilder.AddConsole();
+                })
                 .AddSingleton<IReconciledMedia, MediaReconciler>()
                 .AddTransient<IFileSystem, FileSystem>()
                 .AddTransient<IDirectory, DirectoryWrapper>()

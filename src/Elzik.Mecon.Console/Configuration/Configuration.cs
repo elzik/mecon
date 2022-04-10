@@ -1,4 +1,5 @@
-﻿using Elzik.Mecon.Console.CommandLine;
+﻿using System.Reflection;
+using Elzik.Mecon.Console.CommandLine;
 using Microsoft.Extensions.Configuration;
 
 namespace Elzik.Mecon.Console.Configuration
@@ -9,6 +10,8 @@ namespace Elzik.Mecon.Console.Configuration
         {
             var config = new ConfigurationManager();
 
+            config.AddJsonStream(Assembly.GetCallingAssembly()
+                .GetManifestResourceStream("Elzik.Mecon.Console.appsettings.Default.json"));
             config.AddJsonFile("appsettings.json", true);
 #if DEBUG
             config.AddJsonFile("appsettings.Development.json", true);
