@@ -6,6 +6,7 @@ using Elzik.Mecon.Console.CommandLine;
 using Elzik.Mecon.Console.Configuration;
 using Elzik.Mecon.Framework.Application;
 using Microsoft.Extensions.DependencyInjection;
+using Nito.AsyncEx;
 
 var config = Configuration.Get();
 
@@ -19,9 +20,10 @@ Parser.Default.ParseArguments<MeconOptions, ConfigOptions>(args)
             var services = Services.Get(config);
 
             var reconciledMedia = services.GetRequiredService<IReconciledMedia>();
-            var entries = options.DirectoryName != null ? 
-                reconciledMedia.GetMediaEntries(options.DirectoryName).Result : 
-                reconciledMedia.GetMediaEntries(options.DirectoryPath, options.FileExtensions, options.Recurse!.Value, options.MediaTypes).Result;
+            var entries = options.DirectoryName != null ?
+                AsyncContext.Run(() => reconciledMedia.GetMediaEntries(options.DirectoryName)) :
+                AsyncContext.Run(() => reconciledMedia.GetMediaEntries(
+                    options.DirectoryPath, options.FileExtensions, options.Recurse!.Value, options.MediaTypes));
 
             entries = entries.PerformOutputFilters(options);
 
