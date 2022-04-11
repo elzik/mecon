@@ -1,22 +1,27 @@
-﻿using CommandLine;
+﻿using System.Text;
+using System.Text.Json;
+using CommandLine;
 using Elzik.Mecon.Console;
 using Elzik.Mecon.Console.CommandLine;
 using Elzik.Mecon.Console.Configuration;
 using Elzik.Mecon.Framework.Application;
 using Microsoft.Extensions.DependencyInjection;
 
-await Parser.Default.ParseArguments<MeconOptions>(args)
-    .WithParsedAsync(async options => 
+var config = Configuration.Get();
+
+Parser.Default.ParseArguments<MeconOptions, ConfigOptions>(args)
+    .WithParsed<MeconOptions>(options => 
     {
         try
         {
-            var config = Configuration.Get();
+            config.AddCommandLineParser(Environment.GetCommandLineArgs());
+
             var services = Services.Get(config);
 
             var reconciledMedia = services.GetRequiredService<IReconciledMedia>();
             var entries = options.DirectoryName != null ? 
-                await reconciledMedia.GetMediaEntries(options.DirectoryName) : 
-                await reconciledMedia.GetMediaEntries(options.DirectoryPath, options.FileExtensions, options.Recurse!.Value, options.MediaTypes);
+                reconciledMedia.GetMediaEntries(options.DirectoryName).Result : 
+                reconciledMedia.GetMediaEntries(options.DirectoryPath, options.FileExtensions, options.Recurse!.Value, options.MediaTypes).Result;
 
             entries = entries.PerformOutputFilters(options);
 
@@ -29,4 +34,5 @@ await Parser.Default.ParseArguments<MeconOptions>(args)
             Environment.ExitCode = 1;
             Console.Error.WriteLine($"Error: {e.Message}");
         }
-    });
+    }).WithParsed<ConfigOptions>(_ => Console.WriteLine(config.ToJsonString()));
+
