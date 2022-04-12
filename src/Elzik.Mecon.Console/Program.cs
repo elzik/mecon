@@ -10,7 +10,12 @@ using Nito.AsyncEx;
 
 var config = Configuration.Get();
 
-Parser.Default.ParseArguments<MeconOptions, ConfigOptions>(args)
+var commandParser = new Parser(setting =>
+{
+    setting.CaseInsensitiveEnumValues = true;
+});
+
+commandParser.ParseArguments<MeconOptions, ConfigOptions>(args)
     .WithParsed<MeconOptions>(options => 
     {
         try
