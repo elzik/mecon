@@ -90,6 +90,28 @@ namespace Elzik.Mecon.Framework.Tests.Unit.Infrastructure.FileSystemTests
             filePaths.Should().BeEquivalentTo(_testFileInfos);
         }
 
+        [Theory]
+        [InlineData(true)]
+        [InlineData(false)]
+        public void GetMediaFileInfos_NullFileExtensions_ReturnsExpectedPaths(bool testRecurse)
+        {
+            // Arrange
+            var testFolderPath = _fixture.Create<string>();
+
+            _mockDirectory.EnumerateFiles(
+                    Arg.Is(testFolderPath),
+                    Arg.Is("*.*"),
+                    Arg.Is<EnumerationOptions>(options => options.RecurseSubdirectories == testRecurse))
+                .Returns(_testFileInfos.Select(info => info.FullName));
+
+            // Act
+            var fileSystem = new FileSystem(_mockDirectory, _mockFileSystem, _testEmptyOptionsWrapper);
+            var filePaths = fileSystem.GetMediaFileInfos(testFolderPath, null, testRecurse);
+
+            // Assert
+            filePaths.Should().BeEquivalentTo(_testFileInfos);
+        }
+
         [Fact]
         public void GetMediaFileInfos_NoExistingFileExtensions_ReturnsNoPaths()
         {

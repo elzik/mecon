@@ -65,7 +65,9 @@ namespace Elzik.Mecon.Framework.Infrastructure.FileSystem
 
         private static IEnumerable<string> FilterFileExtensions(IEnumerable<string> files, IEnumerable<string> fileExtensions)
         {
-            var extensions = fileExtensions as string[] ?? fileExtensions.ToArray();
+            var extensions = fileExtensions == null
+            ? Array.Empty<string>()
+            : fileExtensions.Select(extension => $".{extension}").ToArray();
 
             if (extensions.Any())
             {
