@@ -48,7 +48,7 @@ namespace Elzik.Mecon.Framework.Tests.Unit.Infrastructure.Plex
         public void ToPlexMediaTypes_WithValidMediaTypes_ReturnsPLexLibraryType()
         {
             // Arrange
-            var testMediaTypes = _fixture.CreateMany<MediaType>().ToArray();
+            var testMediaTypes = _fixture.CreateMany<MediaType>().Distinct().ToArray();
 
             // Act
             var libraryTypes = testMediaTypes.ToPlexLibraryTypes();
@@ -60,10 +60,21 @@ namespace Elzik.Mecon.Framework.Tests.Unit.Infrastructure.Plex
         }
 
         [Fact]
-        public void ToPlexMediaTypes_WithNoMediaTypes_ReturnsAllPLexLibraryType()
+        public void ToPlexMediaTypes_WithNullMediaTypes_ReturnsAllPLexLibraryType()
         {
             // Act
             var libraryTypes = ((MediaType[]) null).ToPlexLibraryTypes();
+
+            // Assert
+            libraryTypes.Should().BeEquivalentTo("movie", "show");
+
+        }
+
+        [Fact]
+        public void ToPlexMediaTypes_WithNoMediaTypes_ReturnsAllPLexLibraryType()
+        {
+            // Act
+            var libraryTypes = (Array.Empty<MediaType>().ToPlexLibraryTypes());
 
             // Assert
             libraryTypes.Should().BeEquivalentTo("movie", "show");

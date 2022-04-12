@@ -20,9 +20,11 @@ namespace Elzik.Mecon.Framework.Infrastructure.Plex
 
         public static IEnumerable<string> ToPlexLibraryTypes(this IEnumerable<MediaType> mediaTypes)
         {
-            return mediaTypes == null ? 
-                Enum.GetValues<MediaType>().Select(type => type.ToPlexLibraryType()) : 
-                mediaTypes.Select(type => type.ToPlexLibraryType());
+            var enumeratedMediaTypes = mediaTypes as MediaType[] ?? Array.Empty<MediaType>();
+
+            return enumeratedMediaTypes.Any()
+                ? enumeratedMediaTypes.Select(type => type.ToPlexLibraryType())
+                : Enum.GetValues<MediaType>().Select(type => type.ToPlexLibraryType());
         }
     }
 }
