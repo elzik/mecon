@@ -26,9 +26,9 @@ namespace Elzik.Mecon.Console.Configuration
             if (version == null) throw new InvalidOperationException("It was not possible to get the assembly version.");
             var apiOptions = new ClientOptions
             {
-                Product = "mecon",
+                Product = Assembly.GetExecutingAssembly().GetName().Name,
                 DeviceName = Environment.MachineName,
-                ClientId = "mecon",
+                ClientId = Assembly.GetExecutingAssembly().GetName().Name,
                 Platform = Environment.OSVersion.Platform.ToString(),
                 Version = version.ToString()
             };
