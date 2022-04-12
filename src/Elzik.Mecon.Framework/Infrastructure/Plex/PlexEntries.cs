@@ -91,7 +91,10 @@ namespace Elzik.Mecon.Framework.Infrastructure.Plex
 
                 consumptionCount += mediaContainer.Size;
 
-                mediaItems.AddRange(mediaContainer.Media.Where(video => video.Type != "collection"));
+                if (mediaContainer.Media != null)
+                {
+                    mediaItems.AddRange(mediaContainer.Media.Where(video => video.Type != "collection"));
+                }
             } while (consumptionCount < mediaContainer.TotalSize);
 
             return mediaItems;

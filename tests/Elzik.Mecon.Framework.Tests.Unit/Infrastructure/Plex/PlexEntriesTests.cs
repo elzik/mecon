@@ -146,5 +146,19 @@ namespace Elzik.Mecon.Framework.Tests.Unit.Infrastructure.Plex
                 entry.Title == "28 Weeks Later" &&
                 entry.Type == "PlexEntry");
         }
+
+        [Fact]
+        public async Task GetPlexEntries_WithEmptyLibrary_ReturnsNoEntries()
+        {
+            // Arrange
+            _testVideos.Media = null;
+            _testLibraries.Libraries.Add(_testMovieLibrary);
+
+            // Act
+            var plexItems = await _plexEntries.GetPlexEntries(_testMediaTypes);
+
+            // Assert
+            plexItems.Should().BeEmpty();
+        }
     }
 }
