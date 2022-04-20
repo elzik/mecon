@@ -8,10 +8,23 @@
 
 ## Example Usage without Configuration
 
-Scan all files in the specified directory (`-d`) and list all files that are not found (`-L`) in a Plex TV or Movie library using the specified Plex server (`-p`) and [your Plex auth token](https://support.plex.tv/articles/204059436-finding-an-authentication-token-x-plex-token/) (`-t`):
+### Example 1
+Scan all files in the specified directory (`-d /path`) and list all files that are not found (`-L`) in a Plex TV or Movie library using the specified Plex server (`-p <url>`) and [your Plex auth token](https://support.plex.tv/articles/204059436-finding-an-authentication-token-x-plex-token/) (`-t <your-token>`):
 ```
 mecon -d /Films -p http://192.168.0.12:32400 -t <your-token> -L
 ```
-
-
- 
+### Example 2
+The same as Example 1 however, only scan `*.mkv` files in the specified directory (`-e mkv`).
+```
+mecon -d /Films -e mkv -p http://192.168.0.12:32400 -t <your-token> -L
+```
+### Example 3
+The same as Example 1 however, don't specify a directory, simply scan the current directory.
+```
+mecon -p http://192.168.0.12:32400 -t <your-token> -L
+```
+### Example 4
+The same as Example 1 however, only seach Plex libraries that contain movies (`-m movie`).
+```
+mecon -d /Films -p http://192.168.0.12:32400 -t <your-token> -m movie -L
+```
