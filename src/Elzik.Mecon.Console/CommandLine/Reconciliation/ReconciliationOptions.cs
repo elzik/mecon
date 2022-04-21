@@ -1,11 +1,11 @@
 ﻿using CommandLine;
 using Elzik.Mecon.Framework.Domain;
 
-namespace Elzik.Mecon.Console.CommandLine
+namespace Elzik.Mecon.Console.CommandLine.Reconciliation
 {
     [Verb("reconcile", isDefault: true, 
         HelpText = "Reconcile media in a directory with media in Plex.")]
-    public class MeconOptions
+    public class ReconciliationOptions
     {
         [OptionConfiguration( "Plex", "BaseUrl")]
         [Option('p', "plex-host", 

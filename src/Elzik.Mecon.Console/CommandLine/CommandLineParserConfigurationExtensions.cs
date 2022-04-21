@@ -1,4 +1,5 @@
 ﻿using CommandLine;
+using Elzik.Mecon.Console.CommandLine.Reconciliation;
 using Microsoft.Extensions.Configuration;
 
 namespace Elzik.Mecon.Console.CommandLine
@@ -16,7 +17,7 @@ namespace Elzik.Mecon.Console.CommandLine
                 setting.CaseInsensitiveEnumValues = true;
             });
 
-            var meconOptions = commandParser.ParseArguments<MeconOptions>(args);
+            var meconOptions = commandParser.ParseArguments<ReconciliationOptions>(args);
             var meconArgs = commandParser.ConvertToConfigurationArgs(meconOptions.Value).ToArray();
 
             configurationBuilder.AddCommandLine(meconArgs);

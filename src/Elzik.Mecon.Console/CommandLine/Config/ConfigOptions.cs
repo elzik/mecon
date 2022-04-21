@@ -1,6 +1,6 @@
 ﻿using CommandLine;
 
-namespace Elzik.Mecon.Console.CommandLine
+namespace Elzik.Mecon.Console.CommandLine.Config
 {
     [Verb("config", HelpText = "Display all configuration options currently in effect.")]
     public class ConfigOptions
