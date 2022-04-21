@@ -22,13 +22,16 @@ namespace Elzik.Mecon.Console.Configuration
     {
         public static ServiceProvider Get(ConfigurationManager configurationManager)
         {
-            var version = Assembly.GetExecutingAssembly().GetName().Version;
+            var fullAssemblyName = Assembly.GetExecutingAssembly().GetName();
+
+            var version = fullAssemblyName.Version;
             if (version == null) throw new InvalidOperationException("It was not possible to get the assembly version.");
+
             var apiOptions = new ClientOptions
             {
-                Product = Assembly.GetExecutingAssembly().GetName().Name,
+                Product = fullAssemblyName.Name,
                 DeviceName = Environment.MachineName,
-                ClientId = Assembly.GetExecutingAssembly().GetName().Name,
+                ClientId = fullAssemblyName.Name,
                 Platform = Environment.OSVersion.Platform.ToString(),
                 Version = version.ToString()
             };
@@ -55,6 +58,7 @@ namespace Elzik.Mecon.Console.Configuration
                 .AddTransient<IPlexFactory, PlexFactory>()
                 .AddTransient<IPlexRequestsHttpClient, PlexRequestsHttpClient>()
                 .BuildServiceProvider();
+
             return serviceProvider;
         }
     }
