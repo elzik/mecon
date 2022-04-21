@@ -4,7 +4,8 @@ using Elzik.Mecon.Framework.Domain;
 namespace Elzik.Mecon.Console.CommandLine.Reconciliation
 {
     [Verb("reconcile", isDefault: true, 
-        HelpText = "Reconcile media in a directory with media in Plex.")]
+        HelpText = "Reconcile media in a directory with media in Plex. " +
+                   "This verb is only explicitly required when used in conjunction with the --help option for getting help.")]
     public class ReconciliationOptions
     {
         [OptionConfiguration( "Plex", "BaseUrl")]
