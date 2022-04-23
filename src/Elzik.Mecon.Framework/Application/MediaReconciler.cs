@@ -31,9 +31,9 @@ namespace Elzik.Mecon.Framework.Application
             ValidatePlexConfiguration(plexOptions);
         }
 
-        public async Task<IEnumerable<MediaEntry>> GetMediaEntries(string folderDefinitionName)
+        public async Task<IEnumerable<MediaEntry>> GetMediaEntries(string folderDefinitionKey)
         {
-            var folderDefinition = _fileSystem.GetFolderDefinition(folderDefinitionName);
+            var folderDefinition = _fileSystem.GetFolderDefinition(folderDefinitionKey);
 
             var mediaEntries = 
                 await GetMediaEntries(

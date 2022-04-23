@@ -17,8 +17,8 @@ namespace Elzik.Mecon.Console.CommandLine.Reconciliation
                 var services = Services.Get(configurationManager);
 
                 var reconciledMedia = services.GetRequiredService<IReconciledMedia>();
-                var entries = reconciliationOptions.DirectoryName != null
-                    ? AsyncContext.Run(() => reconciledMedia.GetMediaEntries(reconciliationOptions.DirectoryName))
+                var entries = reconciliationOptions.DirectoryKey != null
+                    ? AsyncContext.Run(() => reconciledMedia.GetMediaEntries(reconciliationOptions.DirectoryKey))
                     : AsyncContext.Run(() => reconciledMedia.GetMediaEntries(
                         reconciliationOptions.DirectoryPath, reconciliationOptions.FileExtensions,
                         reconciliationOptions.Recurse!.Value, reconciliationOptions.MediaTypes));

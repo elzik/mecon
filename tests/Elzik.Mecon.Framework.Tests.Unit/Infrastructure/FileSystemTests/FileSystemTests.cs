@@ -24,7 +24,7 @@ namespace Elzik.Mecon.Framework.Tests.Unit.Infrastructure.FileSystemTests
         private readonly IDirectory _mockDirectory;
         private readonly IFileSystem _mockFileSystem;
         private readonly List<IFileInfo> _testFileInfos;
-        private readonly OptionsWrapper<FileSystemOptions> _testEmptyOptionsWrapper;
+        private readonly OptionsWrapper<FileSystemOptions> _testOptionsWrapper;
 
         public FileSystemTests()
         {
@@ -43,7 +43,7 @@ namespace Elzik.Mecon.Framework.Tests.Unit.Infrastructure.FileSystemTests
                 _mockFileSystem.FileInfo.FromFileName(Arg.Is(testFileInfo.FullName)).Returns(testFileInfo);
             }
 
-            _testEmptyOptionsWrapper = new OptionsWrapper<FileSystemOptions>(new FileSystemOptions());
+            _testOptionsWrapper = new OptionsWrapper<FileSystemOptions>(new FileSystemOptions());
         }
 
         [Fact]
@@ -83,7 +83,7 @@ namespace Elzik.Mecon.Framework.Tests.Unit.Infrastructure.FileSystemTests
                 .Returns(_testFileInfos.Select(info => info.FullName));
 
             // Act
-            var fileSystem = new FileSystem(_mockDirectory, _mockFileSystem, _testEmptyOptionsWrapper);
+            var fileSystem = new FileSystem(_mockDirectory, _mockFileSystem, _testOptionsWrapper);
             var filePaths = fileSystem.GetMediaFileInfos(testFolderPath, testNoFileExtensions, testRecurse);
 
             // Assert
@@ -105,7 +105,7 @@ namespace Elzik.Mecon.Framework.Tests.Unit.Infrastructure.FileSystemTests
                 .Returns(_testFileInfos.Select(info => info.FullName));
 
             // Act
-            var fileSystem = new FileSystem(_mockDirectory, _mockFileSystem, _testEmptyOptionsWrapper);
+            var fileSystem = new FileSystem(_mockDirectory, _mockFileSystem, _testOptionsWrapper);
             var filePaths = fileSystem.GetMediaFileInfos(testFolderPath, null, testRecurse);
 
             // Assert
@@ -126,7 +126,7 @@ namespace Elzik.Mecon.Framework.Tests.Unit.Infrastructure.FileSystemTests
                 .Returns(_testFileInfos.Select(info => info.FullName));
 
             // Act
-            var fileSystem = new FileSystem(_mockDirectory, _mockFileSystem, _testEmptyOptionsWrapper);
+            var fileSystem = new FileSystem(_mockDirectory, _mockFileSystem, _testOptionsWrapper);
             var filePaths = fileSystem.GetMediaFileInfos(testFolderPath, testNonExistingFileExtensions, true);
 
             // Assert
@@ -149,7 +149,7 @@ namespace Elzik.Mecon.Framework.Tests.Unit.Infrastructure.FileSystemTests
                 .Returns(_testFileInfos.Select(info => info.FullName));
 
             // Act
-            var fileSystem = new FileSystem(_mockDirectory, _mockFileSystem, _testEmptyOptionsWrapper);
+            var fileSystem = new FileSystem(_mockDirectory, _mockFileSystem, _testOptionsWrapper);
             var filePaths = fileSystem.GetMediaFileInfos(testFolderPath, testExistingFileExtensions, true);
 
             // Assert
@@ -161,32 +161,32 @@ namespace Elzik.Mecon.Framework.Tests.Unit.Infrastructure.FileSystemTests
         public void GetFolderDefinition_NoFolderDefinitions_Throws()
         {
             // Arrange
-            var testInvalidFolderDefinitionName = _fixture.Create<string>();
+            var testInvalidFolderDefinitionKey = _fixture.Create<string>();
 
             // Act
-            var fileSystem = new FileSystem(_mockDirectory, _mockFileSystem, _testEmptyOptionsWrapper);
+            var fileSystem = new FileSystem(_mockDirectory, _mockFileSystem, _testOptionsWrapper);
             var ex = Assert.Throws<InvalidOperationException>(() =>
-                fileSystem.GetFolderDefinition(testInvalidFolderDefinitionName));
+                fileSystem.GetFolderDefinition(testInvalidFolderDefinitionKey));
 
             // Assert
-            ex.Message.Should().Be($"No folder definitions are configured; {testInvalidFolderDefinitionName} is not found.");
+            ex.Message.Should().Be($"No folder definitions are configured; {testInvalidFolderDefinitionKey} is not found.");
         }
 
         [Fact]
         public void GetFolderDefinition_EmptyFolderDefinitions_Throws()
         {
             // Arrange
-            var testInvalidFolderDefinitionName = _fixture.Create<string>();
-            var testEmptyFileSystemOptions = new OptionsWrapper<FileSystemOptions>(new FileSystemOptions()
-            { FolderDefinitions = new HashSet<FolderDefinition>() });
+            var testInvalidFolderDefinitionKey = _fixture.Create<string>();
+            var testFileSystemOptions = new OptionsWrapper<FileSystemOptions>(new FileSystemOptions()
+            { FolderDefinitions = new Dictionary<string, FolderDefinition>() });
 
             // Act
-            var fileSystem = new FileSystem(_mockDirectory, _mockFileSystem, testEmptyFileSystemOptions);
+            var fileSystem = new FileSystem(_mockDirectory, _mockFileSystem, testFileSystemOptions);
             var ex = Assert.Throws<InvalidOperationException>(() =>
-                fileSystem.GetFolderDefinition(testInvalidFolderDefinitionName));
+                fileSystem.GetFolderDefinition(testInvalidFolderDefinitionKey));
 
             // Assert
-            ex.Message.Should().Be($"No folder definitions are configured; {testInvalidFolderDefinitionName} is not found.");
+            ex.Message.Should().Be($"No folder definitions are configured; {testInvalidFolderDefinitionKey} is not found.");
         }
 
         [Fact]
@@ -209,18 +209,17 @@ namespace Elzik.Mecon.Framework.Tests.Unit.Infrastructure.FileSystemTests
         public void GetFolderDefinition_FolderDefinitionExists_ReturnsFolderDefinition()
         {
             // Arrange
+            var testValidFolderDefinitionKey = _fixture.Create<string>();
             var testValidFolderDefinition = _fixture.Create<FolderDefinition>();
-            var testEmptyFileSystemOptions = new OptionsWrapper<FileSystemOptions>(new FileSystemOptions()
+            var testFileSystemOptions = new OptionsWrapper<FileSystemOptions>(new FileSystemOptions()
             {
-                FolderDefinitions = new HashSet<FolderDefinition>()
-                {
-                    testValidFolderDefinition
-                }
+                FolderDefinitions = new Dictionary<string, FolderDefinition>()
+                    {{testValidFolderDefinitionKey, testValidFolderDefinition}}
             });
-            var fileSystem = new FileSystem(_mockDirectory, _mockFileSystem, testEmptyFileSystemOptions);
+            var fileSystem = new FileSystem(_mockDirectory, _mockFileSystem, testFileSystemOptions);
 
             // Act
-            var folderDefinition = fileSystem.GetFolderDefinition(testValidFolderDefinition.Name);
+            var folderDefinition = fileSystem.GetFolderDefinition(testValidFolderDefinitionKey);
 
             // Assert
             folderDefinition.Should().Be(testValidFolderDefinition);

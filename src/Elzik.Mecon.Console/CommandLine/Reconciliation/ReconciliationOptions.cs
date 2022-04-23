@@ -31,7 +31,7 @@ namespace Elzik.Mecon.Console.CommandLine.Reconciliation
 
         [Option('n', "directory-definition-name", Group = "file system source",
             HelpText = "Definition name of directory of media files to reconcile.")]
-        public string? DirectoryName { get; set; }
+        public string? DirectoryKey { get; set; }
 
         [Option('r', "recurse", Default = true,
             HelpText = "When finding all files in directory perform a recursive search.")]

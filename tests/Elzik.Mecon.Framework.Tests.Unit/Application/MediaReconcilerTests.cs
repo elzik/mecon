@@ -28,7 +28,7 @@ namespace Elzik.Mecon.Framework.Tests.Unit.Application
         private readonly IFileSystem _mockFileSystem;
         private readonly IPlexEntries _mockPlexEntries;
         private readonly OptionsWrapper<PlexWithCachingOptions> _testPlexOptionsWrapper;
-        private readonly FolderDefinition _testFolderDefinition;
+        private readonly string _testFolderDefinitionKey;
         private readonly List<FileSystemTests.TestFileInfoImplementation> _testFiles;
         private readonly List<PlexEntry> _testPlexEntries;
 
@@ -43,18 +43,19 @@ namespace Elzik.Mecon.Framework.Tests.Unit.Application
             var testPlexOptions = _fixture.Create<PlexWithCachingOptions>();
             _testPlexOptionsWrapper = new OptionsWrapper<PlexWithCachingOptions>(testPlexOptions);
 
-            _testFolderDefinition = _fixture.Create<FolderDefinition>();
+            _testFolderDefinitionKey = _fixture.Create<string>();
+            var testFolderDefinition = _fixture.Create<FolderDefinition>();
 
             _testFiles = _fixture.CreateMany<FileSystemTests.TestFileInfoImplementation>().ToList();
-            _mockFileSystem.GetFolderDefinition(_testFolderDefinition.Name).Returns(_testFolderDefinition);
+            _mockFileSystem.GetFolderDefinition(_testFolderDefinitionKey).Returns(testFolderDefinition);
             _mockFileSystem.GetMediaFileInfos(
-                Arg.Is(_testFolderDefinition.FolderPath), 
-                Arg.Is(_testFolderDefinition.SupportedFileExtensions),
-                Arg.Is(_testFolderDefinition.Recurse))
+                Arg.Is(testFolderDefinition.FolderPath), 
+                Arg.Is(testFolderDefinition.SupportedFileExtensions),
+                Arg.Is(testFolderDefinition.Recurse))
             .Returns(_testFiles);
 
             _testPlexEntries = _fixture.CreateMany<PlexEntry>().ToList();
-            _mockPlexEntries.GetPlexEntries(Arg.Is(_testFolderDefinition.MediaTypes)).Returns(_testPlexEntries);
+            _mockPlexEntries.GetPlexEntries(Arg.Is(testFolderDefinition.MediaTypes)).Returns(_testPlexEntries);
         }
 
         [Fact]
@@ -73,7 +74,7 @@ namespace Elzik.Mecon.Framework.Tests.Unit.Application
             // Act
             var mediaReconciler =
                 new MediaReconciler(_mockLogger, _mockFileSystem, _mockPlexEntries, _testPlexOptionsWrapper);
-            var mediaEntries = await mediaReconciler.GetMediaEntries(_testFolderDefinition.Name);
+            var mediaEntries = await mediaReconciler.GetMediaEntries(_testFolderDefinitionKey);
 
             // Assert
             var mediaEntryList = mediaEntries.ToList();
@@ -109,7 +110,7 @@ namespace Elzik.Mecon.Framework.Tests.Unit.Application
             // Act
             var mediaReconciler =
                 new MediaReconciler(_mockLogger, _mockFileSystem, _mockPlexEntries, _testPlexOptionsWrapper);
-            var mediaEntries = await mediaReconciler.GetMediaEntries(_testFolderDefinition.Name);
+            var mediaEntries = await mediaReconciler.GetMediaEntries(_testFolderDefinitionKey);
 
             // Assert
             var mediaEntryList = mediaEntries.ToList();
