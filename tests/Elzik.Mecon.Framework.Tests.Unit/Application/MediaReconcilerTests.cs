@@ -28,7 +28,7 @@ namespace Elzik.Mecon.Framework.Tests.Unit.Application
         private readonly IFileSystem _mockFileSystem;
         private readonly IPlexEntries _mockPlexEntries;
         private readonly OptionsWrapper<PlexWithCachingOptions> _testPlexOptionsWrapper;
-        private readonly string _testFolderDefinitionKey;
+        private readonly string _testFolderDefinitionName;
         private readonly List<FileSystemTests.TestFileInfoImplementation> _testFiles;
         private readonly List<PlexEntry> _testPlexEntries;
 
@@ -43,11 +43,11 @@ namespace Elzik.Mecon.Framework.Tests.Unit.Application
             var testPlexOptions = _fixture.Create<PlexWithCachingOptions>();
             _testPlexOptionsWrapper = new OptionsWrapper<PlexWithCachingOptions>(testPlexOptions);
 
-            _testFolderDefinitionKey = _fixture.Create<string>();
+            _testFolderDefinitionName = _fixture.Create<string>();
             var testFolderDefinition = _fixture.Create<FolderDefinition>();
 
             _testFiles = _fixture.CreateMany<FileSystemTests.TestFileInfoImplementation>().ToList();
-            _mockFileSystem.GetFolderDefinition(_testFolderDefinitionKey).Returns(testFolderDefinition);
+            _mockFileSystem.GetFolderDefinition(_testFolderDefinitionName).Returns(testFolderDefinition);
             _mockFileSystem.GetMediaFileInfos(
                 Arg.Is(testFolderDefinition.FolderPath), 
                 Arg.Is(testFolderDefinition.SupportedFileExtensions),
@@ -74,7 +74,7 @@ namespace Elzik.Mecon.Framework.Tests.Unit.Application
             // Act
             var mediaReconciler =
                 new MediaReconciler(_mockLogger, _mockFileSystem, _mockPlexEntries, _testPlexOptionsWrapper);
-            var mediaEntries = await mediaReconciler.GetMediaEntries(_testFolderDefinitionKey);
+            var mediaEntries = await mediaReconciler.GetMediaEntries(_testFolderDefinitionName);
 
             // Assert
             var mediaEntryList = mediaEntries.ToList();
@@ -110,7 +110,7 @@ namespace Elzik.Mecon.Framework.Tests.Unit.Application
             // Act
             var mediaReconciler =
                 new MediaReconciler(_mockLogger, _mockFileSystem, _mockPlexEntries, _testPlexOptionsWrapper);
-            var mediaEntries = await mediaReconciler.GetMediaEntries(_testFolderDefinitionKey);
+            var mediaEntries = await mediaReconciler.GetMediaEntries(_testFolderDefinitionName);
 
             // Assert
             var mediaEntryList = mediaEntries.ToList();

@@ -28,21 +28,21 @@ namespace Elzik.Mecon.Framework.Infrastructure.FileSystem
                                  throw new InvalidOperationException($"Value of {nameof(fileSystemOptions)} must not be null.");
         }
 
-        public FolderDefinition GetFolderDefinition(string folderDefinitionKey)
+        public FolderDefinition GetFolderDefinition(string folderDefinitionName)
         {
             if (_fileSystemOptions.FolderDefinitions == null || !_fileSystemOptions.FolderDefinitions.Any())
             {
                 throw new InvalidOperationException("No folder definitions are configured; " +
-                                                    $"{folderDefinitionKey} is not found.");
+                                                    $"{folderDefinitionName} is not found.");
             }
 
-            if (!_fileSystemOptions.FolderDefinitions.ContainsKey(folderDefinitionKey))
+            if (!_fileSystemOptions.FolderDefinitions.ContainsKey(folderDefinitionName))
             {
                 throw new InvalidOperationException(
-                    $"Folder definition with name of {folderDefinitionKey} is not found.");
+                    $"Folder definition with name of {folderDefinitionName} is not found.");
             }
 
-            return _fileSystemOptions.FolderDefinitions[folderDefinitionKey];
+            return _fileSystemOptions.FolderDefinitions[folderDefinitionName];
         }
 
         public IEnumerable<IFileInfo> GetMediaFileInfos(string folderPath, IEnumerable<string> supportedFileExtensions, bool recurse)

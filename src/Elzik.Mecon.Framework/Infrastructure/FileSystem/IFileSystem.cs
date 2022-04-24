@@ -5,7 +5,7 @@ namespace Elzik.Mecon.Framework.Infrastructure.FileSystem
 {
     public interface IFileSystem
     {
-        FolderDefinition GetFolderDefinition(string folderDefinitionKey);
+        FolderDefinition GetFolderDefinition(string folderDefinitionName);
 
         IEnumerable<IFileInfo> GetMediaFileInfos(string folderPath, IEnumerable<string> supportedFileExtensions, bool recurse);
     }
