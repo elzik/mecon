@@ -29,7 +29,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Local Build", "Local Build"
 		Local Build\local-publish.ps1 = Local Build\local-publish.ps1
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Elzik.Mecon.Console.Tests.Unit", "Elzik.Mecon.Console.Tests.Unit\Elzik.Mecon.Console.Tests.Unit.csproj", "{E36F539F-0C1B-4DBB-9309-2DF62D9A7E77}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Elzik.Mecon.Console.Tests.Unit", "tests\Elzik.Mecon.Console.Tests.Unit\Elzik.Mecon.Console.Tests.Unit.csproj", "{E36F539F-0C1B-4DBB-9309-2DF62D9A7E77}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
