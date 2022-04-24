@@ -28,27 +28,27 @@ namespace Elzik.Mecon.Framework.Infrastructure.FileSystem
                                  throw new InvalidOperationException($"Value of {nameof(fileSystemOptions)} must not be null.");
         }
 
-        public FolderDefinition GetFolderDefinition(string folderDefinitionName)
+        public DirectoryDefinition GetDirectoryDefinition(string directoryDefinitionName)
         {
-            if (_fileSystemOptions.FolderDefinitions == null || !_fileSystemOptions.FolderDefinitions.Any())
+            if (_fileSystemOptions.DirectoryDefinitions == null || !_fileSystemOptions.DirectoryDefinitions.Any())
             {
-                throw new InvalidOperationException("No folder definitions are configured; " +
-                                                    $"{folderDefinitionName} is not found.");
+                throw new InvalidOperationException("No directory definitions are configured; " +
+                                                    $"{directoryDefinitionName} is not found.");
             }
 
-            if (!_fileSystemOptions.FolderDefinitions.ContainsKey(folderDefinitionName))
+            if (!_fileSystemOptions.DirectoryDefinitions.ContainsKey(directoryDefinitionName))
             {
                 throw new InvalidOperationException(
-                    $"Folder definition with name of {folderDefinitionName} is not found.");
+                    $"Directory definition with name of {directoryDefinitionName} is not found.");
             }
 
-            return _fileSystemOptions.FolderDefinitions[folderDefinitionName];
+            return _fileSystemOptions.DirectoryDefinitions[directoryDefinitionName];
         }
 
-        public IEnumerable<IFileInfo> GetMediaFileInfos(string folderPath, IEnumerable<string> supportedFileExtensions, bool recurse)
+        public IEnumerable<IFileInfo> GetMediaFileInfos(string directoryPath, IEnumerable<string> supportedFileExtensions, bool recurse)
         {
             var files = _directory
-                .EnumerateFiles(folderPath, "*.*", new EnumerationOptions()
+                .EnumerateFiles(directoryPath, "*.*", new EnumerationOptions()
                 {
                     RecurseSubdirectories = recurse
                 });

@@ -6,10 +6,10 @@ namespace Elzik.Mecon.Framework.Application
 {
     public interface IReconciledMedia
     {
-        Task<IEnumerable<MediaEntry>> GetMediaEntries(string folderDefinitionName);
+        Task<IEnumerable<MediaEntry>> GetMediaEntries(string directoryDefinitionName);
 
         Task<IEnumerable<MediaEntry>> GetMediaEntries(
-            string folderPath, 
+            string directoryPath, 
             IEnumerable<string> supportedFileExtensions, 
             bool recurse, 
             IEnumerable<MediaType> mediaTypes);

@@ -74,17 +74,17 @@ namespace Elzik.Mecon.Framework.Tests.Unit.Infrastructure.FileSystemTests
         {
             // Arrange
             var testNoFileExtensions = Array.Empty<string>();
-            var testFolderPath = _fixture.Create<string>();
+            var testDirectoryPath = _fixture.Create<string>();
 
             _mockDirectory.EnumerateFiles(
-                Arg.Is(testFolderPath), 
+                Arg.Is(testDirectoryPath), 
                 Arg.Is("*.*"), 
                 Arg.Is<EnumerationOptions>(options => options.RecurseSubdirectories == testRecurse))
                 .Returns(_testFileInfos.Select(info => info.FullName));
 
             // Act
             var fileSystem = new FileSystem(_mockDirectory, _mockFileSystem, _testOptionsWrapper);
-            var filePaths = fileSystem.GetMediaFileInfos(testFolderPath, testNoFileExtensions, testRecurse);
+            var filePaths = fileSystem.GetMediaFileInfos(testDirectoryPath, testNoFileExtensions, testRecurse);
 
             // Assert
             filePaths.Should().BeEquivalentTo(_testFileInfos);
@@ -96,17 +96,17 @@ namespace Elzik.Mecon.Framework.Tests.Unit.Infrastructure.FileSystemTests
         public void GetMediaFileInfos_NullFileExtensions_ReturnsExpectedPaths(bool testRecurse)
         {
             // Arrange
-            var testFolderPath = _fixture.Create<string>();
+            var testDirectoryPath = _fixture.Create<string>();
 
             _mockDirectory.EnumerateFiles(
-                    Arg.Is(testFolderPath),
+                    Arg.Is(testDirectoryPath),
                     Arg.Is("*.*"),
                     Arg.Is<EnumerationOptions>(options => options.RecurseSubdirectories == testRecurse))
                 .Returns(_testFileInfos.Select(info => info.FullName));
 
             // Act
             var fileSystem = new FileSystem(_mockDirectory, _mockFileSystem, _testOptionsWrapper);
-            var filePaths = fileSystem.GetMediaFileInfos(testFolderPath, null, testRecurse);
+            var filePaths = fileSystem.GetMediaFileInfos(testDirectoryPath, null, testRecurse);
 
             // Assert
             filePaths.Should().BeEquivalentTo(_testFileInfos);
@@ -117,17 +117,17 @@ namespace Elzik.Mecon.Framework.Tests.Unit.Infrastructure.FileSystemTests
         {
             // Arrange
             var testNonExistingFileExtensions = new[] {"no1", "no2", "no3"};
-            var testFolderPath = _fixture.Create<string>();
+            var testDirectoryPath = _fixture.Create<string>();
 
             _mockDirectory.EnumerateFiles(
-                    Arg.Is(testFolderPath),
+                    Arg.Is(testDirectoryPath),
                     Arg.Is("*.*"),
                     Arg.Is<EnumerationOptions>(options => options.RecurseSubdirectories))
                 .Returns(_testFileInfos.Select(info => info.FullName));
 
             // Act
             var fileSystem = new FileSystem(_mockDirectory, _mockFileSystem, _testOptionsWrapper);
-            var filePaths = fileSystem.GetMediaFileInfos(testFolderPath, testNonExistingFileExtensions, true);
+            var filePaths = fileSystem.GetMediaFileInfos(testDirectoryPath, testNonExistingFileExtensions, true);
 
             // Assert
             filePaths.Should().BeEmpty();
@@ -140,17 +140,17 @@ namespace Elzik.Mecon.Framework.Tests.Unit.Infrastructure.FileSystemTests
             params string[] testExistingFileExtensions)
         {
             // Arrange
-            var testFolderPath = _fixture.Create<string>();
+            var testDirectoryPath = _fixture.Create<string>();
 
             _mockDirectory.EnumerateFiles(
-                    Arg.Is(testFolderPath),
+                    Arg.Is(testDirectoryPath),
                     Arg.Is("*.*"),
                     Arg.Is<EnumerationOptions>(options => options.RecurseSubdirectories))
                 .Returns(_testFileInfos.Select(info => info.FullName));
 
             // Act
             var fileSystem = new FileSystem(_mockDirectory, _mockFileSystem, _testOptionsWrapper);
-            var filePaths = fileSystem.GetMediaFileInfos(testFolderPath, testExistingFileExtensions, true);
+            var filePaths = fileSystem.GetMediaFileInfos(testDirectoryPath, testExistingFileExtensions, true);
 
             // Assert
             _testFileInfos.RemoveAll(info => info.FullName == "/FileThree.ext3");
@@ -158,71 +158,71 @@ namespace Elzik.Mecon.Framework.Tests.Unit.Infrastructure.FileSystemTests
         }
 
         [Fact]
-        public void GetFolderDefinition_NoFolderDefinitions_Throws()
+        public void GetDirectoryDefinition_NoDirectoryDefinitions_Throws()
         {
             // Arrange
-            var testInvalidFolderDefinitionName = _fixture.Create<string>();
+            var testInvalidDirectoryDefinitionName = _fixture.Create<string>();
 
             // Act
             var fileSystem = new FileSystem(_mockDirectory, _mockFileSystem, _testOptionsWrapper);
             var ex = Assert.Throws<InvalidOperationException>(() =>
-                fileSystem.GetFolderDefinition(testInvalidFolderDefinitionName));
+                fileSystem.GetDirectoryDefinition(testInvalidDirectoryDefinitionName));
 
             // Assert
-            ex.Message.Should().Be($"No folder definitions are configured; {testInvalidFolderDefinitionName} is not found.");
+            ex.Message.Should().Be($"No directory definitions are configured; {testInvalidDirectoryDefinitionName} is not found.");
         }
 
         [Fact]
-        public void GetFolderDefinition_EmptyFolderDefinitions_Throws()
+        public void GetDirectoryDefinition_EmptyDirectoryDefinitions_Throws()
         {
             // Arrange
-            var testInvalidFolderDefinitionName = _fixture.Create<string>();
+            var testInvalidDirectoryDefinitionName = _fixture.Create<string>();
             var testFileSystemOptions = new OptionsWrapper<FileSystemOptions>(new FileSystemOptions()
-            { FolderDefinitions = new Dictionary<string, FolderDefinition>() });
+            { DirectoryDefinitions = new Dictionary<string, DirectoryDefinition>() });
 
             // Act
             var fileSystem = new FileSystem(_mockDirectory, _mockFileSystem, testFileSystemOptions);
             var ex = Assert.Throws<InvalidOperationException>(() =>
-                fileSystem.GetFolderDefinition(testInvalidFolderDefinitionName));
+                fileSystem.GetDirectoryDefinition(testInvalidDirectoryDefinitionName));
 
             // Assert
-            ex.Message.Should().Be($"No folder definitions are configured; {testInvalidFolderDefinitionName} is not found.");
+            ex.Message.Should().Be($"No directory definitions are configured; {testInvalidDirectoryDefinitionName} is not found.");
         }
 
         [Fact]
-        public void GetFolderDefinition_MissingFolderDefinitions_Throws()
+        public void GetDirectoryDefinition_MissingDirectoryDefinitions_Throws()
         {
             // Arrange
-            var testInvalidFolderDefinitionName = _fixture.Create<string>();
+            var testInvalidDirectoryDefinitionName = _fixture.Create<string>();
             var testEmptyFileSystemOptions = _fixture.Create<OptionsWrapper<FileSystemOptions>>();
 
             // Act
             var fileSystem = new FileSystem(_mockDirectory, _mockFileSystem, testEmptyFileSystemOptions);
             var ex = Assert.Throws<InvalidOperationException>(() =>
-                fileSystem.GetFolderDefinition(testInvalidFolderDefinitionName));
+                fileSystem.GetDirectoryDefinition(testInvalidDirectoryDefinitionName));
 
             // Assert
-            ex.Message.Should().Be($"Folder definition with name of {testInvalidFolderDefinitionName} is not found.");
+            ex.Message.Should().Be($"Directory definition with name of {testInvalidDirectoryDefinitionName} is not found.");
         }
 
         [Fact]
-        public void GetFolderDefinition_FolderDefinitionExists_ReturnsFolderDefinition()
+        public void GetDirectoryDefinition_DirectoryDefinitionExists_ReturnsDirectoryDefinition()
         {
             // Arrange
-            var testValidFolderDefinitionName = _fixture.Create<string>();
-            var testValidFolderDefinition = _fixture.Create<FolderDefinition>();
+            var testValidDirectoryDefinitionName = _fixture.Create<string>();
+            var testValidDirectoryDefinition = _fixture.Create<DirectoryDefinition>();
             var testFileSystemOptions = new OptionsWrapper<FileSystemOptions>(new FileSystemOptions()
             {
-                FolderDefinitions = new Dictionary<string, FolderDefinition>()
-                    {{testValidFolderDefinitionName, testValidFolderDefinition}}
+                DirectoryDefinitions = new Dictionary<string, DirectoryDefinition>()
+                    {{testValidDirectoryDefinitionName, testValidDirectoryDefinition}}
             });
             var fileSystem = new FileSystem(_mockDirectory, _mockFileSystem, testFileSystemOptions);
 
             // Act
-            var folderDefinition = fileSystem.GetFolderDefinition(testValidFolderDefinitionName);
+            var directoryDefinition = fileSystem.GetDirectoryDefinition(testValidDirectoryDefinitionName);
 
             // Assert
-            folderDefinition.Should().Be(testValidFolderDefinition);
+            directoryDefinition.Should().Be(testValidDirectoryDefinition);
         }
     }
 }

@@ -3,9 +3,9 @@ using Elzik.Mecon.Framework.Domain;
 
 namespace Elzik.Mecon.Framework.Infrastructure.FileSystem
 {
-    public class FolderDefinition
+    public class DirectoryDefinition
     {
-        public string FolderPath { get; set; }
+        public string DirectoryPath { get; set; }
 
         public string[] SupportedFileExtensions { get; set; }
 

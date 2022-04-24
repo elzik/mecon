@@ -29,17 +29,17 @@ namespace Elzik.Mecon.Framework.Tests.Integration.Infrastructure.FileSystem.Opti
             // Assert
             fileSystemOptions.Should().NotBeNull();
             fileSystemOptions?.Value.Should().NotBeNull();
-            fileSystemOptions?.Value.FolderDefinitions.Should().NotBeNull();
-            fileSystemOptions?.Value.FolderDefinitions.Should().HaveCount(3);
-            AssertFolderDefinitions(fileSystemOptions, 1);
-            AssertFolderDefinitions(fileSystemOptions, 2);
-            AssertFolderDefinitions(fileSystemOptions, 3);
+            fileSystemOptions?.Value.DirectoryDefinitions.Should().NotBeNull();
+            fileSystemOptions?.Value.DirectoryDefinitions.Should().HaveCount(3);
+            AssertDirectoryDefinitions(fileSystemOptions, 1);
+            AssertDirectoryDefinitions(fileSystemOptions, 2);
+            AssertDirectoryDefinitions(fileSystemOptions, 3);
         }
 
-        private static void AssertFolderDefinitions(IOptions<FileSystemOptions> fileSystemOptions, int i)
+        private static void AssertDirectoryDefinitions(IOptions<FileSystemOptions> fileSystemOptions, int i)
         {
-            fileSystemOptions?.Value.FolderDefinitions[$"test_name_{i}"].FolderPath.Should().Be($"test_path_{i}");
-            fileSystemOptions?.Value.FolderDefinitions[$"test_name_{i}"].SupportedFileExtensions.Should()
+            fileSystemOptions?.Value.DirectoryDefinitions[$"test_name_{i}"].DirectoryPath.Should().Be($"test_path_{i}");
+            fileSystemOptions?.Value.DirectoryDefinitions[$"test_name_{i}"].SupportedFileExtensions.Should()
                 .BeEquivalentTo(new[]
                 {
                     $"test_ext_{i}_1", $"test_ext_{i}_2", $"test_ext_{i}_3"
