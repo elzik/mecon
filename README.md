@@ -80,6 +80,14 @@ Since the directories that you wish to scan are likely to be reused over time, i
 |         appsettings.json            |       Environment Variables            |
 |-------------------------------------|----------------------------------------|
 | "FileSystem": {<br>    "DirectoryDefinitions": {}<br>        "Films": {<br>            "DirectoryPath": "\\Video\\Films",<br>            "SupportedFileExtensions": [ "mkv", "ts", "mp4" ],<br>            "MediaTypes": [ "Movie" ]<br>        },<br>        "TV": {<br>            "DirectoryPath": "\\Video\\TV",<br>            "SupportedFileExtensions": [ "mkv", "ts", "mp4" ],<br>            "MediaTypes": [ "TvShow" ]<br>        }<br>    }<br>} | Mecon__FileSystem__DirectoryDefinitions__Films__DirectoryPath=\Video\Films<br>Mecon__FileSystem__DirectoryDefinitions__Films__SupportedFileExtensions__1=mkv<br>Mecon__FileSystem__DirectoryDefinitions__Films__SupportedFileExtensions__2=ts<br>Mecon__FileSystem__DirectoryDefinitions__Films__SupportedFileExtensions__3=mp4<br>Mecon__FileSystem__DirectoryDefinitions__Films__MediaTypes__1=Movie<br>Mecon__FileSystem__DirectoryDefinitions__TV__DirectoryPath=\Video\TV<br>Mecon__FileSystem__DirectoryDefinitions__TV__SupportedFileExtensions__1=mkv<br>Mecon__FileSystem__DirectoryDefinitions__TV__SupportedFileExtensions__2=ts<br>Mecon__FileSystem__DirectoryDefinitions__TV__SupportedFileExtensions__3=mp4<br>Mecon__FileSystem__DirectoryDefinitions__TV__MediaTypes__1=TvShow<br>|
+### Logging
+Logging by default is implemented using a single-line simple console logger with a log level of `Warning`. This can be reconfigured in many ways. However, this configuration is not in the scope of this documentation; instead refer to [Microsoft's documentation for Console logging and its various options](https://docs.microsoft.com/en-us/dotnet/api/microsoft.extensions.logging.console?view=dotnet-plat-ext-6.0). 
+### Listing Configuration
+Since configuration can be performed by leaving defaults as they are, environment variables, an appsettings.json file or any combination of these layered together, it can be useful to view a list of all of these combinations resolved using the [order of precedence](#configuration) as described at the beginning of this section. This can be performed using mecon's `config` verb and its `-l|--list` option:
+```
+mecon config -l
+```
+This will display all configuration in a JSON format regardless of whether it came from default settings, environment variables or the appsettings.json file.
 
 ## Limitations
 mecon uses each file's name and size in bytes to reconcile files in the file system with items in Plex libraries. In the unlikely event that you have files that are considered different but have identical names and sizes, the reconciliation process will provide unreliable results.
