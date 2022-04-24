@@ -1,5 +1,5 @@
 # mecon
-[![.NET](https://github.com/elzik/mecon/actions/workflows/continous-integration.yml/badge.svg)](https://github.com/elzik/mecon/actions/workflows/continous-integration.yml)
+[![Continuous Intergration](https://github.com/elzik/mecon/actions/workflows/continous-integration.yml/badge.svg)](https://github.com/elzik/mecon/actions/workflows/continous-integration.yml) [![Publish](https://github.com/elzik/mecon/actions/workflows/publish.yml/badge.svg)](https://github.com/elzik/mecon/actions/workflows/publish.yml)
 
 ## Introduction
 **Me**dia R**econ**ciler, or simply _mecon_, is a cross-platform command line tool which reconciles media within a directory with media in a Plex library. It helps answer simple questions such as:
