@@ -91,3 +91,15 @@ This will display all configuration in a JSON format regardless of whether it ca
 
 ## Limitations
 mecon uses each file's name and size in bytes to reconcile files in the file system with items in Plex libraries. In the unlikely event that you have files that are considered different but have identical names and sizes, the reconciliation process will provide unreliable results.
+
+## Versioning & Features slated for v1.0.0
+This application should be considered to be in beta until it reaches a v1.0.0+ version number. The version number can be confirmed using:
+```
+mecon --version
+```
+Features slated for v1.0.0:
+- Progress feedback/spinner
+- Regex output filter (e.g. for ignoring all filenames containing 'sample')
+- File size output filter (e.g. for ignoring all files under 0.5MB)
+- User watched output filter (e.g. show only files watched by a list of users)
+- Packages, installers or manual install instructions
