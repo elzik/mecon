@@ -1,5 +1,4 @@
-﻿using Elzik.Mecon.Console.CommandLine;
-using Elzik.Mecon.Console.CommandLine.Reconciliation;
+﻿using Elzik.Mecon.Console.CommandLine.Reconciliation;
 using Elzik.Mecon.Framework.Domain;
 
 namespace Elzik.Mecon.Console
@@ -13,6 +12,13 @@ namespace Elzik.Mecon.Console
 
             if (options.PresentInLibrary) 
                 entries = entries.WhereInPlex();
+
+            if (options.MatchRegex != null)
+                entries = entries.WhereMatchRegex(options.MatchRegex);
+
+            if (options.NoMatchRegex != null)
+                entries = entries.WhereNoMatchRegex(options.NoMatchRegex);
+
 
             return entries;
         }

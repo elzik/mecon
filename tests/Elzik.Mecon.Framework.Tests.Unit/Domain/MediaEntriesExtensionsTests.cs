@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using AutoFixture;
 using AutoFixture.AutoNSubstitute;
 using Elzik.Mecon.Framework.Domain;
 using FluentAssertions;
-using NSubstitute;
 using Xunit;
 
 namespace Elzik.Mecon.Framework.Tests.Unit.Domain
@@ -127,6 +124,38 @@ namespace Elzik.Mecon.Framework.Tests.Unit.Domain
             entriesNotInPlex.Should().BeEquivalentTo(testPlexEntries);
         }
 
+        [Fact]
+        public void WhereMatchRegex_MatchingTestWord_ReturnsExpectedMatches()
+        {
+            // Arrange
+            var testStrings = GetMediaEntriesForTestWord();
+            var testRegExPattern = "^.*TestWord.*$";
+
+            //Act
+            var matchedStrings = testStrings.WhereMatchRegex(testRegExPattern);
+
+            //Assert
+            matchedStrings.Should()
+                .BeEquivalentTo(testStrings.Where(entry => 
+                    entry.FilesystemEntry.FileSystemPath.Contains("TestWord")));
+        }
+
+        [Fact]
+        public void WhereNoMatchRegex_NotMatchingTestWord_ReturnsExpectedMatches()
+        {
+            // Arrange
+            var testStrings = GetMediaEntriesForTestWord();
+            var testRegExPattern = "^.*TestWord.*$";
+
+            //Act
+            var matchedStrings = testStrings.WhereNoMatchRegex(testRegExPattern);
+
+            //Assert
+            matchedStrings.Should()
+                .BeEquivalentTo(testStrings.Where(entry =>
+                    !entry.FilesystemEntry.FileSystemPath.Contains("TestWord")));
+        }
+
         private List<MediaEntry> GetOnlyNonPlexEntries()
         {
             return _fixture.CreateMany<MediaEntry>().ToList();
@@ -143,6 +172,21 @@ namespace Elzik.Mecon.Framework.Tests.Unit.Domain
             }
 
             return testPlexEntries;
+        }
+
+        private static MediaEntry[] GetMediaEntriesForTestWord()
+        {
+            var testStrings = new[]
+            {
+                new MediaEntry("Example 1 without"),
+                new MediaEntry("Example 2 with TestWord"),
+                new MediaEntry("Example 3 without"),
+                new MediaEntry("Example 4 with TestWord"),
+                new MediaEntry("Example 5 without"),
+                new MediaEntry("Example 6 with TestWord")
+            };
+
+            return testStrings;
         }
     }
 }
