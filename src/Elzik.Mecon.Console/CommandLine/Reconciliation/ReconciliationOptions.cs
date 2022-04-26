@@ -46,12 +46,20 @@ namespace Elzik.Mecon.Console.CommandLine.Reconciliation
                        "If this is omitted, all libraries of all media types will be searched.")]
         public IEnumerable<MediaType>? MediaTypes { get; set; }
 
-        [Option('L', "missing-from-library", Group = "output filter",
+        [Option('L', "missing-from-library", Group = "required output filter",
             HelpText = "Filter output to only show files missing from media library.")]
         public bool MissingFromLibrary { get; set; }
 
-        [Option('l', "present-in-library", Group = "output filter",
+        [Option('l', "present-in-library", Group = "required output filter",
             HelpText = "Filter output to only show files present in media library.")]
         public bool PresentInLibrary { get; set; }
+
+        [Option('f', "regex-match-filter",
+            HelpText = "Filter output to only show files where the filepath matches a regular expression.")]
+        public string? MatchRegex { get; set; }
+
+        [Option('F', "regex-no-match-filter",
+            HelpText = "Filter output to only show files where the filepath does not match a regular expression.")]
+        public string? NoMatchRegex { get; set; }
     }
 }
