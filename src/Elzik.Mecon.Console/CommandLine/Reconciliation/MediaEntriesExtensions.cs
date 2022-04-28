@@ -1,9 +1,8 @@
-﻿using Elzik.Mecon.Console.CommandLine.Reconciliation;
-using Elzik.Mecon.Framework.Domain;
+﻿using Elzik.Mecon.Framework.Domain;
 
-namespace Elzik.Mecon.Console
+namespace Elzik.Mecon.Console.CommandLine.Reconciliation
 {
-    internal static class Entries
+    internal static class MediaEntriesExtensions
     {
         internal static IEnumerable<MediaEntry> PerformOutputFilters(this IEnumerable<MediaEntry> entries, ReconciliationOptions options)
         {
