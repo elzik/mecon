@@ -7,6 +7,8 @@ namespace Elzik.Mecon.Framework.Infrastructure.FileSystem
     {
         public string DirectoryPath { get; set; }
 
+        public string DirectoryFilterRegexPattern { get; set; }
+
         public string[] SupportedFileExtensions { get; set; }
 
         public bool Recurse { get; set; } = true;

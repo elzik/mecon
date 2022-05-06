@@ -12,6 +12,7 @@ namespace Elzik.Mecon.Framework.Application
             string directoryPath, 
             IEnumerable<string> supportedFileExtensions, 
             bool recurse, 
-            IEnumerable<MediaType> mediaTypes);
+            IEnumerable<MediaType> mediaTypes,
+            string directoryFilterRegexPattern);
     }
 }

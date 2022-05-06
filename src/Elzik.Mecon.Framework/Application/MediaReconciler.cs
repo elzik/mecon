@@ -40,7 +40,8 @@ namespace Elzik.Mecon.Framework.Application
                     directoryDefinition.DirectoryPath, 
                     directoryDefinition.SupportedFileExtensions, 
                     directoryDefinition.Recurse, 
-                    directoryDefinition.MediaTypes);
+                    directoryDefinition.MediaTypes,
+                    directoryDefinition.DirectoryFilterRegexPattern);
 
             return mediaEntries;
         }
@@ -49,10 +50,11 @@ namespace Elzik.Mecon.Framework.Application
             string directoryPath, 
             IEnumerable<string> supportedFileExtensions, 
             bool recurse,
-            IEnumerable<MediaType> mediaTypes)
+            IEnumerable<MediaType> mediaTypes,
+            string directoryFilterRegexPattern)
         {
             var mediaFileInfos = _fileSystem
-                .GetMediaFileInfos(directoryPath, supportedFileExtensions, recurse);
+                .GetMediaFileInfos(directoryPath, supportedFileExtensions, recurse, directoryFilterRegexPattern);
 
             var plexItems = await _plexEntries.GetPlexEntries(mediaTypes);
 

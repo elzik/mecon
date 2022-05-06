@@ -75,6 +75,7 @@ namespace Elzik.Mecon.Framework.Tests.Unit.Infrastructure.FileSystemTests
             // Arrange
             var testNoFileExtensions = Array.Empty<string>();
             var testDirectoryPath = _fixture.Create<string>();
+            var testEmptyRegexPattern = string.Empty;
 
             _mockDirectory.EnumerateFiles(
                 Arg.Is(testDirectoryPath), 
@@ -84,7 +85,8 @@ namespace Elzik.Mecon.Framework.Tests.Unit.Infrastructure.FileSystemTests
 
             // Act
             var fileSystem = new FileSystem(_mockDirectory, _mockFileSystem, _testOptionsWrapper);
-            var filePaths = fileSystem.GetMediaFileInfos(testDirectoryPath, testNoFileExtensions, testRecurse);
+            var filePaths = fileSystem.GetMediaFileInfos(testDirectoryPath, testNoFileExtensions, 
+                testRecurse, testEmptyRegexPattern);
 
             // Assert
             filePaths.Should().BeEquivalentTo(_testFileInfos);
@@ -97,6 +99,7 @@ namespace Elzik.Mecon.Framework.Tests.Unit.Infrastructure.FileSystemTests
         {
             // Arrange
             var testDirectoryPath = _fixture.Create<string>();
+            var testEmptyRegexPattern = string.Empty;
 
             _mockDirectory.EnumerateFiles(
                     Arg.Is(testDirectoryPath),
@@ -106,7 +109,8 @@ namespace Elzik.Mecon.Framework.Tests.Unit.Infrastructure.FileSystemTests
 
             // Act
             var fileSystem = new FileSystem(_mockDirectory, _mockFileSystem, _testOptionsWrapper);
-            var filePaths = fileSystem.GetMediaFileInfos(testDirectoryPath, null, testRecurse);
+            var filePaths = fileSystem.GetMediaFileInfos(testDirectoryPath, null, 
+                testRecurse, testEmptyRegexPattern);
 
             // Assert
             filePaths.Should().BeEquivalentTo(_testFileInfos);
@@ -118,6 +122,7 @@ namespace Elzik.Mecon.Framework.Tests.Unit.Infrastructure.FileSystemTests
             // Arrange
             var testNonExistingFileExtensions = new[] {"no1", "no2", "no3"};
             var testDirectoryPath = _fixture.Create<string>();
+            var testEmptyRegexPattern = string.Empty;
 
             _mockDirectory.EnumerateFiles(
                     Arg.Is(testDirectoryPath),
@@ -127,7 +132,8 @@ namespace Elzik.Mecon.Framework.Tests.Unit.Infrastructure.FileSystemTests
 
             // Act
             var fileSystem = new FileSystem(_mockDirectory, _mockFileSystem, _testOptionsWrapper);
-            var filePaths = fileSystem.GetMediaFileInfos(testDirectoryPath, testNonExistingFileExtensions, true);
+            var filePaths = fileSystem.GetMediaFileInfos(testDirectoryPath, testNonExistingFileExtensions, 
+                true, testEmptyRegexPattern);
 
             // Assert
             filePaths.Should().BeEmpty();
@@ -141,6 +147,7 @@ namespace Elzik.Mecon.Framework.Tests.Unit.Infrastructure.FileSystemTests
         {
             // Arrange
             var testDirectoryPath = _fixture.Create<string>();
+            var testEmptyRegexPattern = string.Empty;
 
             _mockDirectory.EnumerateFiles(
                     Arg.Is(testDirectoryPath),
@@ -150,7 +157,8 @@ namespace Elzik.Mecon.Framework.Tests.Unit.Infrastructure.FileSystemTests
 
             // Act
             var fileSystem = new FileSystem(_mockDirectory, _mockFileSystem, _testOptionsWrapper);
-            var filePaths = fileSystem.GetMediaFileInfos(testDirectoryPath, testExistingFileExtensions, true);
+            var filePaths = fileSystem.GetMediaFileInfos(testDirectoryPath, testExistingFileExtensions, 
+                true, testEmptyRegexPattern);
 
             // Assert
             _testFileInfos.RemoveAll(info => info.FullName == "/FileThree.ext3");
@@ -223,6 +231,31 @@ namespace Elzik.Mecon.Framework.Tests.Unit.Infrastructure.FileSystemTests
 
             // Assert
             directoryDefinition.Should().Be(testValidDirectoryDefinition);
+        }
+
+        [Theory]
+        [InlineData(true)]
+        [InlineData(false)]
+        public void GetMediaFileInfos_WithRegExFilter_ReturnsExpectedPaths(bool testRecurse)
+        {
+            // Arrange
+            var testNoFileExtensions = Array.Empty<string>();
+            var testDirectoryPath = _fixture.Create<string>();
+            var testIgnoreFileTwoRegexPattern = "^(?!.*FileTwo).*$";
+
+            _mockDirectory.EnumerateFiles(
+                    Arg.Is(testDirectoryPath),
+                    Arg.Is("*.*"),
+                    Arg.Is<EnumerationOptions>(options => options.RecurseSubdirectories == testRecurse))
+                .Returns(_testFileInfos.Select(info => info.FullName));
+
+            // Act
+            var fileSystem = new FileSystem(_mockDirectory, _mockFileSystem, _testOptionsWrapper);
+            var filePaths = fileSystem.GetMediaFileInfos(testDirectoryPath, testNoFileExtensions, 
+                testRecurse, testIgnoreFileTwoRegexPattern);
+
+            // Assert
+            filePaths.Should().BeEquivalentTo(_testFileInfos.Where(info => !info.Name.Contains("FileTwo")));
         }
     }
 }

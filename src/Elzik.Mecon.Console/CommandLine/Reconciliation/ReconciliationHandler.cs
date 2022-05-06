@@ -21,7 +21,7 @@ namespace Elzik.Mecon.Console.CommandLine.Reconciliation
                     ? AsyncContext.Run(() => reconciledMedia.GetMediaEntries(reconciliationOptions.DirectoryKey))
                     : AsyncContext.Run(() => reconciledMedia.GetMediaEntries(
                         reconciliationOptions.DirectoryPath, reconciliationOptions.FileExtensions,
-                        reconciliationOptions.Recurse!.Value, reconciliationOptions.MediaTypes));
+                        reconciliationOptions.Recurse!.Value, reconciliationOptions.MediaTypes, reconciliationOptions.MatchRegex));
 
                 entries = entries.PerformOutputFilters(reconciliationOptions);
 

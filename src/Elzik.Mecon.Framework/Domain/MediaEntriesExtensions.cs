@@ -15,20 +15,5 @@ namespace Elzik.Mecon.Framework.Domain
         {
             return entries.Where(entry => entry.ReconciledEntries.Any(entry1 => entry1 is PlexEntry));
         }
-        public static IEnumerable<MediaEntry> WhereMatchRegex(this IEnumerable<MediaEntry> entries, string regexPattern)
-        {
-
-            var regex = new Regex(regexPattern, RegexOptions.Compiled);
-
-            return entries.Where(entry => regex.IsMatch(entry.FilesystemEntry.FileSystemPath));
-        }
-
-        public static IEnumerable<MediaEntry> WhereNoMatchRegex(this IEnumerable<MediaEntry> entries, string regexPattern)
-        {
-
-            var regex = new Regex(regexPattern, RegexOptions.Compiled);
-
-            return entries.Where(entry => !regex.IsMatch(entry.FilesystemEntry.FileSystemPath));
-        }
     }
 }

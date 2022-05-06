@@ -12,13 +12,6 @@ namespace Elzik.Mecon.Console.CommandLine.Reconciliation
             if (options.PresentInLibrary) 
                 entries = entries.WhereInPlex();
 
-            if (options.MatchRegex != null)
-                entries = entries.WhereMatchRegex(options.MatchRegex);
-
-            if (options.NoMatchRegex != null)
-                entries = entries.WhereNoMatchRegex(options.NoMatchRegex);
-
-
             return entries;
         }
     }

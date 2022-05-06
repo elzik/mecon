@@ -124,38 +124,6 @@ namespace Elzik.Mecon.Framework.Tests.Unit.Domain
             entriesNotInPlex.Should().BeEquivalentTo(testPlexEntries);
         }
 
-        [Fact]
-        public void WhereMatchRegex_MatchingTestWord_ReturnsExpectedMatches()
-        {
-            // Arrange
-            var testStrings = GetMediaEntriesForTestWord();
-            var testRegExPattern = "^.*TestWord.*$";
-
-            //Act
-            var matchedStrings = testStrings.WhereMatchRegex(testRegExPattern);
-
-            //Assert
-            matchedStrings.Should()
-                .BeEquivalentTo(testStrings.Where(entry => 
-                    entry.FilesystemEntry.FileSystemPath.Contains("TestWord")));
-        }
-
-        [Fact]
-        public void WhereNoMatchRegex_NotMatchingTestWord_ReturnsExpectedMatches()
-        {
-            // Arrange
-            var testStrings = GetMediaEntriesForTestWord();
-            var testRegExPattern = "^.*TestWord.*$";
-
-            //Act
-            var matchedStrings = testStrings.WhereNoMatchRegex(testRegExPattern);
-
-            //Assert
-            matchedStrings.Should()
-                .BeEquivalentTo(testStrings.Where(entry =>
-                    !entry.FilesystemEntry.FileSystemPath.Contains("TestWord")));
-        }
-
         private List<MediaEntry> GetOnlyNonPlexEntries()
         {
             return _fixture.CreateMany<MediaEntry>().ToList();

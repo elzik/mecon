@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.IO.Abstractions;
 using System.Linq;
+using System.Text.RegularExpressions;
 using Elzik.Mecon.Framework.Infrastructure.FileSystem.Options;
 using Microsoft.Extensions.Options;
 
@@ -45,7 +46,8 @@ namespace Elzik.Mecon.Framework.Infrastructure.FileSystem
             return _fileSystemOptions.DirectoryDefinitions[directoryDefinitionName];
         }
 
-        public IEnumerable<IFileInfo> GetMediaFileInfos(string directoryPath, IEnumerable<string> supportedFileExtensions, bool recurse)
+        public IEnumerable<IFileInfo> GetMediaFileInfos(string directoryPath, IEnumerable<string> supportedFileExtensions, 
+            bool recurse, string directoryFilterRegexPattern)
         {
             var files = _directory
                 .EnumerateFiles(directoryPath, "*.*", new EnumerationOptions()
@@ -55,9 +57,21 @@ namespace Elzik.Mecon.Framework.Infrastructure.FileSystem
 
             files = FilterFileExtensions(files, supportedFileExtensions);
 
+            files = FilterRegexPattern(files, directoryFilterRegexPattern);
+
             var fileInfos = files.Select(filePath =>
                 _fileSystem.FileInfo.FromFileName(filePath));
             return fileInfos;
+        }
+
+        private static IEnumerable<string> FilterRegexPattern(IEnumerable<string> files, string directoryFilterRegexPattern)
+        {
+            if (string.IsNullOrWhiteSpace(directoryFilterRegexPattern)) return files;
+
+            var regex = new Regex(directoryFilterRegexPattern, RegexOptions.Compiled);
+            files = files.Where(s => regex.IsMatch(s));
+
+            return files;
         }
 
         private static IEnumerable<string> FilterFileExtensions(IEnumerable<string> files, IEnumerable<string> fileExtensions)
