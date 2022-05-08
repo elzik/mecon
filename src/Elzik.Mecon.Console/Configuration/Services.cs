@@ -1,5 +1,6 @@
 ﻿using System.IO.Abstractions;
 using System.Reflection;
+using Elzik.Mecon.Console.CommandLine.Reconciliation;
 using Elzik.Mecon.Framework.Application;
 using Elzik.Mecon.Framework.Infrastructure.FileSystem.Options;
 using Elzik.Mecon.Framework.Infrastructure.Plex;
@@ -42,6 +43,7 @@ namespace Elzik.Mecon.Console.Configuration
                     loggingBuilder.AddConfiguration(configurationManager.GetSection("Logging"));
                     loggingBuilder.AddConsole();
                 })
+                .AddSingleton<IReconciliationHandler, ReconciliationHandler>()
                 .AddSingleton<IReconciledMedia, MediaReconciler>()
                 .AddTransient<IFileSystem, FileSystem>()
                 .AddTransient<IDirectory, DirectoryWrapper>()

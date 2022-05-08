@@ -1,27 +1,41 @@
-﻿using Elzik.Mecon.Console.Configuration;
-using Elzik.Mecon.Framework.Application;
+﻿using Elzik.Mecon.Framework.Application;
+using Elzik.Mecon.Framework.Infrastructure.FileSystem;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using Nito.AsyncEx;
 
 namespace Elzik.Mecon.Console.CommandLine.Reconciliation
 {
-    public static class ReconciliationHandler
+
+    public class ReconciliationHandler : IReconciliationHandler
     {
-        public static void Handle(ConfigurationManager configurationManager, ReconciliationOptions reconciliationOptions)
+        private readonly IReconciledMedia _reconciledMedia;
+        private readonly IFileSystem _fileSystem;
+
+        public ReconciliationHandler(IReconciledMedia reconciledMedia, IFileSystem fileSystem)
+        {
+            _reconciledMedia = reconciledMedia;
+            _fileSystem = fileSystem;
+        }
+
+        public void Handle(ConfigurationManager configurationManager, ReconciliationOptions reconciliationOptions)
         {
             try
             {
                 configurationManager.AddCommandLineParser(Environment.GetCommandLineArgs());
 
-                var services = Services.Get(configurationManager);
+                var directoryDefinition = reconciliationOptions.DirectoryKey == null
+                    ? new DirectoryDefinition()
+                    {
+                        SupportedFileExtensions =
+                            (reconciliationOptions.FileExtensions ?? Array.Empty<string>()).ToArray(),
+                        MediaTypes = reconciliationOptions.MediaTypes,
+                        Recurse = reconciliationOptions.Recurse ?? false,
+                        DirectoryFilterRegexPattern = reconciliationOptions.MatchRegex,
+                        DirectoryPath = reconciliationOptions.DirectoryPath
+                    }
+                    : _fileSystem.GetDirectoryDefinition(reconciliationOptions.DirectoryKey);
 
-                var reconciledMedia = services.GetRequiredService<IReconciledMedia>();
-                var entries = reconciliationOptions.DirectoryKey != null
-                    ? AsyncContext.Run(() => reconciledMedia.GetMediaEntries(reconciliationOptions.DirectoryKey))
-                    : AsyncContext.Run(() => reconciledMedia.GetMediaEntries(
-                        reconciliationOptions.DirectoryPath, reconciliationOptions.FileExtensions,
-                        reconciliationOptions.Recurse!.Value, reconciliationOptions.MediaTypes, reconciliationOptions.MatchRegex));
+                var entries = AsyncContext.Run(() => _reconciledMedia.GetMediaEntries(directoryDefinition));
 
                 entries = entries.PerformOutputFilters(reconciliationOptions);
 

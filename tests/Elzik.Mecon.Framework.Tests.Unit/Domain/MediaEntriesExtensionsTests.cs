@@ -141,20 +141,5 @@ namespace Elzik.Mecon.Framework.Tests.Unit.Domain
 
             return testPlexEntries;
         }
-
-        private static MediaEntry[] GetMediaEntriesForTestWord()
-        {
-            var testStrings = new[]
-            {
-                new MediaEntry("Example 1 without"),
-                new MediaEntry("Example 2 with TestWord"),
-                new MediaEntry("Example 3 without"),
-                new MediaEntry("Example 4 with TestWord"),
-                new MediaEntry("Example 5 without"),
-                new MediaEntry("Example 6 with TestWord")
-            };
-
-            return testStrings;
-        }
     }
 }

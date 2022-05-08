@@ -48,11 +48,7 @@ namespace Elzik.Mecon.Framework.Tests.Unit.Application
 
             _testFiles = _fixture.CreateMany<FileSystemTests.TestFileInfoImplementation>().ToList();
             _mockFileSystem.GetDirectoryDefinition(_testDirectoryDefinitionName).Returns(testDirectoryDefinition);
-            _mockFileSystem.GetMediaFileInfos(
-                Arg.Is(testDirectoryDefinition.DirectoryPath), 
-                Arg.Is(testDirectoryDefinition.SupportedFileExtensions),
-                Arg.Is(testDirectoryDefinition.Recurse),
-                Arg.Is(testDirectoryDefinition.DirectoryFilterRegexPattern))
+            _mockFileSystem.GetMediaFileInfos(testDirectoryDefinition)
             .Returns(_testFiles);
 
             _testPlexEntries = _fixture.CreateMany<PlexEntry>().ToList();

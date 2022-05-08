@@ -46,21 +46,21 @@ namespace Elzik.Mecon.Framework.Infrastructure.FileSystem
             return _fileSystemOptions.DirectoryDefinitions[directoryDefinitionName];
         }
 
-        public IEnumerable<IFileInfo> GetMediaFileInfos(string directoryPath, IEnumerable<string> supportedFileExtensions, 
-            bool recurse, string directoryFilterRegexPattern)
+        public IEnumerable<IFileInfo> GetMediaFileInfos(DirectoryDefinition directoryDefinition)
         {
             var files = _directory
-                .EnumerateFiles(directoryPath, "*.*", new EnumerationOptions()
+                .EnumerateFiles(directoryDefinition.DirectoryPath, "*.*", new EnumerationOptions()
                 {
-                    RecurseSubdirectories = recurse
+                    RecurseSubdirectories = directoryDefinition.Recurse
                 });
 
-            files = FilterFileExtensions(files, supportedFileExtensions);
+            files = FilterFileExtensions(files, directoryDefinition.SupportedFileExtensions);
 
-            files = FilterRegexPattern(files, directoryFilterRegexPattern);
+            files = FilterRegexPattern(files, directoryDefinition.DirectoryFilterRegexPattern);
 
             var fileInfos = files.Select(filePath =>
                 _fileSystem.FileInfo.FromFileName(filePath));
+
             return fileInfos;
         }
 

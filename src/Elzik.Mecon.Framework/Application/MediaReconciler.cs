@@ -36,29 +36,18 @@ namespace Elzik.Mecon.Framework.Application
             var directoryDefinition = _fileSystem.GetDirectoryDefinition(directoryDefinitionName);
 
             var mediaEntries = 
-                await GetMediaEntries(
-                    directoryDefinition.DirectoryPath, 
-                    directoryDefinition.SupportedFileExtensions, 
-                    directoryDefinition.Recurse, 
-                    directoryDefinition.MediaTypes,
-                    directoryDefinition.DirectoryFilterRegexPattern);
+                await GetMediaEntries(directoryDefinition);
 
             return mediaEntries;
         }
 
-        public async Task<IEnumerable<MediaEntry>> GetMediaEntries(
-            string directoryPath, 
-            IEnumerable<string> supportedFileExtensions, 
-            bool recurse,
-            IEnumerable<MediaType> mediaTypes,
-            string directoryFilterRegexPattern)
+        public async Task<IEnumerable<MediaEntry>> GetMediaEntries(DirectoryDefinition directoryDefinition)
         {
-            var mediaFileInfos = _fileSystem
-                .GetMediaFileInfos(directoryPath, supportedFileExtensions, recurse, directoryFilterRegexPattern);
+            var mediaFileInfos = _fileSystem.GetMediaFileInfos(directoryDefinition);
 
-            var plexItems = await _plexEntries.GetPlexEntries(mediaTypes);
+            var plexItems = await _plexEntries.GetPlexEntries(directoryDefinition.MediaTypes);
 
-                var mediaEntries = mediaFileInfos.Select(fileInfo =>
+            var mediaEntries = mediaFileInfos.Select(fileInfo =>
             {
                 var mediaEntry = new MediaEntry(fileInfo.FullName)
                 {
@@ -70,8 +59,8 @@ namespace Elzik.Mecon.Framework.Application
                 };
 
                 var plexEntries = plexItems
-                        .Where(m => m.Key == mediaEntry.FilesystemEntry.Key)
-                        .ToList();
+                    .Where(m => m.Key == mediaEntry.FilesystemEntry.Key)
+                    .ToList();
 
                 foreach (var plexEntry in plexEntries)
                 {
