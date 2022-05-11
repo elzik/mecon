@@ -17,12 +17,10 @@ namespace Elzik.Mecon.Console.CommandLine.Reconciliation
             _fileSystem = fileSystem;
         }
 
-        public void Handle(ConfigurationManager configurationManager, ReconciliationOptions reconciliationOptions)
+        public void Handle(IConfigurationBuilder configurationBuilder, ReconciliationOptions reconciliationOptions, string[] commandLineArgs)
         {
             try
             {
-                configurationManager.AddCommandLineParser(Environment.GetCommandLineArgs());
-
                 var directoryDefinition = reconciliationOptions.DirectoryKey == null
                     ? new DirectoryDefinition()
                     {

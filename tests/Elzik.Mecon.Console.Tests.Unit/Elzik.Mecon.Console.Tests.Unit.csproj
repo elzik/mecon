@@ -8,11 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Configuration\appsettings.Test.json" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="Configuration\appsettings.Test.json">
+    <Content Include="appsettings.Test.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

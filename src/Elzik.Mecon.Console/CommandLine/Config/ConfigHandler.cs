@@ -1,5 +1,4 @@
-﻿using Elzik.Mecon.Console.Configuration;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 
 namespace Elzik.Mecon.Console.CommandLine.Config
 {

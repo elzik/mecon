@@ -17,7 +17,7 @@ using Plex.ServerApi.Clients.Interfaces;
 using FileSystem = Elzik.Mecon.Framework.Infrastructure.FileSystem.FileSystem;
 using IFileSystem = Elzik.Mecon.Framework.Infrastructure.FileSystem.IFileSystem;
 
-namespace Elzik.Mecon.Console.Configuration
+namespace Elzik.Mecon.Console
 {
     internal static class Services
     {
