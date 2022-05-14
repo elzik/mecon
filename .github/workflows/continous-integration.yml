@@ -32,7 +32,7 @@ jobs:
       with:
         label: Test Coverage
         color: brightgreen
-        path: "mecon/tests/Elzik.Mecon.Framework.Tests.Unit/TestResults/coverage.opencover.xml"
+        path: "tests/Elzik.Mecon.Framework.Tests.Unit/TestResults/coverage.opencover.xml"
         gist-filename: code-coverage.json
         gist-id: 527882e89a938dc78f61a08c300edec4
         gist-auth-token: ${{ secrets.CODE_COVERAGE_AUTH_TOKEN }}  
