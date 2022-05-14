@@ -27,14 +27,13 @@ jobs:
     - name: Test
       run: dotnet test --no-build --verbosity normal -p:CollectCoverage=true -p:CoverletOutput=TestResults/ -p:CoverletOutputFormat=opencover
     - name: Create Test Coverage Badge
-      if: github.ref == 'refs/heads/code-coverage-badge'
       uses: simon-k/dotnet-code-coverage-badge@v1.0.0
       id: create_coverage_badge
       with:
         label: Test Coverage
         color: brightgreen
         path: "tests/Elzik.Mecon.Framework.Tests.Unit/TestResults/coverage.opencover.xml"
-        gist-filename: code-coverage.json
+        gist-filename: code-coverage-${{ github.ref_name }}.json
         gist-id: 527882e89a938dc78f61a08c300edec4
         gist-auth-token: ${{ secrets.CODE_COVERAGE_AUTH_TOKEN }}  
     - name: Print code coverage
