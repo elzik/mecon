@@ -39,3 +39,5 @@ jobs:
         gist-auth-token: ${{ secrets.CODE_COVERAGE_AUTH_TOKEN }}  
     - name: Print code coverage
       run: echo "Code coverage percentage ${{steps.create_coverage_badge.outputs.percentage}}%"
+    - name: Print badge data
+      run: echo "Badge data ${{steps.test_step.outputs.badge}}"
