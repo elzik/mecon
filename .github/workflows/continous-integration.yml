@@ -25,14 +25,19 @@ jobs:
     - name: Build
       run: dotnet build --no-restore
     - name: Test
-      run: dotnet test --no-build --verbosity normal -p:CollectCoverage=true -p:CoverletOutput=TestResults/coverage.opencover.xml -p:MergeWith=../../coverage.opencover.xml -p:CoverletOutputFormat=opencover
+      run: dotnet test --no-build --verbosity normal -p:CollectCoverage=true -p:CoverletOutput=TestResults/coverage.opencover.xml -p:CoverletOutputFormat=opencover
+    - name: ReportGenerator
+      uses: danielpalme/ReportGenerator-GitHub-Action@5.1.6
+      with:
+        reports: 'tests/Elzik.Mecon.Framework.Tests.Unit/TestResults/coverage.opencover.xml;tests/Elzik.Mecon.Framework.Tests.Integration/TestResults/coverage.opencover.xml;tests/Elzik.Mecon.Console.Tests.Unit/TestResults/coverage.opencover.xml;'
+        targetdir: 'tests/TestResults'
     - name: Create Test Coverage Badge
       uses: simon-k/dotnet-code-coverage-badge@v1.0.0
       id: create_coverage_badge
       with:
         label: Test Coverage
         color: brightgreen
-        path: "tests/Elzik.Mecon.Framework.Tests.Unit/TestResults/coverage.opencover.xml"
+        path: "tests/TestResults/coverage.opencover.xml"
         gist-filename: code-coverage-${{ github.ref_name }}.json
         gist-id: 527882e89a938dc78f61a08c300edec4
         gist-auth-token: ${{ secrets.CODE_COVERAGE_AUTH_TOKEN }}  
