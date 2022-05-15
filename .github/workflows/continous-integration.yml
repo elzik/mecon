@@ -38,7 +38,7 @@ jobs:
       with:
         label: Test Coverage
         color: brightgreen
-        path: "tests/TestResults/Cobertura.xml"
+        path: "tests/TestResults/Summary.xml"
         gist-filename: code-coverage-${{ github.ref_name }}.json
         gist-id: 527882e89a938dc78f61a08c300edec4
         gist-auth-token: ${{ secrets.CODE_COVERAGE_AUTH_TOKEN }}  
