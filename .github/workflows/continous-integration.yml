@@ -21,5 +21,5 @@ jobs:
       with:
         dotnet-version: 6.0.x
     - run: |
-        ./Build/continous-integration.ps1
+        sudo ./Build/continous-integration.ps1
         shell: pwsh  
