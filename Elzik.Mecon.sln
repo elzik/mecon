@@ -24,12 +24,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GitHub Workflows", "GitHub 
 		.github\workflows\publish.yml = .github\workflows\publish.yml
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Local Build", "Local Build", "{C8376CE8-A71D-43FF-AAD7-5859033258CC}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{C8376CE8-A71D-43FF-AAD7-5859033258CC}"
 	ProjectSection(SolutionItems) = preProject
-		Local Build\local-publish.ps1 = Local Build\local-publish.ps1
+		continous-integration.ps1 = continous-integration.ps1
+		Build\publish.ps1 = Build\publish.ps1
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Elzik.Mecon.Console.Tests.Unit", "tests\Elzik.Mecon.Console.Tests.Unit\Elzik.Mecon.Console.Tests.Unit.csproj", "{E36F539F-0C1B-4DBB-9309-2DF62D9A7E77}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Elzik.Mecon.Console.Tests.Unit", "tests\Elzik.Mecon.Console.Tests.Unit\Elzik.Mecon.Console.Tests.Unit.csproj", "{E36F539F-0C1B-4DBB-9309-2DF62D9A7E77}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
