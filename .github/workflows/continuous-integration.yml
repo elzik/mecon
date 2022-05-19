@@ -22,3 +22,7 @@ jobs:
         dotnet-version: 6.0.x
     - run: ./Build/continuous-integration.ps1
       shell: pwsh  
+    - uses: actions/upload-artifact@v3
+      with:
+        name: badge_shieldsio_linecoverage_green
+        path: tests/TestResults/badge_shieldsio_linecoverage_green.svg
