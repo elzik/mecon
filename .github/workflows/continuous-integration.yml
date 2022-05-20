@@ -22,7 +22,10 @@ jobs:
         dotnet-version: 6.0.x
     - run: ./Build/continuous-integration.ps1
       shell: pwsh  
-    - uses: actions/upload-artifact@v3
+    - uses: exuanbo/actions-deploy-gist@v1
       with:
-        name: badge_shieldsio_linecoverage_green
-        path: tests/TestResults/badge_shieldsio_linecoverage_green.svg
+        token: ${{ secrets.CODE_COVERAGE_AUTH_TOKEN }}
+        gist_id: 527882e89a938dc78f61a08c300edec4
+        gist_description: "code-coverage-${{ github.ref_name }}"
+        gist_file_name: code-coverage-${{ github.ref_name }}.svg
+        file_path: tests/TestResults/badge_shieldsio_linecoverage_green.svg
