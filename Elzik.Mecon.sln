@@ -26,7 +26,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GitHub Workflows", "GitHub 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{C8376CE8-A71D-43FF-AAD7-5859033258CC}"
 	ProjectSection(SolutionItems) = preProject
-		continuous-integration.ps1 = continuous-integration.ps1
+		Build\continuous-integration.ps1 = Build\continuous-integration.ps1
 		Build\publish.ps1 = Build\publish.ps1
 	EndProjectSection
 EndProject
