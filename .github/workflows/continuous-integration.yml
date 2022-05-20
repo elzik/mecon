@@ -27,5 +27,5 @@ jobs:
         token: ${{ secrets.CODE_COVERAGE_AUTH_TOKEN }}
         gist_id: 527882e89a938dc78f61a08c300edec4
         gist_description: "code-coverage-${{ github.ref_name }}"
-        gist_file_name: code-coverage-${{ github.ref_name }}.svg
+        gist_file_name: mecon-code-coverage-${{ github.ref_name }}.svg
         file_path: tests/TestResults/badge_shieldsio_linecoverage_green.svg
