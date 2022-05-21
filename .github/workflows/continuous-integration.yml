@@ -20,7 +20,8 @@ jobs:
       uses: actions/setup-dotnet@v2
       with:
         dotnet-version: 6.0.x
-    - run: ./Build/continuous-integration.ps1
+    - name: Build & Test
+      run: ./Build/continuous-integration.ps1
       shell: pwsh  
     - name: Upoload Coverage Badge
       if: github.event_name != 'pull_request'
