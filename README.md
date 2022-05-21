@@ -2,7 +2,7 @@
 
 ![Build](https://img.shields.io/github/workflow/status/elzik/mecon/Continuous%20Integration?color=95BE1A)
 ![Publish](https://img.shields.io/github/workflow/status/elzik/mecon/Publish?color=95BE1A&label=publish)
-![Coverage](https://raw.githubusercontent.com/gist/elzik/527882e89a938dc78f61a08c300edec4/raw/911ad3b6908b11c4e46c309393e80b0ee572aa7a/mecon-code-coverage-main.svg)
+![Coverage](https://raw.githubusercontent.com/gist/elzik/527882e89a938dc78f61a08c300edec4/raw/c145ab2e9e64bcf0feae9e9f1005010cff4503b7/mecon-code-coverage-main.svg)
 
 ## Introduction
 **Me**dia R**econ**ciler, or simply _mecon_, is a cross-platform command line tool which reconciles media within a directory with media in a Plex library. It helps answer simple questions such as:
