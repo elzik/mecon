@@ -24,7 +24,7 @@ jobs:
       run: ./Build/continuous-integration.ps1
       shell: pwsh  
     - name: Upoload Coverage Badge
-      if: github.event_name != 'pull_request'
+      if: github.event_name != 'pull_request' && matrix.os == 'ubuntu-latest'
       uses: exuanbo/actions-deploy-gist@v1
       with:
         token: ${{ secrets.CODE_COVERAGE_AUTH_TOKEN }}
