@@ -1,0 +1,34 @@
+name: Continuous Integration
+
+on:
+  [push, pull_request]
+
+jobs:
+  build:
+
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+            matrix:
+                os: [ubuntu-latest, windows-latest, macos-latest]
+
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v2
+      with:
+        dotnet-version: 6.0.x
+    - name: Build & Test
+      run: ./Build/continuous-integration.ps1
+      shell: pwsh  
+    - name: Upoload Coverage Badge
+      if: github.event_name != 'pull_request' && matrix.os == 'ubuntu-latest'
+      uses: exuanbo/actions-deploy-gist@v1
+      with:
+        token: ${{ secrets.CODE_COVERAGE_AUTH_TOKEN }}
+        gist_id: 527882e89a938dc78f61a08c300edec4
+        gist_description: "code-coverage-${{ github.ref_name }}"
+        gist_file_name: mecon-code-coverage-${{ github.ref_name }}.svg
+        file_path: tests/TestResults/badge_shieldsio_linecoverage_green.svg
