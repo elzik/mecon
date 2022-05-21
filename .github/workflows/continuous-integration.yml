@@ -22,7 +22,9 @@ jobs:
         dotnet-version: 6.0.x
     - run: ./Build/continuous-integration.ps1
       shell: pwsh  
-    - uses: exuanbo/actions-deploy-gist@v1
+    - name: Upoload Coverage Badge
+      if: github.event_name != 'pull_request'
+      uses: exuanbo/actions-deploy-gist@v1
       with:
         token: ${{ secrets.CODE_COVERAGE_AUTH_TOKEN }}
         gist_id: 527882e89a938dc78f61a08c300edec4
