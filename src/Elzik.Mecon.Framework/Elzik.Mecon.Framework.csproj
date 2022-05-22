@@ -12,10 +12,6 @@
 		</PackageReference>
 		<PackageReference Include="Microsoft.Extensions.Caching.Abstractions" Version="6.0.0" />
 		<PackageReference Include="Plex.Api" Version="3.0.0" />
-		<PackageReference Include="SonarAnalyzer.CSharp" Version="8.36.1.44192">
-			<PrivateAssets>all</PrivateAssets>
-			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-		</PackageReference>
 	</ItemGroup>
 
 	<ItemGroup>
