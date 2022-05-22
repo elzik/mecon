@@ -81,9 +81,14 @@ namespace Elzik.Mecon.Framework.Application
         private void ValidatePlexConfiguration(IOptions<PlexWithCachingOptions> plexOptions)
         {
             if (string.IsNullOrWhiteSpace(plexOptions.Value.BaseUrl))
+            {
                 throw new InvalidOperationException("No base URL has been supplied for Plex.");
+            }
+
             if (string.IsNullOrWhiteSpace(plexOptions.Value.AuthToken))
+            {
                 throw new InvalidOperationException("No auth token has been supplied for Plex.");
+            }
 
             _logger.LogInformation("Plex reconciliation is enabled against {BaseUrl} with {CacheScheme}.",
                     plexOptions.Value.BaseUrl,

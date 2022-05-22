@@ -26,7 +26,10 @@ namespace Elzik.Mecon.Console
             var fullAssemblyName = Assembly.GetExecutingAssembly().GetName();
 
             var version = fullAssemblyName.Version;
-            if (version == null) throw new InvalidOperationException("It was not possible to get the assembly version.");
+            if (version == null)
+            {
+                throw new InvalidOperationException("It was not possible to get the assembly version.");
+            }
 
             var apiOptions = new ClientOptions
             {

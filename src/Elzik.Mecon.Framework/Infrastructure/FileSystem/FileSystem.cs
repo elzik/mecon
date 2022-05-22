@@ -66,7 +66,10 @@ namespace Elzik.Mecon.Framework.Infrastructure.FileSystem
 
         private static IEnumerable<string> FilterRegexPattern(IEnumerable<string> files, string directoryFilterRegexPattern)
         {
-            if (string.IsNullOrWhiteSpace(directoryFilterRegexPattern)) return files;
+            if (string.IsNullOrWhiteSpace(directoryFilterRegexPattern))
+            {
+                return files;
+            }
 
             var regex = new Regex(directoryFilterRegexPattern, RegexOptions.Compiled);
             files = files.Where(s => regex.IsMatch(s));

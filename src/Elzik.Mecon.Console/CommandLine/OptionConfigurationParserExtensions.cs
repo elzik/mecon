@@ -118,13 +118,17 @@ public static class OptionConfigurationParserExtensions
         // https://github.com/commandlineparser/commandline/blob/master/src/CommandLine/OptionAttribute.cs
         var longName = optionAttribute.LongName;
         if (string.IsNullOrEmpty(longName))
+        {
             longName = propertyInfo.Name;
+        }
 
         switchNames.Add($"--{longName}");
 
         var shortName = optionAttribute.ShortName;
         if (!string.IsNullOrEmpty(shortName))
+        {
             switchNames.Add($"-{shortName}");
+        }
 
         return switchNames;
     }
@@ -205,7 +209,9 @@ public static class OptionConfigurationParserExtensions
     private static bool GetBoolOptionDefault(PropertyInfo propertyInfo)
     {
         if (propertyInfo.PropertyType != typeof(bool))
+        {
             throw new ArgumentException("Property is not of type bool", nameof(propertyInfo));
+        }
 
         var optionAttribute = GetOptionAttribute(propertyInfo);
 
@@ -217,8 +223,10 @@ public static class OptionConfigurationParserExtensions
     {
         var optionAttribute = propertyInfo.GetCustomAttribute<OptionAttribute>();
         if (optionAttribute == null)
+        {
             throw new ArgumentException(
                 $"Property does not have attribute {nameof(OptionAttribute)}", nameof(propertyInfo));
+        }
 
         return optionAttribute;
     }
@@ -227,8 +235,10 @@ public static class OptionConfigurationParserExtensions
     {
         var optionConfigAttribute = propertyInfo.GetCustomAttribute<OptionConfigurationAttribute>();
         if (optionConfigAttribute == null)
+        {
             throw new ArgumentException(
                 $"Property does not have attribute {nameof(OptionConfigurationAttribute)}", nameof(propertyInfo));
+        }
 
         return optionConfigAttribute;
     }
