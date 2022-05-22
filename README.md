@@ -47,30 +47,30 @@ mecon -d /Films -p http://192.168.0.12:32400 -L -f (?i)^(?!.*sample).*$
 - **`reconcile --help`**
  
 Displays help for general mecon reconciliation usage.
-- **`-p|--plex-host <ip|host:port>`**
+-   **`-p|--plex-host <ip|host:port>`**
   Specifies the Plex server to use when reconciling media on disk with media in Plex libraries. This URL may be specified with or without a port as necessary.  e.g. `-p http://loacalhost:32400`
-- **`-t|--plex-token <your-token>`**
+-   **`-t|--plex-token <your-token>`**
   Specifies the Plex server authentication token. See the [Plex documentation for explanation on how to find your token](https://support.plex.tv/articles/204059436-finding-an-authentication-token-x-plex-token/).
-- **`-d|--directory <directory-path-to-scan>`**
+-   **`-d|--directory <directory-path-to-scan>`**
   Specifies the path on the file system that should be scanned. If neither this nor the `-n` option is supplied, the current working directory will be scanned. The scanning performed will be recursive unless the `-r false` option is supplied. e.g. `-d /Video/Films/`
-- **`-e|--file-extensions <csv-list-of-extensions>`**
+-   **`-e|--file-extensions <csv-list-of-extensions>`**
   Provide a list of file extensions to scan for in the file system. This can be used to improve performance or simplify output where only specific file extensions are of interest. The extensions are supplied as a comma separated list without dot prefixes. If this option is ommited, all filetypes will be included during scanning. e.g `-e mkv,mp4,ts`
-- **`-n|--directory-definition-name <name>`**
+-   **`-n|--directory-definition-name <name>`**
   Where a preconfigured directory definition exists, it can be used as the directory for scanning by specifying its name rather than having to explicitly specify the directory and any list of file extensions. If neither this nor the `-d` option is supplied, the current working directory will be scanned. The scanning performed will be recursive unless the `-r false` option is supplied. e.g. `-n Films`
-- **`-r|--recurse`**
+-   **`-r|--recurse`**
   By default, scanning of filesystem directories is recursive. This can be turned off and made non-recursive using `-r false` or the default behaviour of enabling recursion can be made explicit using `-r true`. 
-- **`-m|--media-types`**
+-   **`-m|--media-types`**
  Comma-separated list of Plex library media types that should be reconciled against to avoid searching through libraries that contain other media types. Possible options are 'Movie' or 'TvShow'. This option is only valid when the -d option (--directory-definition-name) is supplied. If this is omitted, libraries of all media types will be reconciled against. e.g. `-m movies`
-- **`-f|--regex-match-filter <regular-expression>`**
+-   **`-f|--regex-match-filter <regular-expression>`**
   When scanning the file system, filter to only show files where the filepath matches a regular expression. For example, by specifying `(?i)^(?!.*sample).*$`, the list of files scanned will be filtered to i only shows files that do not contain the word "sample". 
 
 ## Output Options
 In addition to the reconciliation options above, at least one library option must be supplied to control what is returned by mecon.
-- **`-L|--missing-from-library`**
+-   **`-L|--missing-from-library`**
   Output a list of files that are present in the filesystem but missing from the any Plex library. The list could represent:
   - Files that the Plex scanner failed to add for some reason.
   - Files that were removed from the Plex library and _may_ no longer be needed on the file system.
-- **`-l|--present-in-library`**
+-   **`-l|--present-in-library`**
   Output a list of files that are present in the filesystem and also present in a Plex library. The list could represent:
   - Files that you believe shouldn't have been added to Plex and need investigating.
   - Files that have been added to the wrong Plex library when used in conjuction with the `-m` option.
@@ -110,8 +110,8 @@ This application should be considered to be in beta until it reaches a v1.0.0+ v
 mecon --version
 ```
 Features slated for v1.0.0:
-- Progress feedback/spinner
-- Regex file filter (e.g. for ignoring all filenames containing 'sample')
-- File size output filter (e.g. for ignoring all files under 0.5MB)
-- User watched output filter (e.g. show only files watched by a list of users)
-- Packages, installers or manual install instructions
+-   Progress feedback/spinner
+-   Regex file filter (e.g. for ignoring all filenames containing 'sample')
+-   File size output filter (e.g. for ignoring all files under 0.5MB)
+-   User watched output filter (e.g. show only files watched by a list of users)
+-   Packages, installers or manual install instructions
