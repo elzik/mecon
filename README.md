@@ -68,12 +68,12 @@ Displays help for general mecon reconciliation usage.
 In addition to the reconciliation options above, at least one library option must be supplied to control what is returned by mecon.
 -   **`-L|--missing-from-library`**
   Output a list of files that are present in the filesystem but missing from the any Plex library. The list could represent:
-  - Files that the Plex scanner failed to add for some reason.
-  - Files that were removed from the Plex library and _may_ no longer be needed on the file system.
+    -   Files that the Plex scanner failed to add for some reason.
+    -   Files that were removed from the Plex library and _may_ no longer be needed on the file system.
 -   **`-l|--present-in-library`**
   Output a list of files that are present in the filesystem and also present in a Plex library. The list could represent:
-  - Files that you believe shouldn't have been added to Plex and need investigating.
-  - Files that have been added to the wrong Plex library when used in conjuction with the `-m` option.
+    -   Files that you believe shouldn't have been added to Plex and need investigating.
+    -   Files that have been added to the wrong Plex library when used in conjuction with the `-m` option.
 
 ## Configuration
 Some options do not change very often and you may like to set them permanently rather than entering them every time on the command line. To do this, they can be pre-configured with using environment variables or in an appsettings.json file in the same directory as the mecon binary. Ensure that the case for any settings is correct and that environment variables parts are separated by double underscores (`__`). In the case that a setting is configured or provided on the command line more than once there is an order of precedence where an option on the command line will trump all other configuration:
