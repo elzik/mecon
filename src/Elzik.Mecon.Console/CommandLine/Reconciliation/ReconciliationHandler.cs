@@ -17,7 +17,7 @@ namespace Elzik.Mecon.Console.CommandLine.Reconciliation
             _fileSystem = fileSystem;
         }
 
-        public void Handle(IConfigurationBuilder configurationBuilder, ReconciliationOptions reconciliationOptions, string[] commandLineArgs)
+        public void Handle(IConfigurationBuilder configurationBuilder, ReconciliationOptions reconciliationOptions)
         {
             try
             {

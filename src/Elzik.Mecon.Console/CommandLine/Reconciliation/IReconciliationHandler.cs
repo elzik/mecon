@@ -4,5 +4,5 @@ namespace Elzik.Mecon.Console.CommandLine.Reconciliation;
 
 public interface IReconciliationHandler
 {
-    void Handle(IConfigurationBuilder configurationBuilder, ReconciliationOptions reconciliationOptions, string[] commandLineArgs);
+    void Handle(IConfigurationBuilder configurationBuilder, ReconciliationOptions reconciliationOptions);
 }
