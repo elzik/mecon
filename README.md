@@ -67,9 +67,9 @@ In addition to the reconciliation options above, at least one library option mus
 
 ## Configuration
 Some options do not change very often and you may like to set them permanently rather than entering them every time on the command line. To do this, they can be pre-configured with using environment variables or in an appsettings.json file in the same directory as the mecon binary. Ensure that the case for any settings is correct and that environment variables parts are separated by double underscores (`__`). In the case that a setting is configured or provided on the command line more than once there is an order of precedence where an option on the command line will trump all other configuration:
-1. appsettings.json
-2. Environment variable
-3. Command line option
+1.  appsettings.json
+2.  Environment variable
+3.  Command line option
 ### Command Line Options also Available as Config
 
 |Command Line Option|        Environment Variable         |           appsettings.json             |
