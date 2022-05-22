@@ -39,7 +39,7 @@ mecon -d /Films -p http://192.168.0.12:32400 -t <your-token> -m movie -L
 
 ### Example 6
 As Example 2 however, only return files that do not contain the word "sample":
-```
+``` console
 mecon -d /Films -p http://192.168.0.12:32400 -L -f (?i)^(?!.*sample).*$
 ```
 
@@ -61,6 +61,7 @@ In addition to the reconciliation options above, at least one library option mus
 -   **`-L|--missing-from-library`** Output a list of files that are present in the filesystem but missing from the any Plex library. The list could represent:
     -   Files that the Plex scanner failed to add for some reason.
     -   Files that were removed from the Plex library and _may_ no longer be needed on the file system.
+
 -   **`-l|--present-in-library`** Output a list of files that are present in the filesystem and also present in a Plex library. The list could represent:
     -   Files that you believe shouldn't have been added to Plex and need investigating.
     -   Files that have been added to the wrong Plex library when used in conjuction with the `-m` option.
