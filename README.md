@@ -5,6 +5,7 @@
 [![Coverage](https://raw.githubusercontent.com/gist/elzik/527882e89a938dc78f61a08c300edec4/raw/c145ab2e9e64bcf0feae9e9f1005010cff4503b7/mecon-code-coverage-main.svg)]()
 [![Code quality](https://img.shields.io/codacy/grade/e2387c03324b46b88f61467312dea645?color=95BE1A)](https://app.codacy.com/gh/elzik/mecon/dashboard)
 [![License](https://img.shields.io/github/license/elzik/mecon)](https://github.com/elzik/mecon/blob/regex-filters/COPYING)
+[![Release](https://img.shields.io/github/v/release/elzik/mecon?include_prereleases)](https://github.com/elzik/mecon/releases)
 
 ## Introduction
 **Me**dia R**econ**ciler, or simply _mecon_, is a cross-platform command line tool which reconciles media within a directory with media in a Plex library. It helps answer simple questions such as:
