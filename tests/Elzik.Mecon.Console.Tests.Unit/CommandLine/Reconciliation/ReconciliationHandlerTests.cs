@@ -37,9 +37,6 @@ namespace Elzik.Mecon.Console.Tests.Unit.CommandLine.Reconciliation
                 .With(options => options.MissingFromLibrary, false)
                 .With(options => options.PresentInLibrary, true)
                 .Create();
-            var testPlexHost = _fixture.Create<string>();
-            var testPlexToken = _fixture.Create<string>();
-            var testCommandLineArgs = new [] { "-p", testPlexHost, "-t", testPlexToken, "-l" };
             var testDirectoryDefinition = _fixture.Create<DirectoryDefinition>();
             var testMediaEntriesWithoutPlex = _fixture.CreateMany<MediaEntry>();
             var testMediaEntriesWithPlex = _fixture.CreateMany<MediaEntry>().ToList();
@@ -58,7 +55,7 @@ namespace Elzik.Mecon.Console.Tests.Unit.CommandLine.Reconciliation
 
             // Act
             var reconciliationHandler = new ReconciliationHandler(mockReconciledMedia, mockFileSystem);
-            reconciliationHandler.Handle(mockConfigurationBuilder, testReconciliationOptionsInPlex, testCommandLineArgs);
+            reconciliationHandler.Handle(mockConfigurationBuilder, testReconciliationOptionsInPlex);
 
             // Assert
             var expectedOutput = string.Join(Environment.NewLine,
@@ -76,9 +73,6 @@ namespace Elzik.Mecon.Console.Tests.Unit.CommandLine.Reconciliation
                 .With(options => options.MissingFromLibrary, true)
                 .With(options => options.PresentInLibrary, false)
                 .Create();
-            var testPlexHost = _fixture.Create<string>();
-            var testPlexToken = _fixture.Create<string>();
-            var testCommandLineArgs = new[] { "-p", testPlexHost, "-t", testPlexToken, "-L" };
             var testDirectoryDefinition = _fixture.Create<DirectoryDefinition>();
             var testMediaEntriesWithoutPlex = _fixture.CreateMany<MediaEntry>().ToList();
             var testMediaEntriesWithPlex = _fixture.CreateMany<MediaEntry>().ToList();
@@ -97,7 +91,7 @@ namespace Elzik.Mecon.Console.Tests.Unit.CommandLine.Reconciliation
 
             // Act
             var reconciliationHandler = new ReconciliationHandler(mockReconciledMedia, mockFileSystem);
-            reconciliationHandler.Handle(mockConfigurationBuilder, testReconciliationOptionsNotInPlex, testCommandLineArgs);
+            reconciliationHandler.Handle(mockConfigurationBuilder, testReconciliationOptionsNotInPlex);
 
             // Assert
             var expectedOutput = string.Join(Environment.NewLine,
@@ -111,7 +105,6 @@ namespace Elzik.Mecon.Console.Tests.Unit.CommandLine.Reconciliation
         {
             // Arrange
             var testReconciliationOptionsNotInPlex = _fixture.Create<ReconciliationOptions>();
-            var testCommandLineArgs = _fixture.CreateMany<string>().ToArray();
             var testException = _fixture.Create<InvalidOperationException>();
 
             var mockReconciledMedia = Substitute.For<IReconciledMedia>();
@@ -122,7 +115,7 @@ namespace Elzik.Mecon.Console.Tests.Unit.CommandLine.Reconciliation
 
             // Act
             var reconciliationHandler = new ReconciliationHandler(mockReconciledMedia, mockFileSystem);
-            reconciliationHandler.Handle(mockConfigurationBuilder, testReconciliationOptionsNotInPlex, testCommandLineArgs);
+            reconciliationHandler.Handle(mockConfigurationBuilder, testReconciliationOptionsNotInPlex);
 
             // Assert
             Environment.ExitCode.Should().Be(1);

@@ -17,7 +17,7 @@ parserResult
         var config = Configuration.Get(args);
         var services = Services.Get(config);
         var reconciliationHandler = services.GetRequiredService<IReconciliationHandler>();
-        reconciliationHandler.Handle(config, options, args);
+        reconciliationHandler.Handle(config, options);
     })
     .WithParsed<ConfigOptions>(_ => ConfigHandler.Display(Configuration.Get(args)))
     .WithNotParsed(errors => ErrorHandler.Display(parserResult, errors));
