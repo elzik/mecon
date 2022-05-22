@@ -18,12 +18,12 @@
 Display help text documenting reconcilation options:
 ```console
 mecon reconcile --help
-```console
+```
 ### Example 2
 Scan all files in the specified directory (`-d /path`) and list all files that are not found (`-L`) in a Plex TV or Movie library using the specified Plex server (`-p <url>`) and [your Plex auth token](https://support.plex.tv/articles/204059436-finding-an-authentication-token-x-plex-token/) (`-t <your-token>`):
-```
-mecon -d /Films -p http://192.168.0.12:32400 -t <your-token> -L
 ```console
+mecon -d /Films -p http://192.168.0.12:32400 -t <your-token> -L
+```
 ### Example 3
 As Example 2 however, only scan `*.mkv` files in the specified directory (`-e mkv`):
 ```console
