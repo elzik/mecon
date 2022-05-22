@@ -1,5 +1,8 @@
 # mecon
-[![Continuous Intergration](https://github.com/elzik/mecon/actions/workflows/continous-integration.yml/badge.svg)](https://github.com/elzik/mecon/actions/workflows/continous-integration.yml) [![Publish](https://github.com/elzik/mecon/actions/workflows/publish.yml/badge.svg)](https://github.com/elzik/mecon/actions/workflows/publish.yml)
+
+![Build](https://img.shields.io/github/workflow/status/elzik/mecon/Continuous%20Integration?color=95BE1A)
+![Publish](https://img.shields.io/github/workflow/status/elzik/mecon/Publish?color=95BE1A&label=publish)
+![Coverage](https://raw.githubusercontent.com/gist/elzik/527882e89a938dc78f61a08c300edec4/raw/c145ab2e9e64bcf0feae9e9f1005010cff4503b7/mecon-code-coverage-main.svg)
 
 ## Introduction
 **Me**dia R**econ**ciler, or simply _mecon_, is a cross-platform command line tool which reconciles media within a directory with media in a Plex library. It helps answer simple questions such as:
@@ -42,7 +45,8 @@ mecon -d /Films -p http://192.168.0.12:32400 -L -f (?i)^(?!.*sample).*$
 
 ## Mecon Options
 - **`reconcile --help`**
-  Displays help for general mecon reconciliation usage.
+ 
+Displays help for general mecon reconciliation usage.
 - **`-p|--plex-host <ip|host:port>`**
   Specifies the Plex server to use when reconciling media on disk with media in Plex libraries. This URL may be specified with or without a port as necessary.  e.g. `-p http://loacalhost:32400`
 - **`-t|--plex-token <your-token>`**
@@ -64,12 +68,12 @@ mecon -d /Films -p http://192.168.0.12:32400 -L -f (?i)^(?!.*sample).*$
 In addition to the reconciliation options above, at least one library option must be supplied to control what is returned by mecon.
 - **`-L|--missing-from-library`**
   Output a list of files that are present in the filesystem but missing from the any Plex library. The list could represent:
-    - Files that the Plex scanner failed to add for some reason.
-    - Files that were removed from the Plex library and _may_ no longer be needed on the file system.
+  - Files that the Plex scanner failed to add for some reason.
+  - Files that were removed from the Plex library and _may_ no longer be needed on the file system.
 - **`-l|--present-in-library`**
   Output a list of files that are present in the filesystem and also present in a Plex library. The list could represent:
-    - Files that you believe shouldn't have been added to Plex and need investigating.
-    - Files that have been added to the wrong Plex library when used in conjuction with the `-m` option.
+  - Files that you believe shouldn't have been added to Plex and need investigating.
+  - Files that have been added to the wrong Plex library when used in conjuction with the `-m` option.
 
 ## Configuration
 Some options do not change very often and you may like to set them permanently rather than entering them every time on the command line. To do this, they can be pre-configured with using environment variables or in an appsettings.json file in the same directory as the mecon binary. Ensure that the case for any settings is correct and that environment variables parts are separated by double underscores (`__`). In the case that a setting is configured or provided on the command line more than once there is an order of precedence where an option on the command line will trump all other configuration:
