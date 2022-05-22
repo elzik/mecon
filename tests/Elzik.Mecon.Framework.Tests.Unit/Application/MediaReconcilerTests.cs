@@ -29,7 +29,7 @@ namespace Elzik.Mecon.Framework.Tests.Unit.Application
         private readonly IPlexEntries _mockPlexEntries;
         private readonly OptionsWrapper<PlexWithCachingOptions> _testPlexOptionsWrapper;
         private readonly string _testDirectoryDefinitionName;
-        private readonly List<FileSystemTests.TestFileInfoImplementation> _testFiles;
+        private readonly List<TestFileInfoImplementation> _testFiles;
         private readonly List<PlexEntry> _testPlexEntries;
 
         public MediaReconcilerTests()
@@ -46,7 +46,7 @@ namespace Elzik.Mecon.Framework.Tests.Unit.Application
             _testDirectoryDefinitionName = _fixture.Create<string>();
             var testDirectoryDefinition = _fixture.Create<DirectoryDefinition>();
 
-            _testFiles = _fixture.CreateMany<FileSystemTests.TestFileInfoImplementation>().ToList();
+            _testFiles = _fixture.CreateMany<TestFileInfoImplementation>().ToList();
             _mockFileSystem.GetDirectoryDefinition(_testDirectoryDefinitionName).Returns(testDirectoryDefinition);
             _mockFileSystem.GetMediaFileInfos(testDirectoryDefinition)
             .Returns(_testFiles);

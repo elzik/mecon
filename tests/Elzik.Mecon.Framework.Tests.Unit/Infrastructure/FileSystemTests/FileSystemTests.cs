@@ -17,7 +17,7 @@ using IFileSystem = System.IO.Abstractions.IFileSystem;
 
 namespace Elzik.Mecon.Framework.Tests.Unit.Infrastructure.FileSystemTests
 {
-    public partial class FileSystemTests
+    public class FileSystemTests
     {
         private readonly IFixture _fixture;
 
