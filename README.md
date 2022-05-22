@@ -87,7 +87,7 @@ Since the directories that you wish to scan are likely to be reused over time, i
 Logging by default is implemented using a single-line simple console logger with a log level of `Warning`. This can be reconfigured in many ways. However, this configuration is not in the scope of this documentation; instead, refer to [Microsoft's documentation for Console logging and its various options](https://docs.microsoft.com/en-us/dotnet/api/microsoft.extensions.logging.console?view=dotnet-plat-ext-6.0). 
 ### Listing Configuration
 Since configuration can be performed by leaving defaults as they are, adding environment variables, editing an appsettings.json file or any combination of these layered together, it can be useful to view a list of all of these combinations resolved using the [order of precedence](#configuration) as described at the beginning of this section. This can be performed using mecon's `config` verb and its `-l|--list` option:
-```
+```console
 mecon config -l
 ```
 This will display all configuration in a JSON format regardless of whether it came from default settings, environment variables or the appsettings.json file.
