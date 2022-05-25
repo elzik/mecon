@@ -1,5 +1,6 @@
 ﻿using System.IO.Abstractions;
 using System.Reflection;
+using Elzik.Mecon.Console.CommandLine.Reconciliation;
 using Elzik.Mecon.Framework.Application;
 using Elzik.Mecon.Framework.Infrastructure.FileSystem.Options;
 using Elzik.Mecon.Framework.Infrastructure.Plex;
@@ -16,7 +17,7 @@ using Plex.ServerApi.Clients.Interfaces;
 using FileSystem = Elzik.Mecon.Framework.Infrastructure.FileSystem.FileSystem;
 using IFileSystem = Elzik.Mecon.Framework.Infrastructure.FileSystem.IFileSystem;
 
-namespace Elzik.Mecon.Console.Configuration
+namespace Elzik.Mecon.Console
 {
     internal static class Services
     {
@@ -25,7 +26,10 @@ namespace Elzik.Mecon.Console.Configuration
             var fullAssemblyName = Assembly.GetExecutingAssembly().GetName();
 
             var version = fullAssemblyName.Version;
-            if (version == null) throw new InvalidOperationException("It was not possible to get the assembly version.");
+            if (version == null)
+            {
+                throw new InvalidOperationException("It was not possible to get the assembly version.");
+            }
 
             var apiOptions = new ClientOptions
             {
@@ -42,6 +46,7 @@ namespace Elzik.Mecon.Console.Configuration
                     loggingBuilder.AddConfiguration(configurationManager.GetSection("Logging"));
                     loggingBuilder.AddConsole();
                 })
+                .AddSingleton<IReconciliationHandler, ReconciliationHandler>()
                 .AddSingleton<IReconciledMedia, MediaReconciler>()
                 .AddTransient<IFileSystem, FileSystem>()
                 .AddTransient<IDirectory, DirectoryWrapper>()

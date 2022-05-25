@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using Elzik.Mecon.Framework.Domain;
+using Elzik.Mecon.Framework.Tests.Unit.Infrastructure.FileSystemTests;
 
 namespace Elzik.Mecon.Framework.Tests.Unit.Application
 {
     public static class Aligner
     {
-        public static void AlignFileSystemWithPlexMediaContainer(IList<Infrastructure.FileSystemTests.FileSystemTests.TestFileInfoImplementation> files, IList<PlexEntry> plexEntries)
+        public static void AlignFileSystemWithPlexMediaContainer(IList<TestFileInfoImplementation> files, IList<PlexEntry> plexEntries)
         {
             if (files.Count != plexEntries.Count)
             {

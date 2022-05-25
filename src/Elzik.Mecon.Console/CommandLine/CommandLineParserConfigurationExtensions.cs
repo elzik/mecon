@@ -10,7 +10,10 @@ namespace Elzik.Mecon.Console.CommandLine
             this IConfigurationBuilder configurationBuilder,
             string[] args)
         {
-            if (!args.Any()) return configurationBuilder;
+            if (!args.Any())
+            {
+                return configurationBuilder;
+            }
 
             var commandParser = new Parser(setting =>
             {

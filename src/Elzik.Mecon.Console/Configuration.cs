@@ -1,22 +1,24 @@
 ﻿using System.Reflection;
+using Elzik.Mecon.Console.CommandLine;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json.Linq;
 
-namespace Elzik.Mecon.Console.Configuration
+namespace Elzik.Mecon.Console
 {
     public static class Configuration
     {
-        public static ConfigurationManager Get()
+        public static ConfigurationManager Get(string[] args)
         {
             var config = new ConfigurationManager();
 
-            config.AddJsonStream(Assembly.GetCallingAssembly()
+            config.AddJsonStream(Assembly.GetExecutingAssembly()
                 .GetManifestResourceStream("Elzik.Mecon.Console.appsettings.Default.json"));
             config.AddJsonFile("appsettings.json", true);
 #if DEBUG
             config.AddJsonFile("appsettings.Development.json", true);
 #endif
             config.AddEnvironmentVariables("Mecon:");
+            config.AddCommandLineParser(args);
 
             return config;
         }

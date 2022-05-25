@@ -73,7 +73,7 @@ namespace Elzik.Mecon.Framework.Infrastructure.Plex
 
         private async Task<List<Metadata>> GetLibraryItems(Library library)
         {
-            SearchType searchType = library.Type switch
+            var searchType = library.Type switch
             {
                 "movie" => SearchType.Movie,
                 "show" => SearchType.Episode,

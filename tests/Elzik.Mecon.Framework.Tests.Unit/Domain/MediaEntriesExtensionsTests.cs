@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using AutoFixture;
 using AutoFixture.AutoNSubstitute;
 using Elzik.Mecon.Framework.Domain;
 using FluentAssertions;
-using NSubstitute;
 using Xunit;
 
 namespace Elzik.Mecon.Framework.Tests.Unit.Domain

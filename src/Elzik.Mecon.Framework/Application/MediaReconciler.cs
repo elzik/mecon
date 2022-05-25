@@ -36,27 +36,18 @@ namespace Elzik.Mecon.Framework.Application
             var directoryDefinition = _fileSystem.GetDirectoryDefinition(directoryDefinitionName);
 
             var mediaEntries = 
-                await GetMediaEntries(
-                    directoryDefinition.DirectoryPath, 
-                    directoryDefinition.SupportedFileExtensions, 
-                    directoryDefinition.Recurse, 
-                    directoryDefinition.MediaTypes);
+                await GetMediaEntries(directoryDefinition);
 
             return mediaEntries;
         }
 
-        public async Task<IEnumerable<MediaEntry>> GetMediaEntries(
-            string directoryPath, 
-            IEnumerable<string> supportedFileExtensions, 
-            bool recurse,
-            IEnumerable<MediaType> mediaTypes)
+        public async Task<IEnumerable<MediaEntry>> GetMediaEntries(DirectoryDefinition directoryDefinition)
         {
-            var mediaFileInfos = _fileSystem
-                .GetMediaFileInfos(directoryPath, supportedFileExtensions, recurse);
+            var mediaFileInfos = _fileSystem.GetMediaFileInfos(directoryDefinition);
 
-            var plexItems = await _plexEntries.GetPlexEntries(mediaTypes);
+            var plexItems = await _plexEntries.GetPlexEntries(directoryDefinition.MediaTypes);
 
-                var mediaEntries = mediaFileInfos.Select(fileInfo =>
+            var mediaEntries = mediaFileInfos.Select(fileInfo =>
             {
                 var mediaEntry = new MediaEntry(fileInfo.FullName)
                 {
@@ -68,8 +59,8 @@ namespace Elzik.Mecon.Framework.Application
                 };
 
                 var plexEntries = plexItems
-                        .Where(m => m.Key == mediaEntry.FilesystemEntry.Key)
-                        .ToList();
+                    .Where(m => m.Key == mediaEntry.FilesystemEntry.Key)
+                    .ToList();
 
                 foreach (var plexEntry in plexEntries)
                 {
@@ -90,9 +81,14 @@ namespace Elzik.Mecon.Framework.Application
         private void ValidatePlexConfiguration(IOptions<PlexWithCachingOptions> plexOptions)
         {
             if (string.IsNullOrWhiteSpace(plexOptions.Value.BaseUrl))
+            {
                 throw new InvalidOperationException("No base URL has been supplied for Plex.");
+            }
+
             if (string.IsNullOrWhiteSpace(plexOptions.Value.AuthToken))
+            {
                 throw new InvalidOperationException("No auth token has been supplied for Plex.");
+            }
 
             _logger.LogInformation("Plex reconciliation is enabled against {BaseUrl} with {CacheScheme}.",
                     plexOptions.Value.BaseUrl,

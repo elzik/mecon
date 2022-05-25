@@ -335,3 +335,4 @@ ASALocalRun/
 /src/Elzik.Mecon.Console/Properties/launchSettings.json
 /src/Elzik.Mecon.Console/appsettings.development.json
 /Local Build/output
+/Build/output
