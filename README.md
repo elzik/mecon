@@ -2,7 +2,7 @@
 
 [![Build](https://img.shields.io/github/workflow/status/elzik/mecon/Continuous%20Integration?color=95BE1A)](https://github.com/elzik/mecon/actions/workflows/continuous-integration.yml)
 [![Publish](https://img.shields.io/github/workflow/status/elzik/mecon/Publish?color=95BE1A&label=publish)](https://github.com/elzik/mecon/actions/workflows/publish.yml)
-[![Coverage](https://raw.githubusercontent.com/gist/elzik/527882e89a938dc78f61a08c300edec4/raw/c145ab2e9e64bcf0feae9e9f1005010cff4503b7/mecon-code-coverage-main.svg)]()
+[![Coverage](https://gist.githubusercontent.com/elzik/527882e89a938dc78f61a08c300edec4/raw/6b2a8c9d8bacda2e00b663776f80ff9f5d6be410/mecon-code-coverage-main.svg)](https://gist.github.com/elzik/527882e89a938dc78f61a08c300edec4#file-mecon-code-coverage-main-svg)
 [![Code quality](https://img.shields.io/codacy/grade/e2387c03324b46b88f61467312dea645?color=95BE1A)](https://app.codacy.com/gh/elzik/mecon/dashboard)
 [![License](https://img.shields.io/github/license/elzik/mecon)](https://github.com/elzik/mecon/blob/regex-filters/COPYING)
 [![Release](https://img.shields.io/github/v/release/elzik/mecon?include_prereleases)](https://github.com/elzik/mecon/releases)
