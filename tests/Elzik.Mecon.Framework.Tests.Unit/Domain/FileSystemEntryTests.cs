@@ -1,4 +1,4 @@
-﻿using Elzik.Mecon.Framework.Domain;
+﻿using Elzik.Mecon.Framework.Domain.FileSystem;
 using Elzik.Mecon.Framework.Tests.Unit.Shared;
 using FluentAssertions;
 using Xunit;

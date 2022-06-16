@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MediaContainer friendlyName="myPlex" identifier="com.plexapp.plugins.myplex" machineIdentifier="7817fdb3ea53486c81543ccc3268933a" totalSize="4" size="4" guestUserID="46097489">
+	<User id="39388434" uuid="b0273fa3af347185" admin="1" guest="0" restricted="0" restrictionProfile="" hasPassword="true" protected="0" title="UserAdminTitle" username="UserAdminUsername" email="useradmin@plexusers.com" thumb="https://plex.tv/users/8e66400e0fb15630/avatar?c=6403103971"/>
+	<User id="78624707" uuid="acf6f6d0c17e206e" admin="0" guest="0" restricted="1" restrictionProfile="little_kid" hasPassword="false" protected="0" title="UserOneTitle" username="" email="" thumb="https://plex.tv/users/a2906726c10f2f45/avatar?c=8770402902"/>
+	<User id="92140768" uuid="946e04e90b35c140" admin="0" guest="0" restricted="0" restrictionProfile="" hasPassword="true" protected="0" title="UserTwoTitle" username="UserTwoUsername" email="usertwo@plexusers.com" thumb="https://plex.tv/users/a76fe3cf38da7335/avatar?c=8018052133"/>
+	<User id="64927093" uuid="afd8460f29f71846" admin="0" guest="0" restricted="0" restrictionProfile="" hasPassword="true" protected="0" title="UserThreeTitle" username="UserThreeUsername" email="userthree@plexusers.com" thumb="https://plex.tv/users/ba60abe12ef3560a/avatar?c=9787937364"/>
+</MediaContainer>

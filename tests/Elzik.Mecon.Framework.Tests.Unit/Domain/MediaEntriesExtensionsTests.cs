@@ -136,7 +136,7 @@ namespace Elzik.Mecon.Framework.Tests.Unit.Domain
             foreach (var plexEntry in testPlexEntries)
             {
                 plexEntry.ReconciledEntries.Clear();
-                plexEntry.ReconciledEntries.Add(_fixture.Create<Framework.Domain.PlexEntry>());
+                plexEntry.ReconciledEntries.Add(_fixture.Create<Framework.Domain.Plex.PlexEntry>());
             }
 
             return testPlexEntries;

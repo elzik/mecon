@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Elzik.Mecon.Framework.Domain;
+using Elzik.Mecon.Framework.Domain.Plex;
 using Elzik.Mecon.Framework.Tests.Unit.Infrastructure.FileSystemTests;
 
 namespace Elzik.Mecon.Framework.Tests.Unit.Application

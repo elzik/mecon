@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Elzik.Mecon.Framework.Domain;
+using Elzik.Mecon.Framework.Domain.Plex;
 using Elzik.Mecon.Framework.Infrastructure.Plex.Options;
 using Flurl;
 using Microsoft.Extensions.Options;

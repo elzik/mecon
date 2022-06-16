@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 using AutoFixture;
 using AutoFixture.AutoNSubstitute;
 using AutoFixture.Idioms;
 using Elzik.Mecon.Framework.Infrastructure.Plex;
 using Elzik.Mecon.Framework.Infrastructure.Plex.Options;
-using Elzik.Mecon.Framework.Tests.Unit.Infrastructure.Plex.TestData;
 using FluentAssertions;
 using Microsoft.Extensions.Options;
 using NSubstitute;
@@ -39,7 +40,7 @@ namespace Elzik.Mecon.Framework.Tests.Unit.Infrastructure.Plex
                 .Build<Library>()
                 .With(library => library.Type, "movie")
                 .Create();
-            _testVideos = TestMediaContainers.GetVideoMediaContainer();
+            _testVideos = GetVideoMediaContainer();
             _plexOptions = new OptionsWrapper<PlexOptions>(_fixture.Build<PlexOptions>()
                 .With(options => options.ItemsPerCall, _testVideos.Media.Count).Create());
             _mockPlexServerClient = Substitute.For<IPlexServerClient>();
@@ -159,6 +160,20 @@ namespace Elzik.Mecon.Framework.Tests.Unit.Infrastructure.Plex
 
             // Assert
             plexItems.Should().BeEmpty();
+        }
+
+        private static MediaContainer GetVideoMediaContainer()
+        {
+            var xmlSerialiser = new XmlSerializer(typeof(MediaContainer));
+
+            using var userContainerStream = Assembly.GetExecutingAssembly().GetManifestResourceStream(
+                "Elzik.Mecon.Framework.Tests.Unit.Infrastructure.Plex.TestData.TestVideoContainer.xml");
+            if (userContainerStream == null)
+            {
+                throw new InvalidOperationException("TestUserContainer.xml embedded resource not found.");
+            }
+
+            return (MediaContainer)xmlSerialiser.Deserialize(userContainerStream);
         }
     }
 }

@@ -6,8 +6,8 @@ using Microsoft.Extensions.Options;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Elzik.Mecon.Framework.Infrastructure.FileSystem;
-using Elzik.Mecon.Framework.Infrastructure.Plex;
+using Elzik.Mecon.Framework.Domain.Plex;
+using Elzik.Mecon.Framework.Domain.FileSystem;
 
 namespace Elzik.Mecon.Framework.Application
 {

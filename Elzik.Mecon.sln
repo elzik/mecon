@@ -33,6 +33,9 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Elzik.Mecon.Console.Tests.Unit", "tests\Elzik.Mecon.Console.Tests.Unit\Elzik.Mecon.Console.Tests.Unit.csproj", "{E36F539F-0C1B-4DBB-9309-2DF62D9A7E77}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Submodules", "Submodules", "{9FA5971F-D39B-49BB-9FD9-64B78F404A23}"
+	ProjectSection(SolutionItems) = preProject
+		.gitmodules = .gitmodules
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Plex.Library", "submodules\plex-api\Source\Plex.Library\Plex.Library.csproj", "{E4625E07-EB1A-42E0-BCEA-197D10C6CD48}"
 EndProject

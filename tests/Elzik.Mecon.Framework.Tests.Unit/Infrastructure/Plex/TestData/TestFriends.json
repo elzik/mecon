@@ -1,0 +1,67 @@
+﻿[
+  {
+    "Status": "accepted",
+    "Id": 78624707,
+    "Uuid": "acf6f6d0c17e206e",
+    "Title": "UserOneTitle",
+    "Username": null,
+    "Restricted": true,
+    "Email": null,
+    "FriendlyName": "CharlieElzik",
+    "Thumb": "https://plex.tv/users/a2906726c10f2f45/avatar?c=8770402902",
+    "Home": true,
+    "RestrictionProfile": "little_kid"
+  },
+  {
+    "Status": "accepted",
+    "Id": 92140768,
+    "Uuid": "946e04e90b35c140",
+    "Title": "UserTwoTitle",
+    "Username": "UserTwoUsername",
+    "Restricted": false,
+    "Email": "usertwo@plexusers.com",
+    "FriendlyName": null,
+    "Thumb": "https://plex.tv/users/a76fe3cf38da7335/avatar?c=8018052133",
+    "Home": true
+  },
+  {
+    "Status": "accepted",
+    "Id": 149187732,
+    "Uuid": "a4e8ac67a7c893cf",
+    "Title": "justinte0",
+    "Username": "justinte0",
+    "Restricted": false,
+    "Email": "justin+testplex2@elzik.co.uk",
+    "FriendlyName": null,
+    "Thumb": "https://plex.tv/users/a4e8ac67a7c893cf/avatar?c=1655279922",
+    "Home": false
+  },
+  {
+    "Status": "accepted",
+    "SharedServers": [],
+    "SharedSources": [],
+    "Id": 648167784,
+    "Uuid": "620cdad83091809a",
+    "Title": "FriendOneTitle",
+    "Username": "FriendOneUsername",
+    "Restricted": false,
+    "Email": "friendone@plexusers.com",
+    "FriendlyName": null,
+    "Thumb": "https://plex.tv/users/a76fe3cf38da7335/avatar?c=9787937364",
+    "Home": true
+  },
+  {
+    "Status": "accepted",
+    "SharedServers": [],
+    "SharedSources": [],
+    "Id": 64927093,
+    "Uuid": "afd8460f29f71846",
+    "Title": "UserThreeTitle",
+    "Username": "UserThreeUsername",
+    "Restricted": false,
+    "Email": "userthree@plexusers.com",
+    "FriendlyName": null,
+    "Thumb": "https://plex.tv/users/ba60abe12ef3560a/avatar?c=9787937364",
+    "Home": true
+  }
+]

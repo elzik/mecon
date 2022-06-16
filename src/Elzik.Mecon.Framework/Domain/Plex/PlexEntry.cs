@@ -1,4 +1,4 @@
-﻿namespace Elzik.Mecon.Framework.Domain
+﻿namespace Elzik.Mecon.Framework.Domain.Plex
 {
     public class PlexEntry : IEntry
     {

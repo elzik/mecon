@@ -13,6 +13,22 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Infrastructure\Plex\TestData\TestFriends.json" />
+    <None Remove="Infrastructure\Plex\TestData\TestHomeUserContainer.xml" />
+    <None Remove="Infrastructure\Plex\TestData\TestUserContainer.xml" />
+    <None Remove="Infrastructure\Plex\TestData\TestVideoContainer.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Infrastructure\Plex\TestData\TestFriends.json" />
+    <EmbeddedResource Include="Infrastructure\Plex\TestData\TestHomeUserContainer.xml">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Infrastructure\Plex\TestData\TestUserContainer.xml" />
+    <EmbeddedResource Include="Infrastructure\Plex\TestData\TestVideoContainer.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AutoFixture" Version="4.17.0" />
     <PackageReference Include="AutoFixture.AutoNSubstitute" Version="4.17.0" />
     <PackageReference Include="AutoFixture.Idioms" Version="4.17.0" />
