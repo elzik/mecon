@@ -15,7 +15,6 @@
   <ItemGroup>
     <None Remove="Infrastructure\Plex\TestData\TestFriends.json" />
     <None Remove="Infrastructure\Plex\TestData\TestHomeUserContainer.xml" />
-    <None Remove="Infrastructure\Plex\TestData\TestUserContainer.xml" />
     <None Remove="Infrastructure\Plex\TestData\TestVideoContainer.xml" />
   </ItemGroup>
 
@@ -24,7 +23,6 @@
     <EmbeddedResource Include="Infrastructure\Plex\TestData\TestHomeUserContainer.xml">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="Infrastructure\Plex\TestData\TestUserContainer.xml" />
     <EmbeddedResource Include="Infrastructure\Plex\TestData\TestVideoContainer.xml" />
   </ItemGroup>
 

@@ -9,7 +9,7 @@ using Plex.ServerApi.Clients.Interfaces;
 
 namespace Elzik.Mecon.Framework.Infrastructure.Plex
 {
-    public class PlexUsers
+    public class PlexUsers : IPlexUsers
     {
         private readonly IPlexAccountClient _plexAccountClient;
         private readonly PlexOptions _plexOptions;
@@ -29,7 +29,7 @@ namespace Elzik.Mecon.Framework.Infrastructure.Plex
         public async Task<IEnumerable<PlexUser>> GetPlexUsers()
         {
             var homeUserContainer = await _plexAccountClient.GetHomeUsersAsync(_plexOptions.AuthToken);
-            var homeUsers = homeUserContainer.User.Select(user => new PlexUser()
+            var homeUsers = homeUserContainer.Users.Select(user => new PlexUser()
             {
                 AccountId = user.Id,
                 UserTitle = user.Title
@@ -42,7 +42,8 @@ namespace Elzik.Mecon.Framework.Infrastructure.Plex
                 UserTitle = user.Title
             });
 
-            var allUsers = homeUsers.UnionBy(friendUsers, user => user.AccountId);
+            var allUsers = homeUsers.UnionBy(friendUsers, user => user.AccountId)
+                .OrderBy(user => user.UserTitle);
 
             return allUsers;
         }

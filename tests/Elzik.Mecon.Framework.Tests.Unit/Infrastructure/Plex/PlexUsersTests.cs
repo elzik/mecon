@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.IO;
 using System.Reflection;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -35,7 +35,7 @@ namespace Elzik.Mecon.Framework.Tests.Unit.Infrastructure.Plex
             _testPlexOptions = new OptionsWrapper<PlexOptions>(_fixture.Create<PlexOptions>());
 
             _mockPlexAccountClient = Substitute.For<IPlexAccountClient>();
-            var testHomeUserContainer = GetXmlTestData<UserContainer>("Infrastructure/Plex/TestData/TestHomeUserContainer.xml");
+            var testHomeUserContainer = GetXmlTestData<HomeUserContainer>("Infrastructure/Plex/TestData/TestHomeUserContainer.xml");
             _mockPlexAccountClient.GetHomeUsersAsync(_testPlexOptions.Value.AuthToken).Returns(testHomeUserContainer);
             var testFriends = GetJsonTestData<List<Friend>>("Infrastructure/Plex/TestData/TestFriends.json");
             _mockPlexAccountClient.GetFriendsAsync(_testPlexOptions.Value.AuthToken).Returns(testFriends);
@@ -69,49 +69,48 @@ namespace Elzik.Mecon.Framework.Tests.Unit.Infrastructure.Plex
 
             var users = await plexUsers.GetPlexUsers();
 
-            var users2 = users.Where(user => user.AccountId != 149187732);
-
-            users2.Should().BeEquivalentTo(new[]
+            users.Should().BeEquivalentTo(new[]
             {
+                new PlexUser() { UserTitle = "FriendOneTitle", AccountId = 648167784 },
+                new PlexUser() { UserTitle = "FriendTwoTitle", AccountId = 132111983},
                 new PlexUser() { UserTitle = "UserAdminTitle", AccountId = 39388434 },
                 new PlexUser() { UserTitle = "UserOneTitle", AccountId = 78624707 },
-                new PlexUser() { UserTitle = "UserTwoTitle", AccountId = 92140768 },
                 new PlexUser() { UserTitle = "UserThreeTitle", AccountId = 64927093 },
-                new PlexUser() { UserTitle = "FriendOneTitle", AccountId = 648167784 }
-            });
+                new PlexUser() { UserTitle = "UserTwoTitle", AccountId = 92140768 }
+            }, options => options.WithStrictOrdering());
         }
 
         private static T GetXmlTestData<T>(string projectFilePath)
         {
-            var assemblyName = typeof(PlexUsersTests).Assembly.GetName().Name;
-            var fullName = $"{assemblyName}.{projectFilePath.TrimStart('/').Replace('/', '.')}";
-
-            using var userContainerStream = Assembly.GetExecutingAssembly().GetManifestResourceStream(fullName);
-            if (userContainerStream == null)
-            {
-                throw new InvalidOperationException($"{fullName} embedded resource not found.");
-            }
+            var dataStream = GetEmbeddedResourceStream(projectFilePath);
 
             var xmlSerialiser = new XmlSerializer(typeof(T));
-            var testHomeUserContainer = (T)xmlSerialiser.Deserialize(userContainerStream);
+            var data = (T)xmlSerialiser.Deserialize(dataStream);
 
-            return testHomeUserContainer;
+            return data;
         }
 
         private static T GetJsonTestData<T>(string projectFilePath)
         {
-            var assemblyName = typeof(PlexUsersTests).Assembly.GetName().Name;
-            var fullName = $"{assemblyName}.{projectFilePath.TrimStart('/').Replace('/', '.')}";
+            var dataStream = GetEmbeddedResourceStream(projectFilePath);
 
-            using var userContainerStream = Assembly.GetExecutingAssembly().GetManifestResourceStream(fullName);
-            if (userContainerStream == null)
-            {
-                throw new InvalidOperationException($"{fullName} embedded resource not found.");
-            }
-
-            var data = JsonSerializer.Deserialize<T>(userContainerStream);
+            var data = JsonSerializer.Deserialize<T>(dataStream);
 
             return data;
+        }
+
+        private static Stream GetEmbeddedResourceStream(string projectFilePath)
+        {
+            var assemblyName = typeof(PlexUsersTests).Assembly.GetName().Name;
+            var resourceStreamName = $"{assemblyName}.{projectFilePath.TrimStart('/').Replace('/', '.')}";
+
+            var embeddedResourceStream = Assembly.GetExecutingAssembly().GetManifestResourceStream(resourceStreamName);
+            if (embeddedResourceStream == null)
+            {
+                throw new InvalidOperationException($"{resourceStreamName} embedded resource not found.");
+            }
+
+            return embeddedResourceStream;
         }
     }
 }
