@@ -11,6 +11,7 @@
 		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
 		<PackageReference Include="Microsoft.Extensions.Caching.Abstractions" Version="6.0.0" />
+		<PackageReference Include="Plex.Api" Version="3.0.6" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -20,10 +21,6 @@
 		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
 		<PackageReference Include="System.IO.Abstractions" Version="16.1.25" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <ProjectReference Include="..\..\submodules\plex-api\Source\Plex.ServerApi\Plex.ServerApi.csproj" />
 	</ItemGroup>
 
 </Project>

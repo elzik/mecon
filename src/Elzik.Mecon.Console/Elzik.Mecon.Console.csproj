@@ -52,8 +52,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\..\submodules\plex-api\Source\Plex.Library\Plex.Library.csproj" />
-		<ProjectReference Include="..\..\submodules\plex-api\Source\Plex.ServerApi\Plex.ServerApi.csproj" />
 		<ProjectReference Include="..\Elzik.Mecon.Framework\Elzik.Mecon.Framework.csproj" />
 	</ItemGroup>
 

@@ -32,15 +32,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{C8376CE8
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Elzik.Mecon.Console.Tests.Unit", "tests\Elzik.Mecon.Console.Tests.Unit\Elzik.Mecon.Console.Tests.Unit.csproj", "{E36F539F-0C1B-4DBB-9309-2DF62D9A7E77}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Submodules", "Submodules", "{9FA5971F-D39B-49BB-9FD9-64B78F404A23}"
-	ProjectSection(SolutionItems) = preProject
-		.gitmodules = .gitmodules
-	EndProjectSection
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Plex.Library", "submodules\plex-api\Source\Plex.Library\Plex.Library.csproj", "{E4625E07-EB1A-42E0-BCEA-197D10C6CD48}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Plex.ServerApi", "submodules\plex-api\Source\Plex.ServerApi\Plex.ServerApi.csproj", "{DBAFEED7-E837-4E93-AC4B-7F17BEE6C114}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -67,14 +58,6 @@ Global
 		{E36F539F-0C1B-4DBB-9309-2DF62D9A7E77}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E36F539F-0C1B-4DBB-9309-2DF62D9A7E77}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E36F539F-0C1B-4DBB-9309-2DF62D9A7E77}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E4625E07-EB1A-42E0-BCEA-197D10C6CD48}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E4625E07-EB1A-42E0-BCEA-197D10C6CD48}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E4625E07-EB1A-42E0-BCEA-197D10C6CD48}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E4625E07-EB1A-42E0-BCEA-197D10C6CD48}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DBAFEED7-E837-4E93-AC4B-7F17BEE6C114}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DBAFEED7-E837-4E93-AC4B-7F17BEE6C114}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DBAFEED7-E837-4E93-AC4B-7F17BEE6C114}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DBAFEED7-E837-4E93-AC4B-7F17BEE6C114}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -83,8 +66,6 @@ Global
 		{5B011DB2-9722-42E7-8D3B-9C473B73D1E7} = {82104F08-D6CF-4E0A-ADAF-14E51CAAEF84}
 		{6D64CDE0-59B0-4C43-A67B-F88606A3189D} = {82104F08-D6CF-4E0A-ADAF-14E51CAAEF84}
 		{E36F539F-0C1B-4DBB-9309-2DF62D9A7E77} = {82104F08-D6CF-4E0A-ADAF-14E51CAAEF84}
-		{E4625E07-EB1A-42E0-BCEA-197D10C6CD48} = {9FA5971F-D39B-49BB-9FD9-64B78F404A23}
-		{DBAFEED7-E837-4E93-AC4B-7F17BEE6C114} = {9FA5971F-D39B-49BB-9FD9-64B78F404A23}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0F736F56-ED62-4ACB-84AA-5529D6D1A3F6}
