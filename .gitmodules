@@ -1,4 +1,0 @@
-[submodule "submodules/plex-api"]
-	path = submodules/plex-api
-	url = https://github.com/elzik/plex-api
-	branch = master
