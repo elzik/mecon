@@ -1,6 +1,7 @@
 ﻿using System.IO.Abstractions;
 using System.Reflection;
 using Elzik.Mecon.Console.CommandLine.Reconciliation;
+using Elzik.Mecon.Console.CommandLine.Users;
 using Elzik.Mecon.Framework.Application;
 using Elzik.Mecon.Framework.Domain.Plex;
 using Elzik.Mecon.Framework.Infrastructure.FileSystem.Options;
@@ -63,6 +64,8 @@ namespace Elzik.Mecon.Console
                 .AddTransient<IApiService, ApiService>()
                 .AddTransient<IPlexFactory, PlexFactory>()
                 .AddTransient<IPlexRequestsHttpClient, PlexRequestsHttpClient>()
+                .AddTransient<IPlexUsers, PlexUsers>()
+                .AddTransient<IUsersHandler, UsersHandler>()
                 .BuildServiceProvider();
 
             return serviceProvider;
