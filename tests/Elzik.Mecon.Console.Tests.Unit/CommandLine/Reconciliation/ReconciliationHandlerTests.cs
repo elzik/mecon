@@ -126,6 +126,7 @@ namespace Elzik.Mecon.Console.Tests.Unit.CommandLine.Reconciliation
         public void Dispose()
         {
             _consoleWriter.Dispose();
+            _errorWriter.Dispose();
         }
     }
 }
