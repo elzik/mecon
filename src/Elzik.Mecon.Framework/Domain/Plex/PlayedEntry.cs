@@ -1,9 +1,9 @@
 ﻿namespace Elzik.Mecon.Framework.Domain.Plex
 {
-    public class PlexUser
+    public class PlayedEntry
     {
         public int AccountId { get; init; }
 
-        public string UserTitle { get; set; }
+        public string LibraryKey { get; init; }
     }
 }

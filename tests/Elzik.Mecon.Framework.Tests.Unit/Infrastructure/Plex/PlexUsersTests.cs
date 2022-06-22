@@ -1,16 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Reflection;
-using System.Text.Json;
 using System.Threading.Tasks;
-using System.Xml.Serialization;
 using AutoFixture;
 using AutoFixture.AutoNSubstitute;
 using AutoFixture.Idioms;
 using Elzik.Mecon.Framework.Domain.Plex;
 using Elzik.Mecon.Framework.Infrastructure.Plex;
 using Elzik.Mecon.Framework.Infrastructure.Plex.Options;
+using Elzik.Mecon.Framework.Tests.Unit.Shared;
 using FluentAssertions;
 using Microsoft.Extensions.Options;
 using NSubstitute;
@@ -35,9 +32,9 @@ namespace Elzik.Mecon.Framework.Tests.Unit.Infrastructure.Plex
             _testPlexOptions = new OptionsWrapper<PlexOptions>(_fixture.Create<PlexOptions>());
 
             _mockPlexAccountClient = Substitute.For<IPlexAccountClient>();
-            var testHomeUserContainer = GetXmlTestData<HomeUserContainer>("Infrastructure/Plex/TestData/TestHomeUserContainer.xml");
+            var testHomeUserContainer = EmbeddedResources.GetXmlTestData<HomeUserContainer>("Infrastructure/Plex/TestData/TestHomeUserContainer.xml");
             _mockPlexAccountClient.GetHomeUsersAsync(_testPlexOptions.Value.AuthToken).Returns(testHomeUserContainer);
-            var testFriends = GetJsonTestData<List<Friend>>("Infrastructure/Plex/TestData/TestFriends.json");
+            var testFriends = EmbeddedResources.GetJsonTestData<List<Friend>>("Infrastructure/Plex/TestData/TestFriends.json");
             _mockPlexAccountClient.GetFriendsAsync(_testPlexOptions.Value.AuthToken).Returns(testFriends);
         }
 
@@ -78,39 +75,6 @@ namespace Elzik.Mecon.Framework.Tests.Unit.Infrastructure.Plex
                 new PlexUser() { UserTitle = "UserThreeTitle", AccountId = 64927093 },
                 new PlexUser() { UserTitle = "UserTwoTitle", AccountId = 92140768 }
             }, options => options.WithStrictOrdering());
-        }
-
-        private static T GetXmlTestData<T>(string projectFilePath)
-        {
-            var dataStream = GetEmbeddedResourceStream(projectFilePath);
-
-            var xmlSerialiser = new XmlSerializer(typeof(T));
-            var data = (T)xmlSerialiser.Deserialize(dataStream);
-
-            return data;
-        }
-
-        private static T GetJsonTestData<T>(string projectFilePath)
-        {
-            var dataStream = GetEmbeddedResourceStream(projectFilePath);
-
-            var data = JsonSerializer.Deserialize<T>(dataStream);
-
-            return data;
-        }
-
-        private static Stream GetEmbeddedResourceStream(string projectFilePath)
-        {
-            var assemblyName = typeof(PlexUsersTests).Assembly.GetName().Name;
-            var resourceStreamName = $"{assemblyName}.{projectFilePath.TrimStart('/').Replace('/', '.')}";
-
-            var embeddedResourceStream = Assembly.GetExecutingAssembly().GetManifestResourceStream(resourceStreamName);
-            if (embeddedResourceStream == null)
-            {
-                throw new InvalidOperationException($"{resourceStreamName} embedded resource not found.");
-            }
-
-            return embeddedResourceStream;
         }
     }
 }

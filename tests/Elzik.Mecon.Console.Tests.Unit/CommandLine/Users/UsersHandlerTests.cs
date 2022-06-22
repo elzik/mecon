@@ -4,7 +4,6 @@ using Elzik.Mecon.Console.CommandLine.Users;
 using Elzik.Mecon.Framework.Domain.Plex;
 using FluentAssertions;
 using NSubstitute;
-using NSubstitute.ExceptionExtensions;
 using Xunit;
 
 namespace Elzik.Mecon.Console.Tests.Unit.CommandLine.Users

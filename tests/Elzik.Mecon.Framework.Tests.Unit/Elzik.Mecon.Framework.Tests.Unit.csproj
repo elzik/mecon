@@ -15,6 +15,9 @@
   <ItemGroup>
     <None Remove="Infrastructure\Plex\TestData\TestFriends.json" />
     <None Remove="Infrastructure\Plex\TestData\TestHomeUserContainer.xml" />
+    <None Remove="Infrastructure\Plex\TestData\TestPlayHistory\TestPlayHistory1.json" />
+    <None Remove="Infrastructure\Plex\TestData\TestPlayHistory\TestPlayHistory2.json" />
+    <None Remove="Infrastructure\Plex\TestData\TestPlayHistory\TestPlayHistory3.json" />
     <None Remove="Infrastructure\Plex\TestData\TestVideoContainer.xml" />
   </ItemGroup>
 
@@ -23,6 +26,9 @@
     <EmbeddedResource Include="Infrastructure\Plex\TestData\TestHomeUserContainer.xml">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </EmbeddedResource>
+    <EmbeddedResource Include="Infrastructure\Plex\TestData\TestPlayHistory\TestPlayHistory1.json" />
+    <EmbeddedResource Include="Infrastructure\Plex\TestData\TestPlayHistory\TestPlayHistory2.json" />
+    <EmbeddedResource Include="Infrastructure\Plex\TestData\TestPlayHistory\TestPlayHistory3.json" />
     <EmbeddedResource Include="Infrastructure\Plex\TestData\TestVideoContainer.xml" />
   </ItemGroup>
 
