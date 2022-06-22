@@ -8,6 +8,7 @@ using Xunit;
 
 namespace Elzik.Mecon.Console.Tests.Unit.CommandLine.Users
 {
+    [Collection("RedirectedConsoleOutput")]
     public sealed class UsersHandlerTests : IDisposable
     {
         private readonly IFixture _fixture;

@@ -13,6 +13,7 @@ using Xunit;
 
 namespace Elzik.Mecon.Console.Tests.Unit.CommandLine.Reconciliation
 {
+    [Collection("RedirectedConsoleOutput")]
     public sealed class ReconciliationHandlerTests : IDisposable
     {
         private readonly IFixture _fixture;

@@ -32,7 +32,7 @@ namespace Elzik.Mecon.Framework.Tests.Unit.Infrastructure.Plex
             _testPlexOptions = new OptionsWrapper<PlexOptions>(_fixture.Create<PlexOptions>());
 
             _mockPlexAccountClient = Substitute.For<IPlexAccountClient>();
-            var testHomeUserContainer = EmbeddedResources.GetXmlTestData<HomeUserContainer>("Infrastructure/Plex/TestData/TestHomeUserContainer.xml");
+            var testHomeUserContainer = EmbeddedResources.GetJsonTestData<HomeUserContainer>("Infrastructure/Plex/TestData/TestHomeUserContainer/TestHomeUserContainer.json");
             _mockPlexAccountClient.GetHomeUsersAsync(_testPlexOptions.Value.AuthToken).Returns(testHomeUserContainer);
             var testFriends = EmbeddedResources.GetJsonTestData<List<Friend>>("Infrastructure/Plex/TestData/TestFriends.json");
             _mockPlexAccountClient.GetFriendsAsync(_testPlexOptions.Value.AuthToken).Returns(testFriends);

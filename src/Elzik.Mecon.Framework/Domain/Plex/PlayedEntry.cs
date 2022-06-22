@@ -2,7 +2,7 @@
 {
     public class PlayedEntry
     {
-        public int AccountId { get; init; }
+        public int AccountId { get; set; }
 
         public string LibraryKey { get; init; }
     }

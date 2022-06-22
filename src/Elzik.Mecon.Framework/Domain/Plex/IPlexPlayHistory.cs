@@ -5,5 +5,5 @@ namespace Elzik.Mecon.Framework.Domain.Plex;
 
 public interface IPlexPlayHistory
 {
-    Task<List<PlayedEntry>> GetPlayHistory();
+    Task<IEnumerable<PlayedEntry>> GetPlayHistory();
 }
