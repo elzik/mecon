@@ -17,8 +17,8 @@ namespace Elzik.Mecon.Framework.Infrastructure.Plex
         private MemoryCacheEntryOptions _memoryCacheEntryOptions;
         private readonly PlexWithCachingOptions _plexWithCachingOptions;
 
-        public PlexEntriesWithCaching(IPlexServerClient plexServerClient, IPlexLibraryClient plexLibraryClient, IMemoryCache memoryCache, IOptions<PlexWithCachingOptions> plexOptions) 
-            : base(plexServerClient, plexLibraryClient, plexOptions)
+        public PlexEntriesWithCaching(IPlexServerClient plexServerClient, IPlexLibraryClient plexLibraryClient, IMemoryCache memoryCache, IPlexPlayHistory plexPlayHistory, IOptions<PlexWithCachingOptions> plexOptions) 
+            : base(plexServerClient, plexLibraryClient, plexOptions, plexPlayHistory)
         {
             _memoryCache = memoryCache ?? throw new ArgumentNullException(nameof(memoryCache));
 

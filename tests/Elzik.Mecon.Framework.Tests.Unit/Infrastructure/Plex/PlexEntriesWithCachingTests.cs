@@ -9,6 +9,7 @@ using NSubstitute;
 using System;
 using System.Threading.Tasks;
 using Elzik.Mecon.Framework.Domain;
+using Elzik.Mecon.Framework.Domain.Plex;
 using Plex.ServerApi.Clients.Interfaces;
 using Plex.ServerApi.PlexModels.Library;
 using Xunit;
@@ -21,7 +22,9 @@ namespace Elzik.Mecon.Framework.Tests.Unit.Infrastructure.Plex
         private readonly IFixture _fixture;
         private readonly IPlexServerClient _mockPlexServerClient;
         private readonly IPlexLibraryClient _mockPlexLibraryClient;
+        private readonly IPlexPlayHistory _mockPlexPlayHistory;
         private readonly IMemoryCache _mockMemoryCache;
+
         private readonly PlexWithCachingOptions _options;
         private readonly MediaType[] _testMediaTypes;
 
@@ -38,6 +41,7 @@ namespace Elzik.Mecon.Framework.Tests.Unit.Infrastructure.Plex
 
             _mockPlexLibraryClient = Substitute.For<IPlexLibraryClient>();
             _mockMemoryCache = Substitute.For<IMemoryCache>();
+            _mockPlexPlayHistory = Substitute.For<IPlexPlayHistory>();
 
             _testMediaTypes = new[] { MediaType.Movie, MediaType.TvShow };
         }
@@ -47,7 +51,7 @@ namespace Elzik.Mecon.Framework.Tests.Unit.Infrastructure.Plex
         {
             // Act
             var ex = Assert.Throws<ArgumentNullException>(() => 
-                new PlexEntriesWithCaching(_mockPlexServerClient, _mockPlexLibraryClient, null, 
+                new PlexEntriesWithCaching(_mockPlexServerClient, _mockPlexLibraryClient, null, _mockPlexPlayHistory,
                 _fixture.Create<OptionsWrapper<PlexWithCachingOptions>>()));
 
             // Assert
@@ -64,7 +68,7 @@ namespace Elzik.Mecon.Framework.Tests.Unit.Infrastructure.Plex
             // Act
             var ex = Assert.Throws<InvalidOperationException>(() => 
                 new PlexEntriesWithCaching(_mockPlexServerClient, _mockPlexLibraryClient, 
-                    _mockMemoryCache, testInvalidCacheOptions));
+                    _mockMemoryCache, _mockPlexPlayHistory, testInvalidCacheOptions));
 
             // Assert
             ex.Message.Should().Be($"If options contains a {nameof(testInvalidCacheOptions.Value.CacheExpiry)} it " +
@@ -81,7 +85,7 @@ namespace Elzik.Mecon.Framework.Tests.Unit.Infrastructure.Plex
 
             var plexEntriesWithCaching =
                 new PlexEntriesWithCaching(_mockPlexServerClient, _mockPlexLibraryClient, 
-                    _mockMemoryCache, testCacheOptionsWithoutCache);
+                    _mockMemoryCache, _mockPlexPlayHistory, testCacheOptionsWithoutCache);
 
             // Act
             await plexEntriesWithCaching.GetPlexEntries(_testMediaTypes);
@@ -99,7 +103,7 @@ namespace Elzik.Mecon.Framework.Tests.Unit.Infrastructure.Plex
 
             var plexEntriesWithCaching =
                 new PlexEntriesWithCaching(_mockPlexServerClient, _mockPlexLibraryClient, 
-                    _mockMemoryCache, testCacheOptions);
+                    _mockMemoryCache, _mockPlexPlayHistory, testCacheOptions);
 
             // Act
             await plexEntriesWithCaching.GetPlexEntries(_testMediaTypes);
@@ -117,7 +121,7 @@ namespace Elzik.Mecon.Framework.Tests.Unit.Infrastructure.Plex
 
             var plexEntriesWithCaching =
                 new PlexEntriesWithCaching(_mockPlexServerClient, _mockPlexLibraryClient, 
-                    _mockMemoryCache, testCacheOptions);
+                    _mockMemoryCache, _mockPlexPlayHistory, testCacheOptions);
 
             // Act
             await plexEntriesWithCaching.GetPlexEntries(_testMediaTypes);
