@@ -124,6 +124,116 @@ namespace Elzik.Mecon.Framework.Tests.Unit.Domain
             entriesNotInPlex.Should().BeEquivalentTo(testPlexEntries);
         }
 
+        [Fact]
+        public void WhereWatchedByAccounts_WithNullAccounts_Throws()
+        {
+            // Arrange
+            var testEntries = _fixture.CreateMany<MediaEntry>();
+
+            // Act
+            var ex = Assert.Throws<ArgumentNullException>(() => testEntries.WhereWatchedByAccounts(null));
+
+            // Assert
+            ex.ParamName.Should().Be("accountIds");
+        }
+
+        [Fact]
+        public void WhereWatchedByAccounts_WithNoAccounts_Throws()
+        {
+            // Arrange
+            var testEntries = _fixture.CreateMany<MediaEntry>();
+
+            // Act
+            var ex = Assert.Throws<InvalidOperationException>(() => testEntries.WhereWatchedByAccounts(Array.Empty<int>()));
+
+            // Assert
+            ex.Message.Should().Be("At least one account ID must be specified.");
+        }
+
+        [Fact]
+        public void WhereWatchedByAccounts_WithOneAccount_ReturnsOnlyPlexEntriesWatchedByThatAccount()
+        {
+            // Arrange
+            var testPlexEntries = GetOnlyPlexEntries();
+            var testVariousEntries = GetOnlyNonPlexEntries().Concat(testPlexEntries).ToList();
+
+            var testWatchedByAccount = new[] { _fixture.Create<int>() };
+            var mediaEntry = testVariousEntries.First(entry => entry.ReconciledEntries.First() is Framework.Domain.Plex.PlexEntry);
+            var testPlexEntry = (Framework.Domain.Plex.PlexEntry)mediaEntry.ReconciledEntries.First();
+            testPlexEntry.WatchedByAccounts = testWatchedByAccount;
+
+            // Act
+            var watchedEntries = testVariousEntries.WhereWatchedByAccounts(testWatchedByAccount);
+
+            // Assert
+            watchedEntries.Should().ContainSingle(entry => entry == mediaEntry);
+        }
+
+        [Fact]
+        public void WhereWatchedByAccounts_WithMultipleAccounts_ReturnsOnlyPlexEntriesWatchedByThoseAccounts()
+        {
+            // Arrange
+            var testPlexEntries = GetOnlyPlexEntries();
+            var testVariousEntries = GetOnlyNonPlexEntries().Concat(testPlexEntries).ToList();
+
+            var watchedByAccounts = _fixture.CreateMany<int>().ToList();
+            var mediaEntry = testVariousEntries.First(entry => entry.ReconciledEntries.First() is Framework.Domain.Plex.PlexEntry);
+            var testPlexEntry = (Framework.Domain.Plex.PlexEntry)mediaEntry.ReconciledEntries.First();
+            testPlexEntry.WatchedByAccounts = watchedByAccounts;
+
+            // Act
+            var watchedEntries = testVariousEntries.WhereWatchedByAccounts(watchedByAccounts);
+
+            // Assert
+            watchedEntries.Should().ContainSingle(entry => entry == mediaEntry);
+        }
+
+        [Fact]
+        public void WhereWatchedByAccounts_WithMultipleAccountsAndWatchedByOnlyASubset_ReturnsNoEntries()
+        {
+            // Arrange
+            var testPlexEntries = GetOnlyPlexEntries();
+            var testVariousEntries = GetOnlyNonPlexEntries().Concat(testPlexEntries).ToList();
+
+            var watchedByAccounts = _fixture.CreateMany<int>().ToList();
+            var mediaEntry = testVariousEntries.First(entry => entry.ReconciledEntries.First() is Framework.Domain.Plex.PlexEntry);
+            var testPlexEntry = (Framework.Domain.Plex.PlexEntry)mediaEntry.ReconciledEntries.First();
+            var watchedByAccountsSubset = watchedByAccounts.Take(watchedByAccounts.Count -1);
+            testPlexEntry.WatchedByAccounts = watchedByAccountsSubset;
+
+            // Act
+            var watchedEntries = testVariousEntries.WhereWatchedByAccounts(watchedByAccounts);
+
+            // Assert
+            watchedEntries.Should().BeEmpty();
+        }
+
+        [Fact]
+        public void WhereWatchedByAccounts_WithMultipleAccountsAndMultipleEntriesWatched_ReturnsOnlyPlexEntriesWatchedByThoseAccounts()
+        {
+            // Arrange
+            var testPlexEntries = GetOnlyPlexEntries();
+            var testVariousEntries = GetOnlyNonPlexEntries().Concat(testPlexEntries).ToList();
+
+            var watchedByAccounts = _fixture.CreateMany<int>().ToList(); 
+            var mediaEntries = new List<MediaEntry>()
+            {
+                testVariousEntries.First(entry => entry.ReconciledEntries.First() is Framework.Domain.Plex.PlexEntry),
+                testVariousEntries.Last(entry => entry.ReconciledEntries.First() is Framework.Domain.Plex.PlexEntry)
+            };
+            foreach (var mediaEntry in mediaEntries)
+            {
+                ((Framework.Domain.Plex.PlexEntry)mediaEntry.ReconciledEntries.First()).WatchedByAccounts =
+                    watchedByAccounts;
+            }
+
+            // Act
+            var watchedEntries = testVariousEntries.WhereWatchedByAccounts(watchedByAccounts);
+
+            // Assert
+            watchedEntries.Should().BeEquivalentTo(mediaEntries);
+        }
+
         private List<MediaEntry> GetOnlyNonPlexEntries()
         {
             return _fixture.CreateMany<MediaEntry>().ToList();
