@@ -2,9 +2,9 @@
 
 namespace Elzik.Mecon.Console.CommandLine.Reconciliation
 {
-    internal static class MediaEntriesExtensions
+    internal class OutputOperations : IOutputOperations
     {
-        internal static IEnumerable<MediaEntry> PerformOutputFilters(this IEnumerable<MediaEntry> entries, ReconciliationOptions options)
+        public IEnumerable<MediaEntry> PerformOutputFilters(IEnumerable<MediaEntry> entries, ReconciliationOptions options)
         {
             if (options.MissingFromLibrary)
             {
