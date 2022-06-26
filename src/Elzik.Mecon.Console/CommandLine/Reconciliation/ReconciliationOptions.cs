@@ -42,7 +42,7 @@ namespace Elzik.Mecon.Console.CommandLine.Reconciliation
             HelpText = "Comma-separated list of media types that the specified directory contains in order to avoid " +
                        "searching through libraries that contain other media types. " +
                        "Possible options are 'Movie' or 'TvShow'. " +
-                       "This option is only valid when the -d option (--directory-definition-name) is supplied. " +
+                       "This option is only valid when the -d option (--directory) is supplied. " +
                        "If this is omitted, all libraries of all media types will be searched.")]
         public IEnumerable<MediaType>? MediaTypes { get; set; }
 
@@ -54,9 +54,9 @@ namespace Elzik.Mecon.Console.CommandLine.Reconciliation
             HelpText = "Filter output to only show files present in media library.")]
         public bool PresentInLibrary { get; set; }
 
-        [Option('w', "watched-by", Group = "required output filter",
+        [Option('w', "watched-by", Separator = ',', Required = false ,Group = "required output filter",
             HelpText = "Filter output to only show files which have been watched by the supplied comma-separated list of user titles. If the option is supplied without a list of user titles then only files which have been watched by all users are returned.")]
-        public IEnumerable<string> WatchedByUsers { get; set; }
+        public IEnumerable<string>? WatchedByUsers { get; set; }
 
         [Option('f', "regex-match-filter",
             HelpText = "Filter output to only show files where the filepath matches a regular expression.")]

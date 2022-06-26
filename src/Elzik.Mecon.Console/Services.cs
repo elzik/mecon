@@ -67,6 +67,7 @@ namespace Elzik.Mecon.Console
                 .AddTransient<IPlexUsers, PlexUsers>()
                 .AddTransient<IUsersHandler, UsersHandler>()
                 .AddTransient<IPlexPlayHistory, PlexPlayHistory>()
+                .AddTransient<IOutputOperations, OutputOperations>()
                 .BuildServiceProvider();
 
             return serviceProvider;
