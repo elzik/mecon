@@ -47,5 +47,26 @@ namespace Elzik.Mecon.Framework.Infrastructure.Plex
 
             return allUsers;
         }
+
+        public async Task<IEnumerable<int>> GetAccountIds(IEnumerable<string> accountTitles)
+        {
+            var plexUsers = (await GetPlexUsers()).ToList();
+
+            var accountIds = new List<int>();
+            foreach (var title in accountTitles)
+            {
+                var plexUser = plexUsers.SingleOrDefault(user =>
+                    user.UserTitle.Equals(title, StringComparison.InvariantCultureIgnoreCase));
+
+                if (plexUser == null)
+                {
+                    throw new InvalidOperationException($"User with title '{title}' does not exist.");
+                }
+
+                accountIds.Add(plexUser.AccountId);
+            }
+
+            return accountIds;
+        }
     }
 }

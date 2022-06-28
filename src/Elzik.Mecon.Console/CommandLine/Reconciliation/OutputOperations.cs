@@ -27,22 +27,32 @@ namespace Elzik.Mecon.Console.CommandLine.Reconciliation
 
             if (options.WatchedByUsers != null)
             {
-                // TODO: Ignore spaces on the command line for the -w option.
-                // TODO: Ignore case when finding user titles.
-                // TODO: Validate that each supplied user title has a matching Plex user.
-                var plexUsers = (await _plexUsers.GetPlexUsers()).ToList();
+                var expandedWatchedByUserTitles = await GetExpandedWatchedByUserTitles(options.WatchedByUsers);
 
-                var watchedByUsers = options.WatchedByUsers.Count() == 1 && options.WatchedByUsers.Single() == "!"
-                    ? plexUsers.Select(user => user.UserTitle)
-                    : options.WatchedByUsers;
-
-                var watchedByAccountIds = watchedByUsers.Select(watchedByUserTitle => 
-                    plexUsers.Single(user => user.UserTitle == watchedByUserTitle).AccountId);
+                var watchedByAccountIds = await _plexUsers.GetAccountIds(expandedWatchedByUserTitles);
 
                 entries = entries.WhereWatchedByAccounts(watchedByAccountIds);
             }
 
             return entries;
+        }
+
+        private async Task<IEnumerable<string>> GetExpandedWatchedByUserTitles(IEnumerable<string> watchedByUserTitles)
+        {
+            var watchedByUserTitlesList = watchedByUserTitles.ToList();
+            
+            if (watchedByUserTitlesList.Any(IsExclamationMark))
+            {
+                watchedByUserTitlesList.AddRange((await _plexUsers.GetPlexUsers()).Select(user => user.UserTitle));
+                watchedByUserTitlesList.RemoveAll(IsExclamationMark);
+            }
+
+            return watchedByUserTitlesList;
+        }
+
+        private static bool IsExclamationMark(string s)
+        {
+            return s.Equals("!", StringComparison.InvariantCulture);
         }
     }
 }
