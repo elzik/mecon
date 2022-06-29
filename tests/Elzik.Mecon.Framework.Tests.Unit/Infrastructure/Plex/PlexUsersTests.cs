@@ -24,6 +24,7 @@ namespace Elzik.Mecon.Framework.Tests.Unit.Infrastructure.Plex
 
         private readonly IPlexAccountClient _mockPlexAccountClient;
         private readonly OptionsWrapper<PlexOptions> _testPlexOptions;
+        private PlexUsers _plexUsers;
 
         public PlexUsersTests()
         {
@@ -36,6 +37,7 @@ namespace Elzik.Mecon.Framework.Tests.Unit.Infrastructure.Plex
             _mockPlexAccountClient.GetHomeUsersAsync(_testPlexOptions.Value.AuthToken).Returns(testHomeUserContainer);
             var testFriends = EmbeddedResources.GetJsonTestData<List<Friend>>("Infrastructure/Plex/TestData/TestFriends.json");
             _mockPlexAccountClient.GetFriendsAsync(_testPlexOptions.Value.AuthToken).Returns(testFriends);
+            _plexUsers = new PlexUsers(_mockPlexAccountClient, _testPlexOptions);
         }
 
         [Fact]
@@ -62,10 +64,10 @@ namespace Elzik.Mecon.Framework.Tests.Unit.Infrastructure.Plex
         [Fact]
         public async Task GetPlexUsers_WithValidUsers_ReturnsUsers()
         {
-            var plexUsers = new PlexUsers(_mockPlexAccountClient, _testPlexOptions);
+            // Act
+            var users = await _plexUsers.GetPlexUsers();
 
-            var users = await plexUsers.GetPlexUsers();
-
+            // Assert
             users.Should().BeEquivalentTo(new[]
             {
                 new PlexUser() { UserTitle = "FriendOneTitle", AccountId = 648167784 },
@@ -75,6 +77,62 @@ namespace Elzik.Mecon.Framework.Tests.Unit.Infrastructure.Plex
                 new PlexUser() { UserTitle = "UserThreeTitle", AccountId = 64927093 },
                 new PlexUser() { UserTitle = "UserTwoTitle", AccountId = 92140768 }
             }, options => options.WithStrictOrdering());
+        }
+
+        [Fact]
+        public async Task GetAccountIds_WithValidTitles_ReturnsAccountIds()
+        {
+            // Arrange
+            var testUserTitles = new string[]
+            {
+                "FriendOneTitle", "FriendTwoTitle", "UserAdminTitle", "UserOneTitle", "UserThreeTitle", "UserTwoTitle"
+            };
+            var expectedUserIds = new int[]
+            {                
+                648167784, 132111983, 39388434, 78624707, 64927093, 92140768
+            };
+
+            // Act
+            var accountIds = await _plexUsers.GetAccountIds(testUserTitles);
+
+            // Assert
+            accountIds.Should().BeEquivalentTo(expectedUserIds);
+        }
+
+        [Fact]
+        public async Task GetAccountIds_WithLowerCasedTitles_IgnoresCaseAndReturnsAccountIds()
+        {
+            // Arrange
+            var testUserTitles = new string[]
+            {
+                "friendonetitle", "friendtwotitle", "useradmintitle", "useronetitle", "userthreetitle", "usertwotitle"
+            };
+            var expectedUserIds = new int[]
+            {
+                648167784, 132111983, 39388434, 78624707, 64927093, 92140768
+            };
+
+            // Act
+            var accountIds = await _plexUsers.GetAccountIds(testUserTitles);
+
+            // Assert
+            accountIds.Should().BeEquivalentTo(expectedUserIds);
+        }
+
+        [Fact]
+        public async Task GetAccountIds_WithUnknownUser_Throws()
+        {
+            // Arrange
+            var testUserTitles = new string[]
+            {
+                "FriendOneTitle", "Unknown"
+            };
+
+            // Act
+            var ex = await Assert.ThrowsAsync<InvalidOperationException>(() => _plexUsers.GetAccountIds(testUserTitles));
+
+            // Assert
+            ex.Message.Should().Be("User with title 'Unknown' does not exist.");
         }
     }
 }
