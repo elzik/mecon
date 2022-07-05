@@ -3,7 +3,7 @@ using Elzik.Mecon.Framework.Domain.Plex;
 
 namespace Elzik.Mecon.Console.CommandLine.Reconciliation
 {
-    internal class OutputOperations : IOutputOperations
+    public class OutputOperations : IOutputOperations
     {
         private readonly IPlexUsers _plexUsers;
 
@@ -12,7 +12,7 @@ namespace Elzik.Mecon.Console.CommandLine.Reconciliation
             _plexUsers = plexUsers ?? throw new ArgumentNullException(nameof(plexUsers));
         }
 
-        public async Task<IEnumerable<MediaEntry>> PerformOutputFilters(IEnumerable<MediaEntry> entries,
+        public async Task<MediaEntryCollection> PerformOutputFilters(MediaEntryCollection entries,
             ReconciliationOptions options)
         {
             if (options.MissingFromLibrary)
@@ -25,7 +25,7 @@ namespace Elzik.Mecon.Console.CommandLine.Reconciliation
                 entries = entries.WhereInPlex();
             }
 
-            if (options.WatchedByUsers != null)
+            if (options.WatchedByUsers != null && options.WatchedByUsers.Any())
             {
                 var expandedWatchedByUserTitles = await GetExpandedWatchedByUserTitles(options.WatchedByUsers);
 

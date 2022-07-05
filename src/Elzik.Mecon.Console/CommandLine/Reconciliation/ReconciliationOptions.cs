@@ -54,8 +54,9 @@ namespace Elzik.Mecon.Console.CommandLine.Reconciliation
             HelpText = "Filter output to only show files present in media library.")]
         public bool PresentInLibrary { get; set; }
 
-        [Option('w', "watched-by", Separator = ',' ,Group = "required output filter",
-            HelpText = "Filter output to only show files which have been watched by the supplied comma-separated list of user titles. If the option is supplied without a list of user titles then only files which have been watched by all users are returned.")]
+        [Option('w', "watched-by", Separator = ',', Group = "required output filter",
+            HelpText =
+                "Filter output to only show files which have been watched by the supplied comma-separated list of user titles. If the option is supplied without a list of user titles then only files which have been watched by all users are returned.")]
         public IEnumerable<string>? WatchedByUsers { get; set; }
 
         [Option('f', "regex-match-filter",

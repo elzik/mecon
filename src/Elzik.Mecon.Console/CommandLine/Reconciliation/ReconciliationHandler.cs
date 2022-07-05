@@ -38,7 +38,8 @@ namespace Elzik.Mecon.Console.CommandLine.Reconciliation
                 var entries = AsyncContext.Run(() => _reconciledMedia.GetMediaEntries(directoryDefinition));
 
                 var closureScopedEntries = entries;
-                entries = AsyncContext.Run(() => _outputOperations.PerformOutputFilters(closureScopedEntries, reconciliationOptions));
+                entries = AsyncContext.Run(() => _outputOperations
+                    .PerformOutputFilters(closureScopedEntries, reconciliationOptions));
 
                 System.Console.WriteLine(
                     string.Join(Environment.NewLine,

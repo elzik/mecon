@@ -1,28 +1,35 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using AutoFixture;
 using AutoFixture.AutoNSubstitute;
+using AutoFixture.Idioms;
 using Elzik.Mecon.Framework.Domain;
 using FluentAssertions;
 using Xunit;
 
 namespace Elzik.Mecon.Framework.Tests.Unit.Domain
 {
-    public class MediaEntriesExtensionsTests
+    public class MediaEntriesTests
     {
         private readonly IFixture _fixture;
-        public MediaEntriesExtensionsTests()
+        public MediaEntriesTests()
         {
             _fixture = new Fixture();
             _fixture.Customize(new AutoNSubstituteCustomization());
         }
 
         [Fact]
+        public void ConstructorNullChecks()
+        {
+            var assertion = new GuardClauseAssertion(_fixture);
+            assertion.Verify(typeof(MediaEntryCollection).GetConstructors());
+        }
+
+        [Fact]
         public void WhereNotInPlex_WithNoEntries_ReturnsNoEntries()
         {
             // Arrange
-            var testEmptyCollection = Array.Empty<MediaEntry>();
+            var testEmptyCollection = new MediaEntryCollection();
 
             // Act
             var entriesNotInPlex = testEmptyCollection.WhereNotInPlex();
@@ -62,10 +69,11 @@ namespace Elzik.Mecon.Framework.Tests.Unit.Domain
         {
             // Arrange
             var testNonPlexEntries = GetOnlyNonPlexEntries();
-            var testVariousEntries = GetOnlyPlexEntries().Concat(testNonPlexEntries);
+            var testVariousEntries = GetOnlyPlexEntries();
+            testVariousEntries.AddRange(testNonPlexEntries);
 
             // Act
-            var entriesNotInPlex = testVariousEntries.WhereNotInPlex();
+            var entriesNotInPlex = testVariousEntries!.WhereNotInPlex();
 
             // Assert
             entriesNotInPlex.Should().BeEquivalentTo(testNonPlexEntries);
@@ -75,7 +83,7 @@ namespace Elzik.Mecon.Framework.Tests.Unit.Domain
         public void WhereInPlex_WithNoEntries_ReturnsNoEntries()
         {
             // Arrange
-            var testEmptyCollection = Array.Empty<MediaEntry>();
+            var testEmptyCollection = new MediaEntryCollection();
 
             // Act
             var entriesNotInPlex = testEmptyCollection.WhereInPlex();
@@ -115,10 +123,11 @@ namespace Elzik.Mecon.Framework.Tests.Unit.Domain
         {
             // Arrange
             var testPlexEntries = GetOnlyPlexEntries();
-            var testVariousEntries = GetOnlyNonPlexEntries().Concat(testPlexEntries);
+            var testVariousEntries = GetOnlyNonPlexEntries();
+            testVariousEntries.AddRange(testPlexEntries);
 
             // Act
-            var entriesNotInPlex = testVariousEntries.WhereInPlex();
+            var entriesNotInPlex = testVariousEntries!.WhereInPlex();
 
             // Assert
             entriesNotInPlex.Should().BeEquivalentTo(testPlexEntries);
@@ -128,7 +137,7 @@ namespace Elzik.Mecon.Framework.Tests.Unit.Domain
         public void WhereWatchedByAccounts_WithNullAccounts_Throws()
         {
             // Arrange
-            var testEntries = _fixture.CreateMany<MediaEntry>();
+            var testEntries = new MediaEntryCollection();
 
             // Act
             var ex = Assert.Throws<ArgumentNullException>(() => testEntries.WhereWatchedByAccounts(null));
@@ -141,7 +150,7 @@ namespace Elzik.Mecon.Framework.Tests.Unit.Domain
         public void WhereWatchedByAccounts_WithNoAccounts_Throws()
         {
             // Arrange
-            var testEntries = _fixture.CreateMany<MediaEntry>();
+            var testEntries = _fixture.Create<MediaEntryCollection>();
 
             // Act
             var ex = Assert.Throws<InvalidOperationException>(() => testEntries.WhereWatchedByAccounts(Array.Empty<int>()));
@@ -155,10 +164,11 @@ namespace Elzik.Mecon.Framework.Tests.Unit.Domain
         {
             // Arrange
             var testPlexEntries = GetOnlyPlexEntries();
-            var testVariousEntries = GetOnlyNonPlexEntries().Concat(testPlexEntries).ToList();
+            var testVariousEntries = GetOnlyNonPlexEntries(); 
+            testVariousEntries.AddRange(testPlexEntries);
 
             var testWatchedByAccount = new[] { _fixture.Create<int>() };
-            var mediaEntry = testVariousEntries.First(entry => entry.ReconciledEntries.First() is Framework.Domain.Plex.PlexEntry);
+            var mediaEntry = testVariousEntries!.First(entry => entry.ReconciledEntries.First() is Framework.Domain.Plex.PlexEntry);
             var testPlexEntry = (Framework.Domain.Plex.PlexEntry)mediaEntry.ReconciledEntries.First();
             testPlexEntry.WatchedByAccounts = testWatchedByAccount;
 
@@ -174,10 +184,11 @@ namespace Elzik.Mecon.Framework.Tests.Unit.Domain
         {
             // Arrange
             var testPlexEntries = GetOnlyPlexEntries();
-            var testVariousEntries = GetOnlyNonPlexEntries().Concat(testPlexEntries).ToList();
+            var testVariousEntries = GetOnlyNonPlexEntries();
+            testVariousEntries.AddRange(testPlexEntries);
 
             var watchedByAccounts = _fixture.CreateMany<int>().ToList();
-            var mediaEntry = testVariousEntries.First(entry => entry.ReconciledEntries.First() is Framework.Domain.Plex.PlexEntry);
+            var mediaEntry = testVariousEntries!.First(entry => entry.ReconciledEntries.First() is Framework.Domain.Plex.PlexEntry);
             var testPlexEntry = (Framework.Domain.Plex.PlexEntry)mediaEntry.ReconciledEntries.First();
             testPlexEntry.WatchedByAccounts = watchedByAccounts;
 
@@ -193,10 +204,11 @@ namespace Elzik.Mecon.Framework.Tests.Unit.Domain
         {
             // Arrange
             var testPlexEntries = GetOnlyPlexEntries();
-            var testVariousEntries = GetOnlyNonPlexEntries().Concat(testPlexEntries).ToList();
+            var testVariousEntries = GetOnlyNonPlexEntries();
+            testVariousEntries.AddRange(testPlexEntries);
 
             var watchedByAccounts = _fixture.CreateMany<int>().ToList();
-            var mediaEntry = testVariousEntries.First(entry => entry.ReconciledEntries.First() is Framework.Domain.Plex.PlexEntry);
+            var mediaEntry = testVariousEntries!.First(entry => entry.ReconciledEntries.First() is Framework.Domain.Plex.PlexEntry);
             var testPlexEntry = (Framework.Domain.Plex.PlexEntry)mediaEntry.ReconciledEntries.First();
             var watchedByAccountsSubset = watchedByAccounts.Take(watchedByAccounts.Count -1);
             testPlexEntry.WatchedByAccounts = watchedByAccountsSubset;
@@ -213,12 +225,13 @@ namespace Elzik.Mecon.Framework.Tests.Unit.Domain
         {
             // Arrange
             var testPlexEntries = GetOnlyPlexEntries();
-            var testVariousEntries = GetOnlyNonPlexEntries().Concat(testPlexEntries).ToList();
+            var testVariousEntries = GetOnlyNonPlexEntries();
+            testVariousEntries.AddRange(testPlexEntries);
 
             var watchedByAccounts = _fixture.CreateMany<int>().ToList(); 
-            var mediaEntries = new List<MediaEntry>()
+            var mediaEntries = new MediaEntryCollection()
             {
-                testVariousEntries.First(entry => entry.ReconciledEntries.First() is Framework.Domain.Plex.PlexEntry),
+                testVariousEntries!.First(entry => entry.ReconciledEntries.First() is Framework.Domain.Plex.PlexEntry),
                 testVariousEntries.Last(entry => entry.ReconciledEntries.First() is Framework.Domain.Plex.PlexEntry)
             };
             foreach (var mediaEntry in mediaEntries)
@@ -234,14 +247,58 @@ namespace Elzik.Mecon.Framework.Tests.Unit.Domain
             watchedEntries.Should().BeEquivalentTo(mediaEntries);
         }
 
-        private List<MediaEntry> GetOnlyNonPlexEntries()
+        [Fact]
+        public void AddRange_WithValidEntries_AddsAll()
         {
-            return _fixture.CreateMany<MediaEntry>().ToList();
+            // Arrange
+            var testMediaEntriesToAdd = _fixture.CreateMany<MediaEntry>().ToList();
+            var mediaEntries = new MediaEntryCollection();
+
+            // Act
+            mediaEntries.AddRange(testMediaEntriesToAdd);
+
+            // Assert
+            mediaEntries.Should().BeEquivalentTo(testMediaEntriesToAdd);
         }
 
-        private List<MediaEntry> GetOnlyPlexEntries()
+        [Fact]
+        public void AddRange_WithNullEntries_Throws()
         {
-            var testPlexEntries = _fixture.CreateMany<MediaEntry>().ToList();
+            // Arrange
+            var testMediaEntries = new MediaEntryCollection();
+
+            // Act
+            var ex = Assert.Throws<ArgumentNullException>(() => 
+                testMediaEntries.AddRange(null));
+
+            // Assert
+            ex.ParamName.Should().Be("values");
+        }
+
+        [Fact]
+        public void Instantiated_WithValidEntries_AddsAll()
+        {
+            // Arrange
+            var testMediaEntriesToAdd = _fixture.CreateMany<MediaEntry>().ToList();
+
+            // Act
+            var mediaEntries = new MediaEntryCollection(testMediaEntriesToAdd);
+
+            // Assert
+            mediaEntries.Should().BeEquivalentTo(testMediaEntriesToAdd);
+        }
+
+        private MediaEntryCollection GetOnlyNonPlexEntries()
+        {
+            var nonPlexEntries = new MediaEntryCollection();
+            nonPlexEntries.AddMany(() => _fixture.Create<MediaEntry>(), 3);
+
+            return nonPlexEntries;
+        }
+
+        private MediaEntryCollection GetOnlyPlexEntries()
+        {
+            var testPlexEntries = GetOnlyNonPlexEntries();
 
             foreach (var plexEntry in testPlexEntries)
             {

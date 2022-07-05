@@ -21,8 +21,8 @@ namespace Elzik.Mecon.Console.Tests.Unit.CommandLine.Reconciliation
         private readonly IOutputOperations _mockOutputOperations;
         private readonly ReconciliationOptions _testReconciliationOptionsWithDirectoryDefinition;
         private readonly ReconciliationOptions _testReconciliationOptionsWithoutDirectoryDefinition;
-        private readonly List<MediaEntry> _testInputMediaEntries;
-        private readonly List<MediaEntry> _testOutputMediaEntries;
+        private readonly MediaEntryCollection _testInputMediaEntries;
+        private readonly MediaEntryCollection _testOutputMediaEntries;
         private readonly IFileSystem _mockFileSystem;
         private readonly ConfigurationBuilder _mockConfigurationBuilder;
         private readonly ReconciliationHandler _reconciliationHandler;
@@ -39,8 +39,8 @@ namespace Elzik.Mecon.Console.Tests.Unit.CommandLine.Reconciliation
             _testReconciliationOptionsWithDirectoryDefinition = _fixture.Create<ReconciliationOptions>();
             _testReconciliationOptionsWithoutDirectoryDefinition = _fixture.Build<ReconciliationOptions>().Without(options => options.DirectoryKey).Create();
             var testDirectoryDefinition = _fixture.Create<DirectoryDefinition>();
-            _testInputMediaEntries = _fixture.CreateMany<MediaEntry>().ToList();
-            _testOutputMediaEntries = _fixture.CreateMany<MediaEntry>().ToList();
+            _testInputMediaEntries = new MediaEntryCollection(_fixture.CreateMany<MediaEntry>());
+            _testOutputMediaEntries = new MediaEntryCollection(_fixture.CreateMany<MediaEntry>());
             _mockOutputOperations = Substitute.For<IOutputOperations>();
 
             _mockOutputOperations.PerformOutputFilters(Arg.Is(_testInputMediaEntries), Arg.Is(_testReconciliationOptionsWithDirectoryDefinition))
