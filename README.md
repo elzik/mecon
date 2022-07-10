@@ -25,25 +25,31 @@ Scan all files in the specified directory (`-d /path`) and list all files that a
 mecon -d /Films -p http://192.168.0.12:32400 -t <your-token> -L
 ```
 ### Example 3
-As Example 2 however, only scan `*.mkv` files in the specified directory (`-e mkv`):
+Only scan `*.mkv` files in the specified directory (`-e mkv`):
 ```console
 mecon -d /Films -e mkv -p http://192.168.0.12:32400 -t <your-token> -L
 ```
 ### Example 4
-As Example 2 however, don't specify a directory, simply scan the current directory:
+Don't specify a directory, simply scan the current directory:
 ```console
 mecon -p http://192.168.0.12:32400 -t <your-token> -L
 ```
 ### Example 5
-As Example 2 however, only seach Plex libraries that contain movies (`-m movie`):
+Only seach Plex libraries that contain movies (`-m movie`):
 ```console
 mecon -d /Films -p http://192.168.0.12:32400 -t <your-token> -m movie -L
 ```
 
 ### Example 6
-As Example 2 however, perform filename filter to only display files that do not contain the word "sample":
+Perform filename filter to display only files that do not contain the word "sample":
 ``` console
 mecon -d /Films -p http://192.168.0.12:32400 -f '(?i)^(?!.*sample).*$' -L
+```
+
+### Example 7
+Perform filename filter to display only files that have been watched by users titled Sally & Tom
+``` console
+mecon -d /Films -p http://192.168.0.12:32400 -w Sally,Tom
 ```
 
 ## Mecon Options
