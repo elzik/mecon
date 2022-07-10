@@ -57,17 +57,21 @@ Displays help for general mecon reconciliation usage.
 -   **`-n|--directory-definition-name <name>`** Where a preconfigured directory definition exists, it can be used as the directory for scanning by specifying its name rather than having to explicitly specify the directory and any list of file extensions. If neither this nor the `-d` option is supplied, the current working directory will be scanned. The scanning performed will be recursive unless the `-r false` option is supplied. e.g. `-n Films`
 -   **`-r|--recurse`** By default, scanning of filesystem directories is recursive. This can be turned off and made non-recursive using `-r false` or the default behaviour of enabling recursion can be made explicit using `-r true`. 
 -   **`-m|--media-types`** Comma-separated list of Plex library media types that should be reconciled against to avoid searching through libraries that contain other media types. Possible options are 'Movie' or 'TvShow'. This option is only valid when the -d option (--directory) is supplied. If this is omitted, libraries of all media types will be reconciled against. e.g. `-m movies`
--   **`-f|--regex-match-filter <regular-expression>`** When scanning the file system, filter to only show files where the filepath matches a regular expression. For example, by specifying `'(?i)^(?!.*sample).*$'`, the list of files scanned will be filtered to i only shows files that do not contain the word "sample". 
+-   **`-f|--regex-match-filter <regular-expression>`** When scanning the file system, filter to only show files where the file path matches a regular expression. For example, by specifying `'(?i)^(?!.*sample).*$'`, the list of files scanned will be filtered to i only shows files that do not contain the word "sample". 
 
 ## Output Options
 In addition to the reconciliation options above, at least one library option must be supplied to control what is returned by mecon.
--   **`-L|--missing-from-library`** Output a list of files that are present in the filesystem but missing from the any Plex library. The list could represent:
+-   **`-L|--missing-from-library`** Output a list of files which are present in the filesystem but missing from the any Plex library. The list could represent:
     -   Files that the Plex scanner failed to add for some reason.
     -   Files that were removed from the Plex library and _may_ no longer be needed on the file system.
 
--   **`-l|--present-in-library`** Output a list of files that are present in the filesystem and also present in a Plex library. The list could represent:
+-   **`-l|--present-in-library`** Output a list of files which are present in the filesystem and also present in a Plex library. The list could represent:
     -   Files that you believe shouldn't have been added to Plex and need investigating.
     -   Files that have been added to the wrong Plex library when used in conjuction with the `-m` option.
+
+-   **`-w|--watched-by`** Output a list of files which have been watched by specific users supplied as a comma-separated list of user titles. This list could represent files watched by a group of users and can now be deleted.
+
+-   **`-w!|--watched-by!`** Output a list of files which have been watched by every user. This list could represent files watched by everybody and can therefore now be deleted.
 
 ## Configuration
 Some options do not change very often and you may like to set them permanently rather than entering them every time on the command line. To do this, they can be pre-configured using environment variables or in an appsettings.json file in the same directory as the mecon binary. Ensure that the case for any settings is correct and that environment variable parts are separated by double underscores (`__`). In the case that a setting is configured or provided more than once, there is an order of precedence where an option on the command line will trump all other configuration:
