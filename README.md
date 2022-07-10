@@ -125,5 +125,4 @@ mecon --version
 Features slated for v1.0.0:
 -   Progress feedback/spinner
 -   File size output filter (e.g. for ignoring all files under 0.5MB)
--   User watched output filter (e.g. show only files watched by a list of users)
 -   Packages, installers or manual install instructions
