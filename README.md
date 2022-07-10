@@ -75,9 +75,16 @@ In addition to the reconciliation options above, at least one library option mus
     -   Files that you believe shouldn't have been added to Plex and need investigating.
     -   Files that have been added to the wrong Plex library when used in conjuction with the `-m` option.
 
--   **`-w|--watched-by`** Output a list of files which have been watched by specific users supplied as a comma-separated list of user titles. This list could represent files watched by a group of users and can now be deleted.
+-   **`-w|--watched-by`** Output a list of files which have been watched by specific users supplied as a comma-separated list of user titles. This list could represent files watched by a group of users and can now be deleted. For accessing a list of valid user titles see the [Users documentation below](#users).
 
 -   **`-w!|--watched-by!`** Output a list of files which have been watched by every user. This list could represent files watched by everybody and can therefore now be deleted.
+
+## Users 
+For certain usages it is necessary to know what users exist on the Plex system. this can be achieved using the `users` verb and its `-l|--list` option:
+```console
+mecon users -l
+```
+This displays a list of each user's title which can also be found in Plex under `Settings/Home & Library Access`.
 
 ## Configuration
 Some options do not change very often and you may like to set them permanently rather than entering them every time on the command line. To do this, they can be pre-configured using environment variables or in an appsettings.json file in the same directory as the mecon binary. Ensure that the case for any settings is correct and that environment variable parts are separated by double underscores (`__`). In the case that a setting is configured or provided more than once, there is an order of precedence where an option on the command line will trump all other configuration:
