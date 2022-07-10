@@ -12,7 +12,7 @@ namespace Elzik.Mecon.Console.CommandLine.Reconciliation
             _plexUsers = plexUsers ?? throw new ArgumentNullException(nameof(plexUsers));
         }
 
-        public async Task<MediaEntryCollection> PerformOutputFilters(MediaEntryCollection entries,
+        public async Task<IMediaEntryCollection> PerformOutputFilters(IMediaEntryCollection entries,
             ReconciliationOptions options)
         {
             if (options.MissingFromLibrary)

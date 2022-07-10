@@ -30,7 +30,7 @@ namespace Elzik.Mecon.Framework.Application
             ValidatePlexConfiguration(plexOptions);
         }
 
-        public async Task<MediaEntryCollection> GetMediaEntries(string directoryDefinitionName)
+        public async Task<IMediaEntryCollection> GetMediaEntries(string directoryDefinitionName)
         {
             var directoryDefinition = _fileSystem.GetDirectoryDefinition(directoryDefinitionName);
 
@@ -40,7 +40,7 @@ namespace Elzik.Mecon.Framework.Application
             return mediaEntries;
         }
 
-        public async Task<MediaEntryCollection> GetMediaEntries(DirectoryDefinition directoryDefinition)
+        public async Task<IMediaEntryCollection> GetMediaEntries(DirectoryDefinition directoryDefinition)
         {
             var mediaFileInfos = _fileSystem.GetMediaFileInfos(directoryDefinition);
 

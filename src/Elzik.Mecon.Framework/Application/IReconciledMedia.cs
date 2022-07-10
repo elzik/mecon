@@ -7,8 +7,8 @@ namespace Elzik.Mecon.Framework.Application
 {
     public interface IReconciledMedia
     {
-        Task<MediaEntryCollection> GetMediaEntries(string directoryDefinitionName);
+        Task<IMediaEntryCollection> GetMediaEntries(string directoryDefinitionName);
 
-        Task<MediaEntryCollection> GetMediaEntries(DirectoryDefinition directoryDefinition);
+        Task<IMediaEntryCollection> GetMediaEntries(DirectoryDefinition directoryDefinition);
     }
 }

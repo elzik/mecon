@@ -6,7 +6,7 @@ using Elzik.Mecon.Framework.Domain.Plex;
 
 namespace Elzik.Mecon.Framework.Domain
 {
-    public class MediaEntryCollection : Collection<MediaEntry>
+    public class MediaEntryCollection : Collection<MediaEntry>, IMediaEntryCollection
     {
         public MediaEntryCollection()
         {

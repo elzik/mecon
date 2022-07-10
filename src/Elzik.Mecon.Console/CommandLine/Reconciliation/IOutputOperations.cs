@@ -4,5 +4,5 @@ namespace Elzik.Mecon.Console.CommandLine.Reconciliation;
 
 public interface IOutputOperations
 {
-    Task<MediaEntryCollection> PerformOutputFilters(MediaEntryCollection entries, ReconciliationOptions options);
+    Task<IMediaEntryCollection> PerformOutputFilters(IMediaEntryCollection entries, ReconciliationOptions options);
 }
