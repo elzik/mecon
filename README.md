@@ -8,9 +8,11 @@
 [![Release](https://img.shields.io/github/v/release/elzik/mecon?include_prereleases)](https://github.com/elzik/mecon/releases)
 
 ## Introduction
-**Me**dia R**econ**ciler, or simply _mecon_, is a cross-platform command line tool which reconciles media within a directory with media in a Plex library. It helps answer simple questions such as:
--   Given a list of files in a directory, which ones have failed to have been added to a Plex library?
--   Given a list of files in a directory, which ones exist in a Plex library?
+**Me**dia R**econ**ciler, or simply _mecon_, is a cross-platform command line tool which reconciles media within a directory with media in a Plex library. For a given directory of files, it answers simple questions such as:
+-   Which ones have failed to have been added to a Plex library?
+-   Which ones exist in a Plex library?
+-   Which ones have been watched by all users?
+-   Which ones have been watched by a sub-set of users?
 
 ## Example Usage without Configuration
 
