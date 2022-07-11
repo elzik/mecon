@@ -23,21 +23,20 @@ namespace Elzik.Mecon.Framework.Tests.Unit.Infrastructure.Plex
         private readonly IFixture _fixture;
 
         private readonly IPlexAccountClient _mockPlexAccountClient;
-        private readonly OptionsWrapper<PlexOptions> _testPlexOptions;
-        private PlexUsers _plexUsers;
+        private readonly PlexUsers _plexUsers;
 
         public PlexUsersTests()
         {
             _fixture = new Fixture().Customize(new AutoNSubstituteCustomization());
 
-            _testPlexOptions = new OptionsWrapper<PlexOptions>(_fixture.Create<PlexOptions>());
+            var testPlexOptions = new OptionsWrapper<PlexOptions>(_fixture.Create<PlexOptions>());
 
             _mockPlexAccountClient = Substitute.For<IPlexAccountClient>();
             var testHomeUserContainer = EmbeddedResources.GetJsonTestData<HomeUserContainer>("Infrastructure/Plex/TestData/TestHomeUserContainer/TestHomeUserContainer.json");
-            _mockPlexAccountClient.GetHomeUsersAsync(_testPlexOptions.Value.AuthToken).Returns(testHomeUserContainer);
+            _mockPlexAccountClient.GetHomeUsersAsync(testPlexOptions.Value.AuthToken).Returns(testHomeUserContainer);
             var testFriends = EmbeddedResources.GetJsonTestData<List<Friend>>("Infrastructure/Plex/TestData/TestFriends.json");
-            _mockPlexAccountClient.GetFriendsAsync(_testPlexOptions.Value.AuthToken).Returns(testFriends);
-            _plexUsers = new PlexUsers(_mockPlexAccountClient, _testPlexOptions);
+            _mockPlexAccountClient.GetFriendsAsync(testPlexOptions.Value.AuthToken).Returns(testFriends);
+            _plexUsers = new PlexUsers(_mockPlexAccountClient, testPlexOptions);
         }
 
         [Fact]
@@ -70,12 +69,12 @@ namespace Elzik.Mecon.Framework.Tests.Unit.Infrastructure.Plex
             // Assert
             users.Should().BeEquivalentTo(new[]
             {
-                new PlexUser() { UserTitle = "FriendOneTitle", AccountId = 648167784 },
-                new PlexUser() { UserTitle = "FriendTwoTitle", AccountId = 132111983},
-                new PlexUser() { UserTitle = "UserAdminTitle", AccountId = 39388434 },
-                new PlexUser() { UserTitle = "UserOneTitle", AccountId = 78624707 },
-                new PlexUser() { UserTitle = "UserThreeTitle", AccountId = 64927093 },
-                new PlexUser() { UserTitle = "UserTwoTitle", AccountId = 92140768 }
+                new PlexUser { UserTitle = "FriendOneTitle", AccountId = 648167784 },
+                new PlexUser { UserTitle = "FriendTwoTitle", AccountId = 132111983},
+                new PlexUser { UserTitle = "UserAdminTitle", AccountId = 39388434 },
+                new PlexUser { UserTitle = "UserOneTitle", AccountId = 78624707 },
+                new PlexUser { UserTitle = "UserThreeTitle", AccountId = 64927093 },
+                new PlexUser { UserTitle = "UserTwoTitle", AccountId = 92140768 }
             }, options => options.WithStrictOrdering());
         }
 
@@ -83,11 +82,11 @@ namespace Elzik.Mecon.Framework.Tests.Unit.Infrastructure.Plex
         public async Task GetAccountIds_WithValidTitles_ReturnsAccountIds()
         {
             // Arrange
-            var testUserTitles = new string[]
+            var testUserTitles = new[]
             {
                 "FriendOneTitle", "FriendTwoTitle", "UserAdminTitle", "UserOneTitle", "UserThreeTitle", "UserTwoTitle"
             };
-            var expectedUserIds = new int[]
+            var expectedUserIds = new[]
             {                
                 648167784, 132111983, 39388434, 78624707, 64927093, 92140768
             };
@@ -103,11 +102,11 @@ namespace Elzik.Mecon.Framework.Tests.Unit.Infrastructure.Plex
         public async Task GetAccountIds_WithLowerCasedTitles_IgnoresCaseAndReturnsAccountIds()
         {
             // Arrange
-            var testUserTitles = new string[]
+            var testUserTitles = new[]
             {
                 "friendonetitle", "friendtwotitle", "useradmintitle", "useronetitle", "userthreetitle", "usertwotitle"
             };
-            var expectedUserIds = new int[]
+            var expectedUserIds = new[]
             {
                 648167784, 132111983, 39388434, 78624707, 64927093, 92140768
             };
@@ -123,7 +122,7 @@ namespace Elzik.Mecon.Framework.Tests.Unit.Infrastructure.Plex
         public async Task GetAccountIds_WithUnknownUser_Throws()
         {
             // Arrange
-            var testUserTitles = new string[]
+            var testUserTitles = new[]
             {
                 "FriendOneTitle", "Unknown"
             };
