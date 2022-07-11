@@ -13,6 +13,7 @@ namespace Elzik.Mecon.Console.Tests.Unit
         {
             _fixture = new Fixture();
         }
+
         [Fact]
         public void ToJsonString_WithValidConfig_ReturnsExpectedJson()
         {

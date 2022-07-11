@@ -1,0 +1,62 @@
+﻿{
+  "size": 3,
+  "totalSize": 6,
+  "offset": 3,
+  "Metadata": [
+    {
+      "historyKey": "/status/sessions/history/5243",
+      "key": "/library/metadata/94031",
+      "ratingKey": "94031",
+      "librarySectionID": "2",
+      "parentKey": "/library/metadata/94025",
+      "grandparentKey": "/library/metadata/94024",
+      "title": "Red in Tooth and Claw",
+      "grandparentTitle": "The Staircase (2022)",
+      "type": "episode",
+      "thumb": "/library/metadata/94031/thumb/-1",
+      "parentThumb": "/library/metadata/94025/thumb/1655155444",
+      "grandparentThumb": "/library/metadata/94024/thumb/1655155444",
+      "grandparentArt": "/library/metadata/94024/art/1655155444",
+      "index": 6,
+      "parentIndex": 1,
+      "originallyAvailableAt": "1900-01-01",
+      "viewedAt": 1655760078,
+      "accountID": 64927093,
+      "deviceID": 73
+    },
+    {
+      "historyKey": "/status/sessions/history/5244",
+      "key": "/library/metadata/89628",
+      "ratingKey": "89628",
+      "librarySectionID": "5",
+      "title": "Toy Story",
+      "type": "movie",
+      "thumb": "/library/metadata/89628/thumb/-1",
+      "originallyAvailableAt": "1995-11-22",
+      "viewedAt": 1655817714,
+      "accountID": 1,
+      "deviceID": 3
+    },
+    {
+      "historyKey": "/status/sessions/history/5245",
+      "key": "/library/metadata/94013",
+      "ratingKey": "94013",
+      "librarySectionID": "2",
+      "parentKey": "/library/metadata/94006",
+      "grandparentKey": "/library/metadata/94005",
+      "title": "Offset",
+      "grandparentTitle": "Shining Girls",
+      "type": "episode",
+      "thumb": "/library/metadata/94013/thumb/-1",
+      "parentThumb": "/library/metadata/94006/thumb/1654595245",
+      "grandparentThumb": "/library/metadata/94005/thumb/1654595244",
+      "grandparentArt": "/library/metadata/94005/art/1654595244",
+      "index": 7,
+      "parentIndex": 1,
+      "originallyAvailableAt": "2022-05-26",
+      "viewedAt": 1655841318,
+      "accountID": 1,
+      "deviceID": 3
+    }
+  ]
+}

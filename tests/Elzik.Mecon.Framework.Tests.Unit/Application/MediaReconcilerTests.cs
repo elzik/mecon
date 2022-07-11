@@ -6,9 +6,8 @@ using AutoFixture;
 using AutoFixture.AutoNSubstitute;
 using AutoFixture.Idioms;
 using Elzik.Mecon.Framework.Application;
-using Elzik.Mecon.Framework.Domain;
-using Elzik.Mecon.Framework.Infrastructure.FileSystem;
-using Elzik.Mecon.Framework.Infrastructure.Plex;
+using Elzik.Mecon.Framework.Domain.FileSystem;
+using Elzik.Mecon.Framework.Domain.Plex;
 using Elzik.Mecon.Framework.Infrastructure.Plex.Options;
 using Elzik.Mecon.Framework.Tests.Unit.Infrastructure.FileSystemTests;
 using FluentAssertions;
@@ -16,7 +15,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using NSubstitute;
 using Xunit;
-using IFileSystem = Elzik.Mecon.Framework.Infrastructure.FileSystem.IFileSystem;
+using IFileSystem = Elzik.Mecon.Framework.Domain.FileSystem.IFileSystem;
 
 namespace Elzik.Mecon.Framework.Tests.Unit.Application
 {

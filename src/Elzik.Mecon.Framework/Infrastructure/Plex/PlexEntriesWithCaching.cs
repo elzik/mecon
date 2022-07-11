@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Elzik.Mecon.Framework.Domain;
+using Elzik.Mecon.Framework.Domain.Plex;
 using Elzik.Mecon.Framework.Infrastructure.Plex.Options;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Options;
@@ -16,8 +17,8 @@ namespace Elzik.Mecon.Framework.Infrastructure.Plex
         private MemoryCacheEntryOptions _memoryCacheEntryOptions;
         private readonly PlexWithCachingOptions _plexWithCachingOptions;
 
-        public PlexEntriesWithCaching(IPlexServerClient plexServerClient, IPlexLibraryClient plexLibraryClient, IMemoryCache memoryCache, IOptions<PlexWithCachingOptions> plexOptions) 
-            : base(plexServerClient, plexLibraryClient, plexOptions)
+        public PlexEntriesWithCaching(IPlexServerClient plexServerClient, IPlexLibraryClient plexLibraryClient, IMemoryCache memoryCache, IPlexPlayHistory plexPlayHistory, IOptions<PlexWithCachingOptions> plexOptions) 
+            : base(plexServerClient, plexLibraryClient, plexOptions, plexPlayHistory)
         {
             _memoryCache = memoryCache ?? throw new ArgumentNullException(nameof(memoryCache));
 

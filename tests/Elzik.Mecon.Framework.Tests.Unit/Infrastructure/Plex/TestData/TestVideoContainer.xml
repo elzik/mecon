@@ -1,0 +1,316 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<MediaContainer xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <Size>3</Size>
+    <TotalSize>0</TotalSize>
+    <AllowSync>true</AllowSync>
+    <Art>/:/resources/movie-fanart.jpg</Art>
+    <Identifier>com.plexapp.plugins.library</Identifier>
+    <LibrarySectionId>1</LibrarySectionId>
+    <LibrarySectionTitle>Films</LibrarySectionTitle>
+    <LibrarySectionUuid>4915aff2-7a9a-4409-b275-29bad7a4cb94</LibrarySectionUuid>
+    <MediaTagPrefix>/system/bundle/media/flags/</MediaTagPrefix>
+    <MediaTagVersion>1627505128</MediaTagVersion>
+    <Offset>0</Offset>
+    <Thumb>/:/resources/movie.png</Thumb>
+    <Title1>Films</Title1>
+    <Title2>All Films</Title2>
+    <ViewGroup>movie</ViewGroup>
+    <ViewMode>65592</ViewMode>
+    <Media>
+        <Metadata>
+            <RatingKey>64143</RatingKey>
+            <Key>/library/metadata/64143</Key>
+            <Guid>com.plexapp.agents.imdb:tt0090565?lang=fr</Guid>
+            <Studio>Compagnie Eric Rohmer</Studio>
+            <Type>movie</Type>
+            <Title>4 aventures de Reinette et Mirabelle</Title>
+            <ParentIndex>0</ParentIndex>
+            <UserRating>0</UserRating>
+            <LibrarySectionId>0</LibrarySectionId>
+            <Summary>Reinette, la souris des champs et Mirabelle, la souris des villes dans quatre aventures. À la campagne. À la recherche de l'heure bleue, cet instant magique que l'on peut saisir à l'aurore. Puis à Paris, où Reinette a rejoint Mirabelle pour suivre des cours de peinture. Ses tribulations parisiennes la mettent aux prises avec un garçon de café et un marchand de tableaux particulièrement bavards, puis avec un mendiant et une arnaqueuse...</Summary>
+            <AudienceRating>0</AudienceRating>
+            <ViewCount>0</ViewCount>
+            <LastViewedAt>0</LastViewedAt>
+            <Year>1987</Year>
+            <Thumb>/library/metadata/64143/thumb/1628558849</Thumb>
+            <Art>/library/metadata/64143/art/1628558849</Art>
+            <Duration>5943124</Duration>
+            <OriginallyAvailableAt>1987-02-04</OriginallyAvailableAt>
+            <Index>0</Index>
+            <AddedAt>1620835253</AddedAt>
+            <UpdatedAt>1628558849</UpdatedAt>
+            <ChapterSource>media</ChapterSource>
+            <Media>
+                <Medium>
+                    <Id>134659</Id>
+                    <Duration>5943124</Duration>
+                    <Bitrate>20099</Bitrate>
+                    <Width>1480</Width>
+                    <Height>1080</Height>
+                    <AspectRatio>1.33</AspectRatio>
+                    <AudioChannels>1</AudioChannels>
+                    <AudioCodec>flac</AudioCodec>
+                    <VideoCodec>h264</VideoCodec>
+                    <VideoResolution>1080</VideoResolution>
+                    <Container>mkv</Container>
+                    <VideoFrameRate>24p</VideoFrameRate>
+                    <VideoProfile>high</VideoProfile>
+                    <Part>
+                        <MediaPart>
+                            <Id>147394</Id>
+                            <Key>/library/parts/147394/1423033728/file.mkv</Key>
+                            <Duration>5943124</Duration>
+                            <File>/Films/4 aventures de Reinette et Mirabelle 1987 1080p BluRay FLAC x264-EA.mkv</File>
+                            <Size>14920095015</Size>
+                            <Container>mkv</Container>
+                            <VideoProfile>high</VideoProfile>
+                        </MediaPart>
+                    </Part>
+                </Medium>
+            </Media>
+            <Genres>
+                <Genre>
+                    <Id>0</Id>
+                    <Tag>Comédie</Tag>
+                </Genre>
+                <Genre>
+                    <Id>0</Id>
+                    <Tag>Drame</Tag>
+                </Genre>
+            </Genres>
+            <Directors>
+                <Director>
+                    <Id>0</Id>
+                    <Tag>Éric Rohmer</Tag>
+                </Director>
+            </Directors>
+            <Writers>
+                <Writer>
+                    <Id>0</Id>
+                    <Tag>Éric Rohmer</Tag>
+                </Writer>
+            </Writers>
+            <Countries>
+                <Country>
+                    <Id>0</Id>
+                    <Tag>France</Tag>
+                </Country>
+            </Countries>
+            <Roles>
+                <MediaRole>
+                    <Id>0</Id>
+                    <Tag>Joëlle Miquel</Tag>
+                </MediaRole>
+                <MediaRole>
+                    <Id>0</Id>
+                    <Tag>Jessica Forde</Tag>
+                </MediaRole>
+                <MediaRole>
+                    <Id>0</Id>
+                    <Tag>Philippe Laudenbach</Tag>
+                </MediaRole>
+            </Roles>
+        </Metadata>
+        <Metadata>
+            <RatingKey>64420</RatingKey>
+            <Key>/library/metadata/64420</Key>
+            <Guid>com.plexapp.agents.imdb:tt4385888?lang=en</Guid>
+            <Studio>Annapurna Pictures</Studio>
+            <Type>movie</Type>
+            <Title>20th Century Women</Title>
+            <ParentIndex>0</ParentIndex>
+            <UserRating>0</UserRating>
+            <LibrarySectionId>0</LibrarySectionId>
+            <ContentRating>R</ContentRating>
+            <Summary>In 1979 Santa Barbara, California, Dorothea Fields is a determined single mother in her mid-50s who is raising her adolescent son, Jamie, at a moment brimming with cultural change and rebellion. Dorothea enlists the help of two younger women – Abbie, a free-spirited punk artist living as a boarder in the Fields' home and Julie, a savvy and provocative teenage neighbour – to help with Jamie's upbringing.</Summary>
+            <AudienceRating>0</AudienceRating>
+            <ViewCount>0</ViewCount>
+            <LastViewedAt>0</LastViewedAt>
+            <Year>2016</Year>
+            <Thumb>/library/metadata/64420/thumb/1623185035</Thumb>
+            <Art>/library/metadata/64420/art/1623185035</Art>
+            <Duration>7124192</Duration>
+            <OriginallyAvailableAt>2016-10-08</OriginallyAvailableAt>
+            <Index>0</Index>
+            <AddedAt>1620835308</AddedAt>
+            <UpdatedAt>1623185035</UpdatedAt>
+            <ChapterSource>media</ChapterSource>
+            <PrimaryExtraKey>/library/metadata/66442</PrimaryExtraKey>
+            <Media>
+                <Medium>
+                    <Id>134938</Id>
+                    <Duration>7124192</Duration>
+                    <Bitrate>17768</Bitrate>
+                    <Width>1920</Width>
+                    <Height>964</Height>
+                    <AspectRatio>1.85</AspectRatio>
+                    <AudioChannels>6</AudioChannels>
+                    <AudioCodec>dca</AudioCodec>
+                    <VideoCodec>h264</VideoCodec>
+                    <VideoResolution>1080</VideoResolution>
+                    <Container>mkv</Container>
+                    <VideoFrameRate>24p</VideoFrameRate>
+                    <AudioProfile>dts</AudioProfile>
+                    <VideoProfile>high</VideoProfile>
+                    <Part>
+                        <MediaPart>
+                            <Id>147749</Id>
+                            <Key>/library/parts/147749/1491136746/file.mkv</Key>
+                            <Duration>7124192</Duration>
+                            <File>/Films/20th.Century.Women.2016.1080p.BluRay.DTS.x264-VietHD/20th.Century.Women.2016.1080p.BluRay.DTS.x264-VietHD.mkv</File>
+                            <Size>15825072616</Size>
+                            <AudioProfile>dts</AudioProfile>
+                            <Container>mkv</Container>
+                            <VideoProfile>high</VideoProfile>
+                        </MediaPart>
+                    </Part>
+                </Medium>
+            </Media>
+            <Genres>
+                <Genre>
+                    <Id>0</Id>
+                    <Tag>Drama</Tag>
+                </Genre>
+            </Genres>
+            <Directors>
+                <Director>
+                    <Id>0</Id>
+                    <Tag>Mike Mills</Tag>
+                </Director>
+            </Directors>
+            <Writers>
+                <Writer>
+                    <Id>0</Id>
+                    <Tag>Mike Mills</Tag>
+                </Writer>
+            </Writers>
+            <Countries>
+                <Country>
+                    <Id>0</Id>
+                    <Tag>USA</Tag>
+                </Country>
+            </Countries>
+            <Roles>
+                <MediaRole>
+                    <Id>0</Id>
+                    <Tag>Annette Bening</Tag>
+                </MediaRole>
+                <MediaRole>
+                    <Id>0</Id>
+                    <Tag>Elle Fanning</Tag>
+                </MediaRole>
+                <MediaRole>
+                    <Id>0</Id>
+                    <Tag>Greta Gerwig</Tag>
+                </MediaRole>
+            </Roles>
+        </Metadata>
+        <Metadata>
+            <RatingKey>64142</RatingKey>
+            <Key>/library/metadata/64142</Key>
+            <Guid>com.plexapp.agents.imdb:tt0463854?lang=en</Guid>
+            <Studio>DNA Films</Studio>
+            <Type>movie</Type>
+            <Title>28 Weeks Later</Title>
+            <ParentIndex>0</ParentIndex>
+            <UserRating>0</UserRating>
+            <LibrarySectionId>0</LibrarySectionId>
+            <ContentRating>R</ContentRating>
+            <Summary>The inhabitants of the British Isles have lost their battle against the onslaught of disease, as the deadly rage virus has killed every citizen there. Six months later, a group of Americans dare to set foot on the isles, convinced the danger has come and gone. But it soon becomes all too clear that the scourge continues to live, waiting to pounce on its next victims.</Summary>
+            <AudienceRating>0</AudienceRating>
+            <ViewCount>0</ViewCount>
+            <LastViewedAt>0</LastViewedAt>
+            <Year>2007</Year>
+            <Tagline>When days turn to weeks... the horror returns.</Tagline>
+            <Thumb>/library/metadata/64142/thumb/1628558849</Thumb>
+            <Art>/library/metadata/64142/art/1628558849</Art>
+            <Duration>6006048</Duration>
+            <OriginallyAvailableAt>2007-05-11</OriginallyAvailableAt>
+            <Index>0</Index>
+            <AddedAt>1620835253</AddedAt>
+            <UpdatedAt>1628558849</UpdatedAt>
+            <ChapterSource>media</ChapterSource>
+            <PrimaryExtraKey>/library/metadata/64418</PrimaryExtraKey>
+            <Media>
+                <Medium>
+                    <Id>134658</Id>
+                    <Duration>6006048</Duration>
+                    <Bitrate>22304</Bitrate>
+                    <Width>1912</Width>
+                    <Height>1040</Height>
+                    <AspectRatio>1.85</AspectRatio>
+                    <AudioChannels>6</AudioChannels>
+                    <AudioCodec>dca</AudioCodec>
+                    <VideoCodec>h264</VideoCodec>
+                    <VideoResolution>1080</VideoResolution>
+                    <Container>mkv</Container>
+                    <VideoFrameRate>24p</VideoFrameRate>
+                    <AudioProfile>dts</AudioProfile>
+                    <VideoProfile>high</VideoProfile>
+                    <Part>
+                        <MediaPart>
+                            <Id>147393</Id>
+                            <Key>/library/parts/147393/1425049087/file.mkv</Key>
+                            <Duration>6006048</Duration>
+                            <File>/Films/28.Weeks.Later.2007.1080p.BluRay.DTS.x264-IDE.mkv</File>
+                            <Size>16712596293</Size>
+                            <AudioProfile>dts</AudioProfile>
+                            <Container>mkv</Container>
+                            <VideoProfile>high</VideoProfile>
+                        </MediaPart>
+                    </Part>
+                </Medium>
+            </Media>
+            <Genres>
+                <Genre>
+                    <Id>0</Id>
+                    <Tag>Horror</Tag>
+                </Genre>
+                <Genre>
+                    <Id>0</Id>
+                    <Tag>Thriller</Tag>
+                </Genre>
+            </Genres>
+            <Directors>
+                <Director>
+                    <Id>0</Id>
+                    <Tag>Juan Carlos Fresnadillo</Tag>
+                </Director>
+            </Directors>
+            <Writers>
+                <Writer>
+                    <Id>0</Id>
+                    <Tag>Juan Carlos Fresnadillo</Tag>
+                </Writer>
+                <Writer>
+                    <Id>0</Id>
+                    <Tag>Enrique López Lavigne</Tag>
+                </Writer>
+            </Writers>
+            <Countries>
+                <Country>
+                    <Id>0</Id>
+                    <Tag>Spain</Tag>
+                </Country>
+                <Country>
+                    <Id>0</Id>
+                    <Tag>United Kingdom</Tag>
+                </Country>
+            </Countries>
+            <Roles>
+                <MediaRole>
+                    <Id>0</Id>
+                    <Tag>Robert Carlyle</Tag>
+                </MediaRole>
+                <MediaRole>
+                    <Id>0</Id>
+                    <Tag>Rose Byrne</Tag>
+                </MediaRole>
+                <MediaRole>
+                    <Id>0</Id>
+                    <Tag>Jeremy Renner</Tag>
+                </MediaRole>
+            </Roles>
+        </Metadata>
+    </Media>
+</MediaContainer>

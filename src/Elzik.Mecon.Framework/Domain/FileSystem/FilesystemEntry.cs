@@ -1,4 +1,4 @@
-namespace Elzik.Mecon.Framework.Domain
+namespace Elzik.Mecon.Framework.Domain.FileSystem
 {
     public class FilesystemEntry : IEntry
     {

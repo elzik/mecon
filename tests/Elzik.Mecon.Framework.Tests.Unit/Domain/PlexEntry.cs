@@ -2,7 +2,7 @@
 
 namespace Elzik.Mecon.Framework.Tests.Unit.Domain
 {
-    public class PlexEntry : PropertyTests<Framework.Domain.PlexEntry>
+    public class PlexEntry : PropertyTests<Framework.Domain.Plex.PlexEntry>
     {
     }
 }

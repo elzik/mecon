@@ -3,11 +3,10 @@ using Elzik.Mecon.Framework.Domain;
 using Elzik.Mecon.Framework.Infrastructure.Plex.Options;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Elzik.Mecon.Framework.Infrastructure.FileSystem;
-using Elzik.Mecon.Framework.Infrastructure.Plex;
+using Elzik.Mecon.Framework.Domain.Plex;
+using Elzik.Mecon.Framework.Domain.FileSystem;
 
 namespace Elzik.Mecon.Framework.Application
 {
@@ -31,7 +30,7 @@ namespace Elzik.Mecon.Framework.Application
             ValidatePlexConfiguration(plexOptions);
         }
 
-        public async Task<IEnumerable<MediaEntry>> GetMediaEntries(string directoryDefinitionName)
+        public async Task<IMediaEntryCollection> GetMediaEntries(string directoryDefinitionName)
         {
             var directoryDefinition = _fileSystem.GetDirectoryDefinition(directoryDefinitionName);
 
@@ -41,13 +40,13 @@ namespace Elzik.Mecon.Framework.Application
             return mediaEntries;
         }
 
-        public async Task<IEnumerable<MediaEntry>> GetMediaEntries(DirectoryDefinition directoryDefinition)
+        public async Task<IMediaEntryCollection> GetMediaEntries(DirectoryDefinition directoryDefinition)
         {
             var mediaFileInfos = _fileSystem.GetMediaFileInfos(directoryDefinition);
 
             var plexItems = await _plexEntries.GetPlexEntries(directoryDefinition.MediaTypes);
 
-            var mediaEntries = mediaFileInfos.Select(fileInfo =>
+            var mediaEntries = new MediaEntryCollection(mediaFileInfos.Select(fileInfo =>
             {
                 var mediaEntry = new MediaEntry(fileInfo.FullName)
                 {
@@ -73,7 +72,7 @@ namespace Elzik.Mecon.Framework.Application
                 }
 
                 return mediaEntry;
-            });
+            }));
 
             return mediaEntries;
         }

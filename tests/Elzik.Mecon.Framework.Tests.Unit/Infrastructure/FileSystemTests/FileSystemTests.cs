@@ -10,10 +10,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.IO.Abstractions;
 using System.Linq;
-using Elzik.Mecon.Framework.Infrastructure.FileSystem;
 using Xunit;
 using FileSystem = Elzik.Mecon.Framework.Infrastructure.FileSystem.FileSystem;
 using IFileSystem = System.IO.Abstractions.IFileSystem;
+using Elzik.Mecon.Framework.Domain.FileSystem;
 
 namespace Elzik.Mecon.Framework.Tests.Unit.Infrastructure.FileSystemTests
 {

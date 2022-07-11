@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
-using Elzik.Mecon.Framework.Domain;
 
-namespace Elzik.Mecon.Framework.Infrastructure.FileSystem
+namespace Elzik.Mecon.Framework.Domain.FileSystem
 {
     public class DirectoryDefinition
     {

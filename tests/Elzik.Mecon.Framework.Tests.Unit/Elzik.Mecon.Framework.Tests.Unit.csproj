@@ -7,6 +7,34 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="TestResults\**" />
+    <EmbeddedResource Remove="TestResults\**" />
+    <None Remove="TestResults\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Infrastructure\Plex\TestData\TestFriends.json" />
+    <None Remove="Infrastructure\Plex\TestData\TestHomeUserContainer.json" />
+    <None Remove="Infrastructure\Plex\TestData\TestHomeUserContainer\TestHomeUserContainerWithMultipleAdmins.json" />
+    <None Remove="Infrastructure\Plex\TestData\TestHomeUserContainer\TestHomeUserContainerWithNoAdmins.json" />
+    <None Remove="Infrastructure\Plex\TestData\TestPlayHistory\TestPlayHistory1.json" />
+    <None Remove="Infrastructure\Plex\TestData\TestPlayHistory\TestPlayHistory2.json" />
+    <None Remove="Infrastructure\Plex\TestData\TestPlayHistory\TestPlayHistory3.json" />
+    <None Remove="Infrastructure\Plex\TestData\TestVideoContainer.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Infrastructure\Plex\TestData\TestFriends.json" />
+    <EmbeddedResource Include="Infrastructure\Plex\TestData\TestHomeUserContainer\TestHomeUserContainerWithNoAdmins.json" />
+    <EmbeddedResource Include="Infrastructure\Plex\TestData\TestHomeUserContainer\TestHomeUserContainerWithMultipleAdmins.json" />
+    <EmbeddedResource Include="Infrastructure\Plex\TestData\TestHomeUserContainer\TestHomeUserContainer.json" />
+    <EmbeddedResource Include="Infrastructure\Plex\TestData\TestPlayHistory\TestPlayHistory1.json" />
+    <EmbeddedResource Include="Infrastructure\Plex\TestData\TestPlayHistory\TestPlayHistory2.json" />
+    <EmbeddedResource Include="Infrastructure\Plex\TestData\TestPlayHistory\TestPlayHistory3.json" />
+    <EmbeddedResource Include="Infrastructure\Plex\TestData\TestVideoContainer.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AutoFixture" Version="4.17.0" />
     <PackageReference Include="AutoFixture.AutoNSubstitute" Version="4.17.0" />
     <PackageReference Include="AutoFixture.Idioms" Version="4.17.0" />
@@ -17,7 +45,7 @@
     </PackageReference>
     <PackageReference Include="FluentAssertions" Version="6.5.1" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.1.0" />
-    <PackageReference Include="Plex.Api" Version="3.0.0" />
+    <PackageReference Include="Plex.Api" Version="4.0.0" />
     <PackageReference Include="SonarAnalyzer.CSharp" Version="8.39.0.47922">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IO.Abstractions;
 
-namespace Elzik.Mecon.Framework.Infrastructure.FileSystem
+namespace Elzik.Mecon.Framework.Domain.FileSystem
 {
     public interface IFileSystem
     {

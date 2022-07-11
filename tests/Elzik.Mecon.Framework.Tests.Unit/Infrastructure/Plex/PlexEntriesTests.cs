@@ -1,12 +1,17 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 using AutoFixture;
 using AutoFixture.AutoNSubstitute;
 using AutoFixture.Idioms;
+using Elzik.Mecon.Framework.Domain;
+using Elzik.Mecon.Framework.Domain.Plex;
 using Elzik.Mecon.Framework.Infrastructure.Plex;
 using Elzik.Mecon.Framework.Infrastructure.Plex.Options;
-using Elzik.Mecon.Framework.Tests.Unit.Infrastructure.Plex.TestData;
 using FluentAssertions;
 using Microsoft.Extensions.Options;
 using NSubstitute;
@@ -22,8 +27,11 @@ namespace Elzik.Mecon.Framework.Tests.Unit.Infrastructure.Plex
     public class PlexEntriesTests
     {
         private readonly IFixture _fixture;
+
         private readonly IPlexServerClient _mockPlexServerClient;
         private readonly IPlexLibraryClient _mockPlexLibraryClient;
+        private readonly IPlexPlayHistory _mockPlexPlayHistory;
+
         private readonly MediaContainer _testVideos;
         private readonly LibraryContainer _testLibraries;
         private readonly Library _testMovieLibrary;
@@ -34,12 +42,13 @@ namespace Elzik.Mecon.Framework.Tests.Unit.Infrastructure.Plex
         public PlexEntriesTests()
         {
             _fixture = new Fixture().Customize(new AutoNSubstituteCustomization());
+
             _testLibraries = _fixture.Create<LibraryContainer>();
             _testMovieLibrary = _fixture
                 .Build<Library>()
                 .With(library => library.Type, "movie")
                 .Create();
-            _testVideos = TestMediaContainers.GetVideoMediaContainer();
+            _testVideos = GetVideoMediaContainer();
             _plexOptions = new OptionsWrapper<PlexOptions>(_fixture.Build<PlexOptions>()
                 .With(options => options.ItemsPerCall, _testVideos.Media.Count).Create());
             _mockPlexServerClient = Substitute.For<IPlexServerClient>();
@@ -69,10 +78,11 @@ namespace Elzik.Mecon.Framework.Tests.Unit.Infrastructure.Plex
                 null,
                 Arg.Is(0),
                 Arg.Is(_testVideos.Media.Count)).Returns(_testVideos);
+            _mockPlexPlayHistory = Substitute.For<IPlexPlayHistory>();
 
             _testMediaTypes = new[] {MediaType.Movie, MediaType.TvShow};
 
-            _plexEntries = new PlexEntries(_mockPlexServerClient, _mockPlexLibraryClient, _plexOptions);
+            _plexEntries = new PlexEntries(_mockPlexServerClient, _mockPlexLibraryClient, _plexOptions, _mockPlexPlayHistory);
         }
 
         [Fact]
@@ -90,7 +100,7 @@ namespace Elzik.Mecon.Framework.Tests.Unit.Infrastructure.Plex
 
             // Act
             var ex = Assert.Throws<InvalidOperationException>(() =>
-                new PlexEntries(_mockPlexServerClient, _mockPlexLibraryClient, nullPlexOptions));
+                new PlexEntries(_mockPlexServerClient, _mockPlexLibraryClient, nullPlexOptions, _mockPlexPlayHistory));
             
             // Assert
             ex.Message.Should().Be("Value of plexOptions must not be null.");
@@ -159,6 +169,92 @@ namespace Elzik.Mecon.Framework.Tests.Unit.Infrastructure.Plex
 
             // Assert
             plexItems.Should().BeEmpty();
+        }
+
+        [Fact]
+        public async Task GetPlexEntries_WithNoPlayHistory_ReturnsNoWatchedByIds()
+        {
+            // Arrange
+            _testLibraries.Libraries.Add(_testMovieLibrary);
+
+            // Act
+            var plexItems = await _plexEntries.GetPlexEntries(_testMediaTypes);
+
+            // Assert
+            plexItems.Sum(entry => entry.WatchedByAccounts.Sum()).Should().Be(0);
+        }
+
+        [Fact]
+        public async Task GetPlexEntries_WithPlayHistory_ReturnsPlexEntriesWithWatchedByIds()
+        {
+            // Arrange
+            _testLibraries.Libraries.Add(_testMovieLibrary);
+            var testPlayHistory = CreateTestPlayHistory();
+
+            _mockPlexPlayHistory.GetPlayHistory().Returns(testPlayHistory.PlayedEntries);
+
+            // Act
+            var plexItems = await _plexEntries.GetPlexEntries(_testMediaTypes);
+
+            // Assert
+            foreach (var plexEntry in plexItems)
+            {
+                plexEntry.WatchedByAccounts.Should().BeEquivalentTo(testPlayHistory.ExpectedWatchedIdsByKey[plexEntry.Key]);
+            }
+        }
+
+        private class TestPlayHistory
+        {
+            public List<PlayedEntry> PlayedEntries { get; set; }
+            public Dictionary<EntryKey, IEnumerable<int>> ExpectedWatchedIdsByKey { get; set; }
+        }
+
+        private TestPlayHistory CreateTestPlayHistory()
+        {
+            var playHistory = new List<PlayedEntry>();
+            var expectedWatchedIdsByKey = new Dictionary<EntryKey, IEnumerable<int>>();
+
+            foreach (var testVideo in _testVideos.Media)
+            {
+                var playedEntries = new List<PlayedEntry>();
+                for (var i = 0; i < Random.Shared.Next(0, 10); i++)
+                {
+                    playedEntries.Add(new PlayedEntry()
+                    {
+                        AccountId = _fixture.Create<int>(),
+                        LibraryKey = testVideo.Key
+                    });
+                }
+
+                playHistory.AddRange(playedEntries);
+
+                foreach (var mediaPart in testVideo.Media.SelectMany(medium => medium.Part))
+                {
+                    expectedWatchedIdsByKey.Add(
+                        new EntryKey(Path.GetFileName(mediaPart.File), mediaPart.Size),
+                        playedEntries.Select(entry => entry.AccountId));
+                }
+            }
+
+            return new TestPlayHistory()
+            {
+                PlayedEntries = playHistory,
+                ExpectedWatchedIdsByKey = expectedWatchedIdsByKey
+            };
+        }
+
+        private static MediaContainer GetVideoMediaContainer()
+        {
+            var xmlSerialiser = new XmlSerializer(typeof(MediaContainer));
+
+            using var userContainerStream = Assembly.GetExecutingAssembly().GetManifestResourceStream(
+                "Elzik.Mecon.Framework.Tests.Unit.Infrastructure.Plex.TestData.TestVideoContainer.xml");
+            if (userContainerStream == null)
+            {
+                throw new InvalidOperationException("TestUserContainer.xml embedded resource not found.");
+            }
+
+            return (MediaContainer)xmlSerialiser.Deserialize(userContainerStream);
         }
     }
 }

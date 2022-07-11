@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Elzik.Mecon.Framework.Domain;
+using Elzik.Mecon.Framework.Domain.Plex;
 using Elzik.Mecon.Framework.Infrastructure.Plex.Options;
 using Flurl;
 using Microsoft.Extensions.Options;
@@ -17,14 +18,17 @@ namespace Elzik.Mecon.Framework.Infrastructure.Plex
 {
     public class PlexEntries : IPlexEntries
     {
+        private readonly PlexOptions _plexOptions;
         private readonly IPlexServerClient _plexServerClient;
         private readonly IPlexLibraryClient _plexLibraryClient;
-        private readonly PlexOptions _plexOptions;
+        private readonly IPlexPlayHistory _plexPlayHistory;
+        private IEnumerable<PlayedEntry> _playHistory;
 
-        public PlexEntries(IPlexServerClient plexServerClient, IPlexLibraryClient plexLibraryClient, IOptions<PlexOptions> plexOptions)
+        public PlexEntries(IPlexServerClient plexServerClient, IPlexLibraryClient plexLibraryClient, IOptions<PlexOptions> plexOptions, IPlexPlayHistory plexPlayHistory)
         {
             _plexServerClient = plexServerClient ?? throw new ArgumentNullException(nameof(plexServerClient));
             _plexLibraryClient = plexLibraryClient ?? throw new ArgumentNullException(nameof(plexLibraryClient));
+            _plexPlayHistory = plexPlayHistory ?? throw new ArgumentNullException(nameof(plexPlayHistory));
 
             if (plexOptions == null)
             {
@@ -36,6 +40,8 @@ namespace Elzik.Mecon.Framework.Infrastructure.Plex
 
         public virtual async Task<IEnumerable<PlexEntry>> GetPlexEntries(IEnumerable<MediaType> mediaTypesFilter)
         {
+            _playHistory = await _plexPlayHistory.GetPlayHistory();
+
             var plexEntries = new List<PlexEntry>();
             var libraryContainer =
                 await _plexServerClient.GetLibrariesAsync(_plexOptions.AuthToken, _plexOptions.BaseUrl);
@@ -65,10 +71,21 @@ namespace Elzik.Mecon.Framework.Infrastructure.Plex
                     Key = new EntryKey(Path.GetFileName(part.File), part.Size),
                     Title = video.Title,
                     ThumbnailUrl = _plexOptions.BaseUrl.AppendPathSegment(video.Thumb)
-                        .SetQueryParam("X-Plex-Token", _plexOptions.AuthToken)
+                        .SetQueryParam("X-Plex-Token", _plexOptions.AuthToken),
+                    WatchedByAccounts = GetWatchedByUsers(video)
                 };
 
             return plexEntries;
+        }
+
+        private IEnumerable<int> GetWatchedByUsers(Metadata part)
+        {
+            var watchedByAccountIds = _playHistory
+                .Where(entry => entry.LibraryKey == part.Key)
+                .DistinctBy(entry => entry.AccountId)
+                .Select(entry => entry.AccountId);
+
+            return watchedByAccountIds;
         }
 
         private async Task<List<Metadata>> GetLibraryItems(Library library)

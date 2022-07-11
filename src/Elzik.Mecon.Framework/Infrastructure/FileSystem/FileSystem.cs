@@ -4,8 +4,10 @@ using System.IO;
 using System.IO.Abstractions;
 using System.Linq;
 using System.Text.RegularExpressions;
+using Elzik.Mecon.Framework.Domain.FileSystem;
 using Elzik.Mecon.Framework.Infrastructure.FileSystem.Options;
 using Microsoft.Extensions.Options;
+using IFileSystem = Elzik.Mecon.Framework.Domain.FileSystem.IFileSystem;
 
 namespace Elzik.Mecon.Framework.Infrastructure.FileSystem
 {

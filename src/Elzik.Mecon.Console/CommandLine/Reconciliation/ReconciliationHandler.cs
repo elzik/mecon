@@ -1,5 +1,5 @@
 ﻿using Elzik.Mecon.Framework.Application;
-using Elzik.Mecon.Framework.Infrastructure.FileSystem;
+using Elzik.Mecon.Framework.Domain.FileSystem;
 using Microsoft.Extensions.Configuration;
 using Nito.AsyncEx;
 
@@ -10,11 +10,13 @@ namespace Elzik.Mecon.Console.CommandLine.Reconciliation
     {
         private readonly IReconciledMedia _reconciledMedia;
         private readonly IFileSystem _fileSystem;
+        private readonly IOutputOperations _outputOperations;
 
-        public ReconciliationHandler(IReconciledMedia reconciledMedia, IFileSystem fileSystem)
+        public ReconciliationHandler(IReconciledMedia reconciledMedia, IFileSystem fileSystem, IOutputOperations outputOperations)
         {
             _reconciledMedia = reconciledMedia;
             _fileSystem = fileSystem;
+            _outputOperations = outputOperations;
         }
 
         public void Handle(IConfigurationBuilder configurationBuilder, ReconciliationOptions reconciliationOptions)
@@ -35,7 +37,9 @@ namespace Elzik.Mecon.Console.CommandLine.Reconciliation
 
                 var entries = AsyncContext.Run(() => _reconciledMedia.GetMediaEntries(directoryDefinition));
 
-                entries = entries.PerformOutputFilters(reconciliationOptions);
+                var closureScopedEntries = entries;
+                entries = AsyncContext.Run(() => _outputOperations
+                    .PerformOutputFilters(closureScopedEntries, reconciliationOptions));
 
                 System.Console.WriteLine(
                     string.Join(Environment.NewLine,
