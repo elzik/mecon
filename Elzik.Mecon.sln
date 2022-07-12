@@ -32,6 +32,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{C8376CE8
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Elzik.Mecon.Console.Tests.Unit", "tests\Elzik.Mecon.Console.Tests.Unit\Elzik.Mecon.Console.Tests.Unit.csproj", "{E36F539F-0C1B-4DBB-9309-2DF62D9A7E77}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Install", "Install", "{506140BB-5C13-47EC-B95D-EA938D1CC690}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Linux", "Linux", "{04F21915-4F06-4464-9C43-500A673F83BB}"
+	ProjectSection(SolutionItems) = preProject
+		Install\Linux\Install.sh = Install\Linux\Install.sh
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -66,6 +73,7 @@ Global
 		{5B011DB2-9722-42E7-8D3B-9C473B73D1E7} = {82104F08-D6CF-4E0A-ADAF-14E51CAAEF84}
 		{6D64CDE0-59B0-4C43-A67B-F88606A3189D} = {82104F08-D6CF-4E0A-ADAF-14E51CAAEF84}
 		{E36F539F-0C1B-4DBB-9309-2DF62D9A7E77} = {82104F08-D6CF-4E0A-ADAF-14E51CAAEF84}
+		{04F21915-4F06-4464-9C43-500A673F83BB} = {506140BB-5C13-47EC-B95D-EA938D1CC690}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0F736F56-ED62-4ACB-84AA-5529D6D1A3F6}
