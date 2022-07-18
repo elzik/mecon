@@ -21,7 +21,7 @@ echo $GITHUB_FILE
 echo $GITHUB_URL
 
 # install/update the local binary
-# curl -L -o mecon.tar.gz $GITHUB_URL
+curl -L -o mecon.tar.gz $GITHUB_URL
 file mecon.tar.gz
 tar xzvf mecon.tar.gz mecon
 install -Dm 755 mecon -t "$INSTALL_DIR"
