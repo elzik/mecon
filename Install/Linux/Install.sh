@@ -14,16 +14,10 @@ GITHUB_LATEST_VERSION=$(curl -L -s -H 'Accept: application/json' https://github.
 GITHUB_FILE="mecon-${GITHUB_LATEST_VERSION/}-${RID}.tar.gz"
 GITHUB_URL="https://github.com/elzik/mecon/releases/download/${GITHUB_LATEST_VERSION}/${GITHUB_FILE}"
 
-echo $INSTALL_DIR
-echo $RID
-echo $GITHUB_LATEST_VERSION
-echo $GITHUB_FILE
-echo $GITHUB_URL
-
 # install/update the local binary
-curl -L -o mecon.tar.gz $GITHUB_URL
+curl -L -o mecon.tar.gz "$GITHUB_URL"
 file mecon.tar.gz
 tar xzvf mecon.tar.gz mecon
 install -Dm 755 mecon -t "$INSTALL_DIR"
 [[ ":$PATH:" != *":$INSTALL_DIR:"* ]] && PATH="${PATH}:$INSTALL_DIR"
-rm mecon mecon.tar.gz
+rm mecon mecon.tar.gz0
