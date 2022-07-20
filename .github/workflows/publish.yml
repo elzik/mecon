@@ -45,7 +45,7 @@ jobs:
             # Pack to zip for Windows
             7z a -tzip "${release_name}.zip" "./${release_name}/*"
           else
-          tar czvf "${release_name}.tar.gz" "$release_name"
+            tar -C "./$release_name" -czvf "${release_name}.tar.gz" mecon
           fi
           # Delete output directory
           rm -r "$release_name"
