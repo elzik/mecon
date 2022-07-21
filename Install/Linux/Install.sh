@@ -20,4 +20,4 @@ file mecon.tar.gz
 tar xzvf mecon.tar.gz mecon
 install -Dm 755 mecon -t "$INSTALL_DIR"
 [[ ":$PATH:" != *":$INSTALL_DIR:"* ]] && PATH="${PATH}:$INSTALL_DIR"
-rm mecon mecon.tar.gz0
+rm mecon mecon.tar.gz
