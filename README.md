@@ -23,7 +23,7 @@ There are also scripts available to automate the installation of binaries but al
 ```sh
 curl https://raw.githubusercontent.com/elzik/mecon/main/Install/Linux/Install.sh | bash
 ```
-The script installs downloaded binary to `/usr/local/bin` directory by default, but it can be changed by setting `INSTALL_DIR` environment variable.
+The script installs downloaded binary to `$HOME/.local/bin` directory by default, but it can be changed by setting `INSTALL_DIR` environment variable.
 
 ## Example Usage without Configuration
 

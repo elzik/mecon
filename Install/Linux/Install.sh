@@ -1,6 +1,6 @@
 #!/bin/bash
 
-INSTALL_DIR="${INSTALL_DIR:-"/usr/local/bin"}"
+INSTALL_DIR="${INSTALL_DIR:-"$HOME/.local/bin"}"
 
 # Get relevant .NET Runtime Identifier from architecture
 ARCH=$(uname -m)
