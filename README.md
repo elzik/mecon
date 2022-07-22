@@ -14,6 +14,19 @@
 -   Which ones have been watched by all users?
 -   Which ones have been watched by a sub-set of users?
 
+
+## Installation
+You can manually download a binary release for Linux, Windows or Mac from [the release page](https://github.com/elzik/mecon/releases).
+
+There are also scripts available to automate the installation of binaries but always verify what you are piping into your shell.
+
+### Linux
+```sh
+curl https://raw.githubusercontent.com/elzik/mecon/main/Install/Linux/Install.sh | bash
+```
+The script installs downloaded binary to `/usr/local/bin` directory by default, but it can be changed by setting `INSTALL_DIR` environment variable.
+
+
 ## Example Usage without Configuration
 
 ### Example 1
@@ -54,6 +67,7 @@ Perform filename filter to display only files that have been watched by users ti
 mecon -d /Films -p http://192.168.0.12:32400 -w Sally,Tom
 ```
 
+
 ## Mecon Options
 -   **`reconcile --help`**
  
@@ -66,6 +80,7 @@ Displays help for general mecon reconciliation usage.
 -   **`-r|--recurse`** By default, scanning of filesystem directories is recursive. This can be turned off and made non-recursive using `-r false` or the default behaviour of enabling recursion can be made explicit using `-r true`. 
 -   **`-m|--media-types`** Comma-separated list of Plex library media types that should be reconciled against to avoid searching through libraries that contain other media types. Possible options are 'Movie' or 'TvShow'. This option is only valid when the -d option (--directory) is supplied. If this is omitted, libraries of all media types will be reconciled against. e.g. `-m movies`
 -   **`-f|--regex-match-filter <regular-expression>`** When scanning the file system, filter to only show files where the file path matches a regular expression. For example, by specifying `'(?i)^(?!.*sample).*$'`, the list of files scanned will be filtered to i only shows files that do not contain the word "sample". 
+
 
 ## Output Options
 In addition to the reconciliation options above, at least one library option must be supplied to control what is returned by mecon.
@@ -81,12 +96,14 @@ In addition to the reconciliation options above, at least one library option mus
 
 -   **`-w!|--watched-by!`** Output a list of files which have been watched by every user. This list could represent files watched by everybody and can therefore now be deleted.
 
+
 ## Users 
 For certain usages it is necessary to know what users exist on the Plex system. this can be achieved using the `users` verb and its `-l|--list` option:
 ```console
 mecon users -l
 ```
 This displays a list of each user's title which can also be found in Plex under `Settings/Home & Library Access`.
+
 
 ## Configuration
 Some options do not change very often and you may like to set them permanently rather than entering them every time on the command line. To do this, they can be pre-configured using environment variables or in an appsettings.json file in the same directory as the mecon binary. Ensure that the case for any settings is correct and that environment variable parts are separated by double underscores (`__`). In the case that a setting is configured or provided more than once, there is an order of precedence where an option on the command line will trump all other configuration:
@@ -116,8 +133,10 @@ mecon config -l
 ```
 This will display all configuration in a JSON format regardless of whether it came from default settings, environment variables or the appsettings.json file.
 
+
 ## Limitations
 mecon uses each file's name and size in bytes to reconcile files in the file system with items in Plex libraries. In the unlikely event that you have files that are considered different but have identical names and sizes, the reconciliation process will provide unreliable results.
+
 
 ## Versioning & Features Slated for v1.0.0
 This application should be considered to be in beta until it reaches a v1.0.0+ version number. The version number can be confirmed using:
