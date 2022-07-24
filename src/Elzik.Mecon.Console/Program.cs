@@ -6,6 +6,9 @@ using Elzik.Mecon.Console.CommandLine.Reconciliation;
 using Elzik.Mecon.Console.CommandLine.Users;
 using Microsoft.Extensions.DependencyInjection;
 
+AppDomain currentDomain = AppDomain.CurrentDomain;
+currentDomain.UnhandledException += HandleException;
+
 var commandParser = new Parser(setting =>
 {
     setting.CaseInsensitiveEnumValues = true;
@@ -29,3 +32,10 @@ parserResult
         usersHandler.DisplayUsers();
     })
     .WithNotParsed(errors => ErrorHandler.Display(parserResult, errors));
+
+static void HandleException(object sender, UnhandledExceptionEventArgs args)
+{
+    Exception e = (Exception)args.ExceptionObject;
+    Console.WriteLine($"Error: {e.Message}");
+    Environment.Exit(1);
+}

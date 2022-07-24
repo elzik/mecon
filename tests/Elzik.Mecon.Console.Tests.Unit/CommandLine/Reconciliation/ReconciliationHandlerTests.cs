@@ -117,22 +117,6 @@ namespace Elzik.Mecon.Console.Tests.Unit.CommandLine.Reconciliation
                 .PerformOutputFilters(Arg.Is(_testInputMediaEntries), Arg.Is(_testReconciliationOptionsWithoutDirectoryDefinition));
         }
 
-        [Fact]
-        public void Handle_Throws_ExitsAndWritesToErrorStream()
-        {
-            // Arrange
-            var testException = _fixture.Create<InvalidOperationException>();
-            _mockFileSystem.GetDirectoryDefinition(Arg.Is(_testReconciliationOptionsWithDirectoryDefinition.DirectoryKey))
-                .Throws(testException);
-
-            // Act
-            _reconciliationHandler.Handle(_mockConfigurationBuilder, _testReconciliationOptionsWithDirectoryDefinition);
-
-            // Assert
-            Environment.ExitCode.Should().Be(1);
-            _errorWriter.ToString().Should().Be($"Error: {testException.Message}{Environment.NewLine}");
-        }
-
         public void Dispose()
         {
             _consoleWriter.Dispose();

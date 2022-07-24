@@ -21,9 +21,7 @@ namespace Elzik.Mecon.Console.CommandLine.Reconciliation
 
         public void Handle(IConfigurationBuilder configurationBuilder, ReconciliationOptions reconciliationOptions)
         {
-            try
-            {
-                var directoryDefinition = reconciliationOptions.DirectoryKey == null
+            var directoryDefinition = reconciliationOptions.DirectoryKey == null
                     ? new DirectoryDefinition()
                     {
                         SupportedFileExtensions =
@@ -45,11 +43,5 @@ namespace Elzik.Mecon.Console.CommandLine.Reconciliation
                     string.Join(Environment.NewLine,
                         entries.Select(entry => entry.FilesystemEntry.FileSystemPath)));
             }
-            catch (Exception e)
-            {
-                Environment.ExitCode = 1;
-                System.Console.Error.WriteLine($"Error: {e.Message}");
-            }
-        }
     }
 }
