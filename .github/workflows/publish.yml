@@ -6,8 +6,24 @@ on:
         - '*'
 
 jobs:
-  release:
-    name: Release
+  container:
+    name: Publish Docker Image
+    runs-on: ubuntu-latest
+    steps:
+      - name: Build Docker Image
+        uses: actions/checkout@v3
+        run: docker build . -t elzik/mecon:$(git describe --tags --abbrev=0) -f /Build/Dockerfile
+      -name: Login to GitHub Container Registry
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+    - name: Push Docker Image
+      uses: actions/checkout@v3
+      run: docker push elzik/mecon:$(git describe --tags --abbrev=0)
+  binaries:
+    name: Publish Binaries
+    needs: container
     strategy:
       matrix:
         kind: ['linux', 'windows', 'macOS']
