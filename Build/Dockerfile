@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/dotnet/runtime-deps:6.0-alpine3.15 as base
+FROM mcr.microsoft.com/dotnet/runtime-deps:6.0 as base
 WORKDIR /app
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS publish
