@@ -11,4 +11,6 @@ RUN dotnet publish src/Elzik.Mecon.Console/Elzik.Mecon.Console.csproj -r linux-x
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["/app/mecon"]
+COPY Build/keep-alive.sh .
+ENV PATH /app:$PATH
+ENTRYPOINT ["/bin/bash", "keep-alive.sh"]
