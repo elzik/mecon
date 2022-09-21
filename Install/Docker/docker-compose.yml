@@ -1,0 +1,8 @@
+version: '3.3'
+services:
+    mecon:
+        container_name: mecon
+        environment:
+            - Mecon__Plex__BaseUrl=http://<plex-server-host>:<plex-server-port>
+            - Mecon__Plex__AuthToken=<plex-server-token>
+        image: erzulie/mecon:latest
