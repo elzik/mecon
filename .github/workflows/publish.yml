@@ -18,6 +18,7 @@ jobs:
         run: |
             tag=$(git describe --tags --abbrev=0)
             branch=$(git branch --show-current)
+            echo "branch:$branch"
             if [ "$branch" == "main" ]; then
                 docker build . -t "erzulie/mecon:$tag" -t "erzulie/mecon:latest" -f ./Build/Dockerfile
             else
