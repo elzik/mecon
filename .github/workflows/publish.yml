@@ -17,6 +17,7 @@ jobs:
       - name: Build Docker Image
         run: |
             tag=$(git describe --tags --abbrev=0)
+            echo $GITHUB_REF_NAME
             if [ $GITHUB_REF_NAME == "main" ]; then
                 docker build . -t "erzulie/mecon:$tag" -t "erzulie/mecon:latest" -f ./Build/Dockerfile
             else
