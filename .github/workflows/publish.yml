@@ -21,7 +21,7 @@ jobs:
             branch=${raw##*/}
             echo "Branch:$branch"
             docker build . -t "erzulie/mecon:$tag" -f ./Build/Dockerfile
-            if [ $GITHUB_REF_NAME == "main" ]; then
+            if [ $branch == "main" ]; then
             echo "Tagging with latest"
                 docker tag "erzulie/mecon:$tag" erzulie/mecon:latest
             fi
