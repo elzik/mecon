@@ -20,10 +20,10 @@ jobs:
             raw=$(git branch -r --contains ${{ github.ref }})
             branch=${raw##*/}
             echo "Branch:$branch"
+            docker build . -t "erzulie/mecon:$tag" -f ./Build/Dockerfile
             if [ $GITHUB_REF_NAME == "main" ]; then
-                docker build . -t "erzulie/mecon:$tag" -t "erzulie/mecon:latest" -f ./Build/Dockerfile
-            else
-                docker build . -t "erzulie/mecon:$tag" -f ./Build/Dockerfile
+            echo "Tagging with latest"
+                docker tag "erzulie/mecon:$tag" erzulie/mecon:latest
             fi
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v2
