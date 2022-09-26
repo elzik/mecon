@@ -23,7 +23,7 @@ jobs:
             docker build . -t "ghcr.io/elzik/mecon:$tag" -f ./Build/Dockerfile
             if [ $branch == "main" ]; then
             echo "Tagging with latest"
-                docker tag "ghcr.io/elzik/mecon:$tag" erzulie/mecon:latest
+                docker tag "ghcr.io/elzik/mecon:$tag" ghcr.io/elzik/mecon:latest
             fi
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v2
