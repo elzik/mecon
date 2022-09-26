@@ -31,7 +31,7 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Push Docker Image
-        run: docker push --all-tags erzulie/mecon
+        run: docker push --all-tags ghcr.io/elzik/mecon
   binaries:
     name: Publish Binaries
     needs: container
