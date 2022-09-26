@@ -18,7 +18,7 @@
 
 ### Docker
 
-A Docker image is available from Docker Hub. Once the image has been pulled, the container can be run and left running using either the Docker CLI or Docker Compose. Although everything can be passed in on the command line when running the `mecon` binary itself, using environment variables for at least your Plex host and token is useful:
+[The `latest` Docker image](https://github.com/elzik/mecon/pkgs/container/mecon/43142392?tag=latest) is available from the GitHub Container Registry. Once the image has been pulled, the container can be run and left running using either the Docker CLI or Docker Compose. Although everything can be passed in on the command line when running the `mecon` binary itself, using environment variables for at least your Plex host and token is useful:
 
 #### Docker CLI
 ``` sh
