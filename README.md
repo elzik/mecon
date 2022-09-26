@@ -18,15 +18,11 @@
 
 ### Docker
 
-A Docker image is available from Docker Hub:
-``` sh
-docker pull erzulie/mecon
-```
-
-Once the image has been pulled, the container can be run and left running using either the Docker CLI or Docker Compose. Although everything can be passed in on the command line when running the `mecon` binary itself, using environment variables for at least your Plex host and token is useful:
+A Docker image is available from Docker Hub. Once the image has been pulled, the container can be run and left running using either the Docker CLI or Docker Compose. Although everything can be passed in on the command line when running the `mecon` binary itself, using environment variables for at least your Plex host and token is useful:
 
 #### Docker CLI
 ``` sh
+docker pull erzulie/mecon
 docker run -d --name mecon2 -e Mecon__Plex__BaseUrl=http://<plex-server-host>:<plex-server-port> -e Mecon__Plex__AuthToken=<plex-server-token> erzulie/mecon
 ```
 
@@ -39,7 +35,7 @@ services:
         environment:
             - Mecon__Plex__BaseUrl=http://<plex-server-host>:<plex-server-port>
             - Mecon__Plex__AuthToken=<plex-server-token>
-        image: erzulie/mecon:latest
+        image: erzulie/mecon
 ```
 
 #### Running mecon within the container
