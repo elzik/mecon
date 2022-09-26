@@ -20,7 +20,7 @@ jobs:
             raw=$(git branch -r --contains ${{ github.ref }})
             branch=${raw##*/}
             echo "Branch:$branch"
-            docker build . -t "erzulie/mecon:$tag" -f ./Build/Dockerfile
+            docker build . -t "ghcr.io/elzik/mecon:$tag" -f ./Build/Dockerfile
             if [ $branch == "main" ]; then
             echo "Tagging with latest"
                 docker tag "erzulie/mecon:$tag" erzulie/mecon:latest
