@@ -24,7 +24,7 @@
 #### Docker CLI
 ``` sh
 docker pull ghcr.io/elzik/mecon
-docker run -d --name mecon2 -e Mecon__Plex__BaseUrl=http://<plex-server-host>:<plex-server-port> -e Mecon__Plex__AuthToken=<plex-server-token> ghcr.io/elzik/mecon
+docker run -d --name mecon -e Mecon__Plex__BaseUrl=http://<plex-server-host>:<plex-server-port> -e Mecon__Plex__AuthToken=<plex-server-token> ghcr.io/elzik/mecon
 ```
 
 #### Docker Compose
