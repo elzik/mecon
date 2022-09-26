@@ -22,7 +22,7 @@ A Docker image is available from Docker Hub. Once the image has been pulled, the
 
 #### Docker CLI
 ``` sh
-docker pull erzulie/mecon
+docker pull ghcr.io/elzik/mecon
 docker run -d --name mecon2 -e Mecon__Plex__BaseUrl=http://<plex-server-host>:<plex-server-port> -e Mecon__Plex__AuthToken=<plex-server-token> erzulie/mecon
 ```
 
