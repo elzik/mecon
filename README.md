@@ -5,7 +5,7 @@
 [![Coverage](https://gist.githubusercontent.com/elzik/527882e89a938dc78f61a08c300edec4/raw/ae0e3fdd77e004e443f3cc0341425360376cfaba/mecon-code-coverage-main.svg)](https://gist.github.com/elzik/527882e89a938dc78f61a08c300edec4#file-mecon-code-coverage-main-svg)
 [![Code quality](https://img.shields.io/codacy/grade/e2387c03324b46b88f61467312dea645?color=95BE1A)](https://app.codacy.com/gh/elzik/mecon/dashboard)
 [![License](https://img.shields.io/github/license/elzik/mecon)](https://github.com/elzik/mecon/blob/regex-filters/COPYING)
-[![Release](https://img.shields.io/github/v/release/elzik/mecon?include_prereleases)](https://github.com/elzik/mecon/releases)
+[![Release](https://img.shields.io/github/v/release/elzik/mecon?display_name=tag&sort=semver)](https://github.com/elzik/mecon/releases)
 
 ## Introduction
 **Me**dia R**econ**ciler, or simply _mecon_, is a cross-platform command line tool which reconciles media within a directory with media in a Plex library. For a given directory of files, it answers simple questions such as:
@@ -23,7 +23,7 @@ A Docker image is available from Docker Hub. Once the image has been pulled, the
 #### Docker CLI
 ``` sh
 docker pull ghcr.io/elzik/mecon
-docker run -d --name mecon2 -e Mecon__Plex__BaseUrl=http://<plex-server-host>:<plex-server-port> -e Mecon__Plex__AuthToken=<plex-server-token> erzulie/mecon
+docker run -d --name mecon2 -e Mecon__Plex__BaseUrl=http://<plex-server-host>:<plex-server-port> -e Mecon__Plex__AuthToken=<plex-server-token> ghcr.io/elzik/mecon
 ```
 
 #### Docker Compose
@@ -35,7 +35,7 @@ services:
         environment:
             - Mecon__Plex__BaseUrl=http://<plex-server-host>:<plex-server-port>
             - Mecon__Plex__AuthToken=<plex-server-token>
-        image: erzulie/mecon
+        image: ghcr.io/elzik/mecon
 ```
 
 #### Running mecon within the container
