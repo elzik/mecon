@@ -1,5 +1,5 @@
 # mecon
-![mecon](https://user-images.githubusercontent.com/23397871/192298687-23923837-535a-4bb1-aac8-bbb3272435bc.png)
+![mecon](https://raw.githubusercontent.com/elzik/mecon/main/Images/mecon-logo-color-double-width-centered.png)
 
 [![Build](https://img.shields.io/github/workflow/status/elzik/mecon/Continuous%20Integration?color=95BE1A)](https://github.com/elzik/mecon/actions/workflows/continuous-integration.yml)
 [![Publish](https://img.shields.io/github/workflow/status/elzik/mecon/Publish?color=95BE1A&label=publish)](https://github.com/elzik/mecon/actions/workflows/publish.yml)
