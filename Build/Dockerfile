@@ -12,5 +12,8 @@ FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
 COPY Build/keep-alive.sh .
+LABEL org.opencontainers.image.source=https://github.com/elzik/mecon
+LABEL org.opencontainers.image.description="Find media that exists in Plex but needn't and media that you expect to be present but isn't"
+LABEL org.opencontainers.image.licenses=GPL-3.0
 ENV PATH /app:$PATH
 ENTRYPOINT ["/bin/bash", "keep-alive.sh"]

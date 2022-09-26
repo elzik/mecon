@@ -20,7 +20,7 @@ jobs:
             raw=$(git branch -r --contains ${{ github.ref }})
             branch=${raw##*/}
             echo "Branch:$branch"
-            docker build . -t "erzulie/mecon:$tag" -f ./Build/Dockerfile
+            docker build . -t "ghcr.io/elzik/mecon:$tag" -f ./Build/Dockerfile
             if [ $branch == "main" ]; then
             echo "Tagging with latest"
                 docker tag "erzulie/mecon:$tag" erzulie/mecon:latest
@@ -28,10 +28,11 @@ jobs:
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v2
         with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
       - name: Push Docker Image
-        run: docker push --all-tags erzulie/mecon
+        run: docker push --all-tags ghcr.io/elzik/mecon
   binaries:
     name: Publish Binaries
     needs: container

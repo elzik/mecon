@@ -5,4 +5,4 @@ services:
         environment:
             - Mecon__Plex__BaseUrl=http://<plex-server-host>:<plex-server-port>
             - Mecon__Plex__AuthToken=<plex-server-token>
-        image: erzulie/mecon:latest
+        image: ghcr.io/elzik/mecon
