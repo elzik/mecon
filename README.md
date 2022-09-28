@@ -41,7 +41,7 @@ services:
 
 #### Volume Mount
 
-Since you will reconciling a directory of files against a Plex library it is recommneded to [create a volume mount](https://docs.docker.com/storage/volumes/) for any directories you will need access to.
+Since you will be reconciling a directory of files against a Plex library it is recommended to [create a volume mount](https://docs.docker.com/storage/volumes/) for any directories you will need access to.
 
 #### Running mecon within the container
 
