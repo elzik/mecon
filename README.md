@@ -64,44 +64,50 @@ curl https://raw.githubusercontent.com/elzik/mecon/main/Install/Linux/Install.sh
 ```
 The script installs downloaded binary to `$HOME/.local/bin` directory by default - make sure this appears on your PATH environment variable. It can be changed by setting `INSTALL_DIR` environment variable.
 
-## Example Usage without Configuration
+## Example Usage
 
+### Plex Host & Authentication
+
+These examples assume that both the Plex host URL and [your Plex auth token](https://support.plex.tv/articles/204059436-finding-an-authentication-token-x-plex-token/) have been supplied via configuration as descibed in [the configuration section below](#configuration) or in [the Docker instructions above](#docker). If this is not the case then these must be provided as arguments in addition to any other arguments shown in these examples:
+```console
+-p http://192.168.0.12:32400 -t <your-token>
+```
 ### Example 1
 Display help text documenting reconciliation options:
 ```console
 mecon reconcile --help
 ```
 ### Example 2
-Scan all files in the specified directory (`-d /path`) and list all files that are not found (`-L`) in a Plex TV or Movie library using the specified Plex server (`-p <url>`) and [your Plex auth token](https://support.plex.tv/articles/204059436-finding-an-authentication-token-x-plex-token/) (`-t <your-token>`):
+Scan all files in the specified directory (`-d /path`) and list all files that are not found (`-L`) in a Plex TV or Movie library.:
 ```console
-mecon -d /Films -p http://192.168.0.12:32400 -t <your-token> -L
+mecon -d /Films -L
 ```
 ### Example 3
 Only scan `*.mkv` files in the specified directory (`-e mkv`):
 ```console
-mecon -d /Films -e mkv -p http://192.168.0.12:32400 -t <your-token> -L
+mecon -d /Films -e mkv -L
 ```
 ### Example 4
 Don't specify a directory, simply scan the current directory:
 ```console
-mecon -p http://192.168.0.12:32400 -t <your-token> -L
+mecon -L
 ```
 ### Example 5
 Only search Plex libraries that contain movies (`-m movie`):
 ```console
-mecon -d /Films -p http://192.168.0.12:32400 -t <your-token> -m movie -L
+mecon -d /Films -m movie -L
 ```
 
 ### Example 6
 Perform filename filter to display only files that do not contain the word "sample":
 ``` console
-mecon -d /Films -p http://192.168.0.12:32400 -f '(?i)^(?!.*sample).*$' -L
+mecon -d /Films -f '(?i)^(?!.*sample).*$' -L
 ```
 
 ### Example 7
 Perform filename filter to display only files that have been watched by users titled Sally & Tom
 ``` console
-mecon -d /Films -p http://192.168.0.12:32400 -w Sally,Tom
+mecon -d /Films -w Sally,Tom
 ```
 
 ## Mecon Options
