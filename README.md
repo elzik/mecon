@@ -39,6 +39,10 @@ services:
         image: ghcr.io/elzik/mecon
 ```
 
+#### Volume Mount
+
+Since you will reconciling a directory of files against a Plex library it is recommneded to [create a volume mount](https://docs.docker.com/storage/volumes/) for any directories you will need access to.
+
 #### Running mecon within the container
 
 With the container already running, `docker exec` can be used to execute the `mecon` binary within the container:
