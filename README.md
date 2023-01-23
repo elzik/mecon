@@ -1,8 +1,8 @@
 # mecon
 ![mecon](https://raw.githubusercontent.com/elzik/mecon/main/Images/mecon-logo-color-double-width-centered.png)
 
-[![Build](https://img.shields.io/github/workflow/status/elzik/mecon/Continuous%20Integration?color=95BE1A)](https://github.com/elzik/mecon/actions/workflows/continuous-integration.yml)
-[![Publish](https://img.shields.io/github/workflow/status/elzik/mecon/Publish?color=95BE1A&label=publish)](https://github.com/elzik/mecon/actions/workflows/publish.yml)
+[![Build](https://img.shields.io/github/actions/workflow/status/elzik/mecon/continuous-integration.yml?color=95BE1A)](https://github.com/elzik/mecon/actions/workflows/continuous-integration.yml)
+[![Publish](https://img.shields.io/github/actions/workflow/status/elzik/mecon/publish.yml?color=95BE1A&label=publish)](https://github.com/elzik/mecon/actions/workflows/publish.yml)
 [![Coverage](https://gist.githubusercontent.com/elzik/527882e89a938dc78f61a08c300edec4/raw/ae0e3fdd77e004e443f3cc0341425360376cfaba/mecon-code-coverage-main.svg)](https://gist.github.com/elzik/527882e89a938dc78f61a08c300edec4#file-mecon-code-coverage-main-svg)
 [![Code quality](https://img.shields.io/codacy/grade/e2387c03324b46b88f61467312dea645?color=95BE1A)](https://app.codacy.com/gh/elzik/mecon/dashboard)
 [![License](https://img.shields.io/github/license/elzik/mecon)](https://github.com/elzik/mecon/blob/regex-filters/COPYING)
