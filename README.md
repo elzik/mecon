@@ -1,3 +1,6 @@
+> **Archived:** This project is no longer maintained.
+> For an actively maintained alternative, see [Seer](https://github.com/seerr-team/seerr).
+> 
 # mecon
 ![mecon](https://raw.githubusercontent.com/elzik/mecon/main/Images/mecon-logo-color-double-width-centered.png)
 
